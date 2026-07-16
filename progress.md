@@ -88,10 +88,21 @@
 - Données : résumé, analyse (score 87%), 4 applications kanban
 - `vercel.json` configuré
 
-### Checklist pré-déploiement
-- [ ] Exécuter `npm run db:seed` sur la base de production
-- [ ] Exécuter la migration vector sur Neon : `CREATE EXTENSION IF NOT EXISTS vector;`
-- [ ] Roter les clés API avant mise en ligne publique
+### Exécuté
+- ✅ Extension vector créée sur Neon
+- ✅ `prisma db push` effectué
+- ✅ `npm run db:seed` exécuté (compte démo créé)
 
-### À faire
-- [ ] Phase 7 : Présentation portfolio
+### Rappel avant mise en ligne publique
+- Roter les clés API (OpenAI/Groq, Stripe, OAuth)
+
+## Phase 7 — Présentation Portfolio ✅
+
+- ✅ `README.md` complet (features, architecture, stack, screenshots)
+- ✅ `docs/demo-video-script.md` (script vidéo 60s + version LinkedIn 30s)
+- ✅ `docs/screenshots/` (à remplacer avec captures réelles)
+
+### À faire (manuel)
+- [ ] Prendre les 4 captures d'écran réelles depuis l'app déployée
+- [ ] Enregistrer la vidéo de démo avec ai.invideo.io
+- [ ] Publier sur LinkedIn / portfolio
