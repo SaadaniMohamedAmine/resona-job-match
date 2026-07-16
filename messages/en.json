@@ -1,0 +1,24 @@
+{
+  "landing": {
+    "tagline": "Your resume, aligned to every opportunity.",
+    "cta_primary": "Analyze your resume",
+    "cta_secondary": "See how it works"
+  },
+  "upload": {
+    "dropzone_label": "Drop your resume here or click to browse",
+    "jd_label": "Paste the job description",
+    "cta": "Analyze"
+  },
+  "results": {
+    "matching_skills": "Matching skills",
+    "missing_skills": "Missing skills",
+    "rewrite_cta": "Rewrite my resume",
+    "cover_letter_cta": "Generate cover letter"
+  },
+  "empty": {
+    "resumes": "Nothing analyzed yet",
+    "resumes_body": "Upload your first resume to get your match score.",
+    "applications": "Nothing tracked yet",
+    "applications_body": "Add your first application to start tracking."
+  }
+}
