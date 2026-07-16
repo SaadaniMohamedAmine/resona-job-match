@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 import { extractTextFromPdf } from "@/lib/pdf";
 import { analyzeResume } from "@/lib/ai/analyze";
 import { generateEmbedding, saveResumeEmbedding, saveJobPostEmbedding } from "@/lib/ai/embeddings";
-import { analyzeLimiter } from "@/lib/rate-limit";
+import { checkAnalyzeLimit } from "@/lib/rate-limit";
 import { withErrorHandling } from "@/lib/api-handler";
 
 const bodySchema = z.object({
@@ -20,7 +20,7 @@ export const POST = withErrorHandling(async (req: Request) => {
   const session = await auth();
   if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { success } = await analyzeLimiter.limit(session.user.id);
+  const { success } = await checkAnalyzeLimit(session.user.id);
   if (!success) {
     return NextResponse.json(
       { error: "You've reached your analysis limit for today." },
