@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import * as Sentry from "@sentry/nextjs";
 
-export function withErrorHandling(handler: (req: Request) => Promise<Response>) {
-  return async (req: Request) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function withErrorHandling(handler: (...args: any[]) => Promise<Response>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return async (...args: any[]) => {
     try {
-      return await handler(req);
+      return await handler(...args);
     } catch (error) {
       Sentry.captureException(error);
       console.error(error);

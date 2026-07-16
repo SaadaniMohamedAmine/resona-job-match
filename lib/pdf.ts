@@ -1,6 +1,7 @@
-import pdf from "pdf-parse";
+import { PDFParse } from "pdf-parse";
 
 export async function extractTextFromPdf(buffer: Buffer): Promise<string> {
-  const result = await pdf(buffer);
+  const parser = new PDFParse({ data: buffer });
+  const result = await parser.getText();
   return result.text.trim();
 }
