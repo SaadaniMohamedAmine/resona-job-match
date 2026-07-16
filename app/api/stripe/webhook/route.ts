@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import * as Sentry from "@sentry/nextjs";
 
@@ -10,7 +10,7 @@ export async function POST(req: Request) {
 
   let event;
   try {
-    event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET!);
+    event = getStripe().webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET!);
   } catch (err) {
     Sentry.captureException(err);
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
@@ -19,8 +19,9 @@ export async function POST(req: Request) {
   switch (event.type) {
     case "checkout.session.completed": {
       const session = event.data.object as any;
-      const userId = session.metadata.userId;
-      const subscription = await stripe.subscriptions.retrieve(session.subscription);
+      const userId: string = session.metadata.userId;
+      const subId: string = session.subscription;
+      const subscription = (await getStripe().subscriptions.retrieve(subId)) as any;
 
       await db.subscription.upsert({
         where: { userId },

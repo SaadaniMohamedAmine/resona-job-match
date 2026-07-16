@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { withErrorHandling } from "@/lib/api-handler";
 
 export const POST = withErrorHandling(async () => {
@@ -15,11 +15,11 @@ export const POST = withErrorHandling(async () => {
 
   let customerId = user?.subscription?.stripeCustomerId;
   if (!customerId) {
-    const customer = await stripe.customers.create({ email: user!.email! });
+    const customer = await getStripe().customers.create({ email: user!.email! });
     customerId = customer.id;
   }
 
-  const checkoutSession = await stripe.checkout.sessions.create({
+  const checkoutSession = await getStripe().checkout.sessions.create({
     customer: customerId,
     mode: "subscription",
     payment_method_types: ["card"],

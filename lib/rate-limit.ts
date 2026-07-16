@@ -1,13 +1,26 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import { db } from "@/lib/db";
 
 const redis = Redis.fromEnv();
 
-export const analyzeLimiter = new Ratelimit({
+const freeLimiter = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(5, "1 d"),
-  prefix: "resona:analyze",
+  limiter: Ratelimit.slidingWindow(3, "30 d"),
+  prefix: "resona:analyze:free",
 });
+
+const proLimiter = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(200, "30 d"),
+  prefix: "resona:analyze:pro",
+});
+
+export async function checkAnalyzeLimit(userId: string) {
+  const user = await db.user.findUnique({ where: { id: userId }, select: { plan: true } });
+  const limiter = user?.plan === "PRO" ? proLimiter : freeLimiter;
+  return limiter.limit(userId);
+}
 
 export const globalApiLimiter = new Ratelimit({
   redis,
