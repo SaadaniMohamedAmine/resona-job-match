@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Résona | Account Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=IBM+Plex+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#33302a",
+                    "error-container": "#93000a",
+                    "on-secondary-container": "#bdb8ae",
+                    "secondary-fixed": "#e8e2d8",
+                    "primary-container": "#c9a961",
+                    "surface": "#15130e",
+                    "outline-variant": "#4d4639",
+                    "surface-container-low": "#1e1b16",
+                    "surface-bright": "#3c3933",
+                    "on-tertiary-container": "#313f6b",
+                    "on-surface-variant": "#d0c5b4",
+                    "secondary-container": "#4c4942",
+                    "on-primary-fixed": "#251a00",
+                    "inverse-primary": "#745b1b",
+                    "surface-container-high": "#2c2a24",
+                    "on-tertiary-fixed-variant": "#384571",
+                    "on-primary": "#3f2e00",
+                    "on-primary-container": "#533d00",
+                    "on-error": "#690005",
+                    "on-secondary-fixed": "#1d1b15",
+                    "error": "#ffb4ab",
+                    "on-primary-fixed-variant": "#5a4302",
+                    "primary": "#e6c479",
+                    "on-background": "#e8e2d9",
+                    "on-error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#091843",
+                    "secondary-fixed-dim": "#cbc6bc",
+                    "background": "#15130e",
+                    "tertiary-container": "#9eabde",
+                    "tertiary": "#b9c6fb",
+                    "surface-dim": "#15130e",
+                    "surface-variant": "#37342f",
+                    "inverse-surface": "#e8e2d9",
+                    "surface-container-highest": "#37342f",
+                    "surface-container": "#221f1a",
+                    "on-tertiary": "#202e59",
+                    "on-secondary-fixed-variant": "#49463f",
+                    "secondary": "#cbc6bc",
+                    "outline": "#999080",
+                    "surface-tint": "#e4c278",
+                    "tertiary-fixed": "#dce1ff",
+                    "on-secondary": "#33302a",
+                    "tertiary-fixed-dim": "#b8c5f9",
+                    "primary-fixed": "#ffdf9b",
+                    "on-surface": "#e8e2d9",
+                    "surface-container-lowest": "#100e09",
+                    "primary-fixed-dim": "#e4c278"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "64px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Space Grotesk"],
+                    "display-lg": ["Space Grotesk"],
+                    "headline-sm": ["Space Grotesk"],
+                    "body-md": ["IBM Plex Sans"],
+                    "headline-lg-mobile": ["Space Grotesk"],
+                    "body-lg": ["IBM Plex Sans"],
+                    "headline-lg": ["Space Grotesk"],
+                    "label-md": ["IBM Plex Sans"],
+                    "body-sm": ["IBM Plex Sans"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #15130e;
+            color: #e8e2d9;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hairline-border {
+            border: 1px solid #2a2822;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        input:focus {
+            outline: none;
+            border-color: #c9a961 !important;
+        }
+        .active-tab {
+            border-bottom: 2px solid #e6c479;
+            color: #e6c479;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline-variant docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary tracking-tight">Résona</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">Tracker</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">History</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">Support</a>
+</nav>
+<div class="flex items-center space-x-4">
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200">Sign Out</button>
+<div class="w-10 h-10 rounded-full hairline-border overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="A professional studio headshot of a senior executive against a dark charcoal background. The lighting is dramatic and precise, highlighting a sophisticated and authoritative presence. The overall aesthetic is minimalist and high-luxury, matching the Graphite and Champagne Gold brand colors of the Résona platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfwS3f1j1OfNvj6GdtD6lj_7HN_akbsGWvtQBjSX73noleqWDhwFgd4hctnd4IlQ7Ks0Elq-OOpdM6yuJKZO5zW4Jq7_DgraJi0ZAQFKZv3Oj8PGbDhezpGA_vaTtTaDv4fhoQ2-HXYrBOTL2mfq2RNLzI8Vc0rHfx73Nvc7HLbLzg193kY-9k1N8JJWLQSKRWSQ4XZ-DQYdVTp0KGK-8WzQ_UqON_sP7fgL7GQn7vpsUKfrYNcX2o-g"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24">
+<!-- Layout Shell: Split asymmetric layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+<!-- Sidebar / Identity Section -->
+<aside class="lg:col-span-4 space-y-8">
+<div>
+<h1 class="font-headline-lg text-headline-lg mb-4">Account Settings</h1>
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                        Configure your identity and security preferences. Your data is handled with precision and absolute privacy as part of the Résona professional ecosystem.
+                    </p>
+</div>
+<!-- Tab Navigation (Vertical for desktop, horizontal for mobile) -->
+<nav class="flex lg:flex-col border-b lg:border-b-0 lg:border-l border-outline-variant">
+<button class="px-6 py-4 text-left font-label-md text-label-md active-tab border-b-2 lg:border-b-0 lg:border-l-2 -ml-px lg:-ml-px transition-all">Account</button>
+<button class="px-6 py-4 text-left font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all border-b-2 lg:border-b-0 lg:border-l-2 border-transparent">Notifications</button>
+<button class="px-6 py-4 text-left font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all border-b-2 lg:border-b-0 lg:border-l-2 border-transparent">Security</button>
+</nav>
+<div class="pt-8">
+<div class="p-6 bg-surface-container-low hairline-border rounded-lg">
+<span class="font-label-md text-label-md text-primary mb-2 block uppercase tracking-widest">Expert Insight</span>
+<p class="text-body-sm text-on-surface-variant italic">"A precise digital presence starts with accurate data anchoring. Ensure your primary email remains verified for security alerts."</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area: Form Sections -->
+<section class="lg:col-span-8 space-y-12">
+<!-- Profile Section -->
+<div class="space-y-8">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">person</span>
+<h2 class="font-headline-sm text-headline-sm">Profile Identity</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant ml-1">Full Name</label>
+<input class="w-full bg-transparent hairline-border rounded-lg px-4 py-3 font-body-md text-on-surface transition-all placeholder:text-outline focus:ring-0" type="text" value="Alexander Sterling"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant ml-1">Primary Email</label>
+<input class="w-full bg-transparent hairline-border rounded-lg px-4 py-3 font-body-md text-on-surface transition-all placeholder:text-outline focus:ring-0" type="email" value="alexander.sterling@executive.com"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant ml-1">Bio / Professional Summary</label>
+<textarea class="w-full bg-transparent hairline-border rounded-lg px-4 py-3 font-body-md text-on-surface transition-all placeholder:text-outline focus:ring-0 resize-none" rows="4">Senior Strategy Director with a focus on precision-engineered market expansion and technical innovation leadership.</textarea>
+</div>
+</div>
+<!-- Password Section -->
+<div class="pt-12 border-t border-outline-variant space-y-8">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">lock</span>
+<h2 class="font-headline-sm text-headline-sm">Security &amp; Access</h2>
+</div>
+<div class="p-8 bg-surface-container-low hairline-border rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div>
+<h3 class="font-body-md font-semibold text-on-surface mb-1">Password Authentication</h3>
+<p class="text-body-sm text-on-surface-variant">Last updated 4 months ago. We recommend updating every 6 months for optimal security.</p>
+</div>
+<button class="bg-transparent border border-primary text-primary px-6 py-2.5 rounded-lg font-label-md text-label-md hover:bg-primary/10 transition-colors whitespace-nowrap">
+                            Change Password
+                        </button>
+</div>
+<div class="flex items-start gap-3 p-4 hairline-border rounded-lg border-primary/20 bg-primary/5">
+<span class="material-symbols-outlined text-primary text-xl">verified_user</span>
+<div class="text-body-sm text-on-surface-variant">
+<strong class="text-primary font-medium">Matches requirements.</strong> Two-factor authentication is active on this account via registered hardware key.
+                        </div>
+</div>
+</div>
+<!-- Danger Zone / Sign Out -->
+<div class="pt-12 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="space-y-1">
+<h2 class="font-headline-sm text-headline-sm">Session Management</h2>
+<p class="text-body-sm text-on-surface-variant">Log out of this device. All active analytical processes will continue in the background.</p>
+</div>
+<div class="flex gap-4 w-full md:w-auto">
+<button class="flex-1 md:flex-none px-8 py-3 bg-primary text-surface font-label-md text-label-md font-bold rounded-lg hover:opacity-90 transition-opacity">
+                            Save Changes
+                        </button>
+<button class="flex-1 md:flex-none px-8 py-3 bg-surface-container hairline-border text-error font-label-md text-label-md rounded-lg hover:bg-error/10 transition-colors">
+                            Sign Out
+                        </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline-variant full-width bottom">
+<div class="flex flex-col md:flex-row justify-between items-center w-full py-8 px-margin-desktop max-w-container-max mx-auto">
+<div class="font-headline-sm text-headline-sm text-on-surface mb-4 md:mb-0">Résona</div>
+<div class="flex flex-col md:flex-row items-center gap-4 md:gap-12">
+<div class="flex gap-6 font-label-md text-label-md text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Cookies</a>
+</div>
+<div class="font-body-sm text-body-sm text-secondary dark:text-secondary opacity-60">
+                    © 2024 Résona. All rights reserved.
+                </div>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for form focus
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('border-primary');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('border-primary');
+            });
+        });
+    </script>
+</body></html>

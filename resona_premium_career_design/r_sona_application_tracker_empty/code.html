@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --graphite: #16140F;
+            --elevated-surface: #1E1C16;
+            --border-color: #2A2822;
+            --champagne-gold: #C9A961;
+            --muted-gold: #B8AD98;
+        }
+
+        body {
+            background-color: var(--graphite);
+            color: #E8E2D9;
+            font-family: 'IBM Plex Sans', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .font-headline-md { font-family: 'Space Grotesk', sans-serif; }
+        .font-body-md { font-family: 'IBM Plex Sans', sans-serif; }
+        .font-label-md { font-family: 'IBM Plex Sans', sans-serif; }
+
+        /* Custom Geometric Icon Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .geometric-icon-container {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .thin-outline {
+            stroke-width: 1px;
+            stroke: var(--muted-gold);
+            fill: none;
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation: draw 3s ease-out forwards;
+        }
+
+        @keyframes draw {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .btn-primary-overlay:hover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.1);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#33302a",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#bdb8ae",
+                        "secondary-fixed": "#e8e2d8",
+                        "primary-container": "#c9a961",
+                        "surface": "#15130e",
+                        "outline-variant": "#4d4639",
+                        "surface-container-low": "#1e1b16",
+                        "surface-bright": "#3c3933",
+                        "on-tertiary-container": "#313f6b",
+                        "on-surface-variant": "#d0c5b4",
+                        "secondary-container": "#4c4942",
+                        "on-primary-fixed": "#251a00",
+                        "inverse-primary": "#745b1b",
+                        "surface-container-high": "#2c2a24",
+                        "on-tertiary-fixed-variant": "#384571",
+                        "on-primary": "#3f2e00",
+                        "on-primary-container": "#533d00",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#1d1b15",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#5a4302",
+                        "primary": "#e6c479",
+                        "on-background": "#e8e2d9",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#091843",
+                        "secondary-fixed-dim": "#cbc6bc",
+                        "background": "#15130e",
+                        "tertiary-container": "#9eabde",
+                        "tertiary": "#b9c6fb",
+                        "surface-dim": "#15130e",
+                        "surface-variant": "#37342f",
+                        "inverse-surface": "#e8e2d9",
+                        "surface-container-highest": "#37342f",
+                        "surface-container": "#221f1a",
+                        "on-tertiary": "#202e59",
+                        "on-secondary-fixed-variant": "#49463f",
+                        "secondary": "#cbc6bc",
+                        "outline": "#999080",
+                        "surface-tint": "#e4c278",
+                        "tertiary-fixed": "#dce1ff",
+                        "on-secondary": "#33302a",
+                        "tertiary-fixed-dim": "#b8c5f9",
+                        "primary-fixed": "#ffdf9b",
+                        "on-surface": "#e8e2d9",
+                        "surface-container-lowest": "#100e09",
+                        "primary-fixed-dim": "#e4c278"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "headline-sm": ["Space Grotesk"],
+                        "body-md": ["IBM Plex Sans"],
+                        "headline-lg": ["Space Grotesk"],
+                        "label-md": ["IBM Plex Sans"],
+                        "body-sm": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface text-primary border-b border-outline-variant docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">Résona</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1" href="#">Tracker</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">History</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Support</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">Sign Out</button>
+<div class="w-10 h-10 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio headshot of a user with minimalist styling, set against a deep graphite background with soft, warm champagne-tinted lighting. The aesthetic is high-end, clean, and corporate, matching the technical luxury of the Résona platform's visual identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3jG03Zy5pbfcL_MpfBhjWT6I5Atv046mi9CVWkxiI5UgKy9vaTMXrYcu8bx4yVaSfl2NI9BKQPdYNbNnZYXewlmpQQv2OhOrQq40jf55YfBP4rGV0id7e-I-nsqa8LIbaWgIl9s0Eoiw-vX6jao9yyXfkQit5x8YlsRyCAsrMk0iixFM6v0mR5clev3gQkRW8Qpl0Ce-5oboTVrLqjpHmHajudhwZ-cacJwEhg9qBisQKFU9baepgUQ"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center px-margin-mobile md:px-margin-desktop">
+<div class="max-w-xl w-full text-center space-y-unit*8">
+<!-- Animated Geometric Icon -->
+<div class="geometric-icon-container mb-12 flex justify-center">
+<svg class="opacity-80" height="120" viewbox="0 0 120 120" width="120" xmlns="http://www.w3.org/2000/svg">
+<!-- Outer Hexagon -->
+<path class="thin-outline" d="M60 10 L103.3 35 L103.3 85 L60 110 L16.7 85 L16.7 35 Z"></path>
+<!-- Inner Grid Pattern -->
+<path class="thin-outline" d="M60 10 L60 110" style="animation-delay: 0.5s;"></path>
+<path class="thin-outline" d="M16.7 35 L103.3 85" style="animation-delay: 0.8s;"></path>
+<path class="thin-outline" d="M103.3 35 L16.7 85" style="animation-delay: 1.1s;"></path>
+<!-- Central Focus Point -->
+<circle class="animate-pulse" cx="60" cy="60" fill="var(--champagne-gold)" r="4"></circle>
+</svg>
+</div>
+<!-- Empty State Content -->
+<div class="space-y-4">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Nothing tracked yet</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm mx-auto">
+                    Add your first application to organize your career journey. Résona will provide real-time analysis and optimization insights.
+                </p>
+</div>
+<!-- Primary CTA -->
+<div class="pt-8">
+<button class="relative bg-primary-container text-on-primary-container px-12 py-4 rounded-none font-label-md text-label-md tracking-widest uppercase transition-all duration-300 btn-primary-overlay border border-primary-container hover:bg-transparent hover:text-primary">
+                    Add your first application
+                </button>
+</div>
+<!-- Subtle Grid Decoration -->
+<div class="absolute inset-0 -z-10 pointer-events-none opacity-[0.03]">
+<div class="h-full w-full" style="background-image: radial-gradient(#C9A961 1px, transparent 1px); background-size: 40px 40px;"></div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface text-secondary border-t border-outline-variant full-width bottom">
+<div class="flex flex-col md:flex-row justify-between items-center w-full py-8 px-margin-desktop max-w-container-max mx-auto">
+<div class="font-headline-sm text-headline-sm text-on-surface mb-4 md:mb-0">Résona</div>
+<div class="flex gap-8 mb-4 md:mb-0">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Cookies</a>
+</div>
+<div class="font-body-sm text-body-sm text-on-secondary-container">
+                © 2024 Résona. All rights reserved.
+            </div>
+</div>
+</footer>
+<!-- Micro-interaction Script -->
+<script>
+        document.addEventListener('mousemove', (e) => {
+            const container = document.querySelector('.geometric-icon-container');
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            container.style.transform = `perspective(1000px) rotateY(${x * 0.05}deg) rotateX(${-y * 0.05}deg)`;
+        });
+    </script>
+</body></html>

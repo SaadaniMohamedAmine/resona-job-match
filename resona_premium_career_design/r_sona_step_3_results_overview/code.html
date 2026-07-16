@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Résona | Analysis Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+            font-size: 1.25rem;
+        }
+        .score-ring-animate {
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            animation: ring-fill 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
+        @keyframes ring-fill {
+            to { stroke-dashoffset: calc(283 - (283 * 0.87)); }
+        }
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-bright": "#3c3933",
+                "background": "#15130e",
+                "on-tertiary-fixed": "#091843",
+                "inverse-on-surface": "#33302a",
+                "surface-container-high": "#2c2a24",
+                "outline": "#999080",
+                "on-secondary": "#33302a",
+                "surface": "#15130e",
+                "on-error": "#690005",
+                "on-secondary-container": "#bdb8ae",
+                "surface-container": "#221f1a",
+                "on-tertiary": "#202e59",
+                "secondary-container": "#4c4942",
+                "on-secondary-fixed-variant": "#49463f",
+                "secondary-fixed-dim": "#cbc6bc",
+                "on-tertiary-fixed-variant": "#384571",
+                "tertiary": "#b9c6fb",
+                "on-error-container": "#ffdad6",
+                "secondary": "#cbc6bc",
+                "surface-container-highest": "#37342f",
+                "on-background": "#e8e2d9",
+                "tertiary-fixed": "#dce1ff",
+                "error": "#ffb4ab",
+                "on-primary": "#3f2e00",
+                "on-primary-fixed": "#251a00",
+                "inverse-surface": "#e8e2d9",
+                "on-primary-container": "#533d00",
+                "surface-dim": "#15130e",
+                "primary-container": "#c9a961",
+                "on-surface-variant": "#d0c5b4",
+                "surface-container-low": "#1e1b16",
+                "primary-fixed": "#ffdf9b",
+                "surface-variant": "#37342f",
+                "tertiary-fixed-dim": "#b8c5f9",
+                "surface-container-lowest": "#100e09",
+                "tertiary-container": "#9eabde",
+                "on-secondary-fixed": "#1d1b15",
+                "primary": "#e6c479",
+                "on-primary-fixed-variant": "#5a4302",
+                "inverse-primary": "#745b1b",
+                "on-tertiary-container": "#313f6b",
+                "surface-tint": "#e4c278",
+                "on-surface": "#e8e2d9",
+                "outline-variant": "#4d4639",
+                "primary-fixed-dim": "#e4c278",
+                "error-container": "#93000a",
+                "secondary-fixed": "#e8e2d8"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "unit": "8px",
+                "container-max": "1280px",
+                "margin-mobile": "20px",
+                "margin-desktop": "64px",
+                "gutter": "24px"
+            },
+            "fontFamily": {
+                "headline-lg-mobile": ["Space Grotesk"],
+                "display-lg": ["Space Grotesk"],
+                "headline-md": ["Space Grotesk"],
+                "headline-lg": ["Space Grotesk"],
+                "headline-sm": ["Space Grotesk"],
+                "body-md": ["IBM Plex Sans"],
+                "body-lg": ["IBM Plex Sans"],
+                "body-sm": ["IBM Plex Sans"],
+                "label-md": ["IBM Plex Sans"]
+            },
+            "fontSize": {
+                "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary/30 selection:text-primary">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant">
+<div class="flex justify-between items-center h-16 w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="text-headline-md font-headline-md font-bold text-on-background">Résona</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="#">Process</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md" href="#">History</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="#">Support</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-body-md font-medium active:scale-95 transition-transform">Sign In</button>
+</div>
+</nav>
+<main class="pt-24 pb-32 min-h-screen max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Step Indicator -->
+<div class="w-full mb-12 fade-in-up" style="animation-delay: 0.1s;">
+<div class="flex items-center justify-between gap-4 mb-2">
+<div class="flex-1 h-[1px] bg-primary"></div>
+<div class="flex-1 h-[1px] bg-primary"></div>
+<div class="flex-1 h-[3px] bg-primary"></div>
+</div>
+<div class="flex justify-between">
+<span class="text-label-md font-label-md uppercase text-outline">Upload</span>
+<span class="text-label-md font-label-md uppercase text-outline">Analyze</span>
+<span class="text-label-md font-label-md uppercase text-primary font-bold">Results</span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Analysis Summary (Left/Main Panel) -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Score Card -->
+<section class="bg-surface-container-low border border-outline-variant p-10 rounded-xl flex flex-col items-center justify-center text-center fade-in-up" style="animation-delay: 0.2s;">
+<div class="relative w-48 h-48 mb-6">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="96" cy="96" fill="transparent" r="90" stroke="currentColor" stroke-width="2"></circle>
+<circle class="text-primary score-ring-animate" cx="96" cy="96" fill="transparent" r="90" stroke="currentColor" stroke-dasharray="283" stroke-linecap="round" stroke-width="10"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="text-display-lg font-display-lg text-primary">87<span class="text-headline-md">%</span></span>
+<span class="text-label-md font-label-md uppercase text-outline">Match Score</span>
+</div>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-on-background mb-2">Optimized Precision</h1>
+<p class="text-body-md text-on-surface-variant max-w-lg mx-auto">Your resume shows a strong technical alignment with the Senior Product Designer role. Strengthening specific missing skills could push you into the 95th percentile.</p>
+</section>
+<!-- Skill Grid Section -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-gutter fade-in-up" style="animation-delay: 0.3s;">
+<!-- Matching Skills -->
+<div class="bg-surface-container-low border border-outline-variant p-6 rounded-xl">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle">check_circle</span>
+<h3 class="text-headline-sm font-headline-sm text-on-background">Matching skills</h3>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-high">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle">check_circle</span>
+<span class="text-label-md font-label-md text-on-surface">Visual Design</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-high">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle">check_circle</span>
+<span class="text-label-md font-label-md text-on-surface">Tailwind CSS</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-high">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle">check_circle</span>
+<span class="text-label-md font-label-md text-on-surface">Prototyping</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-high">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle">check_circle</span>
+<span class="text-label-md font-label-md text-on-surface">UX Strategy</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-high">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle">check_circle</span>
+<span class="text-label-md font-label-md text-on-surface">Design Systems</span>
+</div>
+</div>
+</div>
+<!-- Missing Skills -->
+<div class="bg-surface-container-low border border-outline-variant p-6 rounded-xl">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="error">error</span>
+<h3 class="text-headline-sm font-headline-sm text-on-background">Missing skills</h3>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-high">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="error">error</span>
+<span class="text-label-md font-label-md text-on-surface">A/B Testing</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-high">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="error">error</span>
+<span class="text-label-md font-label-md text-on-surface">Stakeholder Mgmt</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-high">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="error">error</span>
+<span class="text-label-md font-label-md text-on-surface">Framer Motion</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Action Panel (Right Panel) -->
+<aside class="lg:col-span-4 flex flex-col gap-6 fade-in-up" style="animation-delay: 0.4s;">
+<div class="bg-surface-container border border-outline-variant p-8 rounded-xl sticky top-24">
+<h2 class="text-headline-sm font-headline-sm text-on-background mb-4">Recommendations</h2>
+<p class="text-body-sm text-on-surface-variant mb-8 leading-relaxed">Our analysis suggests your resume lacks quantifiable business impact metrics for your recent roles. Addressing this will likely increase recruiter response rates by 25%.</p>
+<div class="flex flex-col gap-4">
+<button class="w-full bg-primary text-on-primary py-4 rounded-lg font-body-md font-semibold hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+                            Rewrite my resume
+                        </button>
+<button class="w-full border border-primary text-primary py-4 rounded-lg font-body-md font-semibold hover:bg-primary/5 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                            Generate cover letter
+                        </button>
+</div>
+<hr class="my-8 border-outline-variant"/>
+<div class="flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1" data-icon="description">description</span>
+<div>
+<div class="text-label-md font-label-md text-on-background font-bold">Res_Senior_Designer_V4.pdf</div>
+<div class="text-[10px] text-outline">Analyzed 2 mins ago</div>
+</div>
+</div>
+<button class="text-primary text-label-md font-label-md hover:underline text-left inline-flex items-center gap-1">
+                            Download full report
+                            <span class="material-symbols-outlined text-xs" data-icon="download">download</span>
+</button>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Bottom Nav Bar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center py-3 bg-surface-container border-t border-outline-variant z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high px-4 py-2 rounded-lg transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+<span class="text-label-md font-label-md">Upload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high px-4 py-2 rounded-lg transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-label-md font-label-md">Analyze</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary hover:bg-surface-container-high px-4 py-2 rounded-lg transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_turned_in">assignment_turned_in</span>
+<span class="text-label-md font-label-md">Results</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-outline-variant bg-background">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex flex-col items-center md:items-start gap-1">
+<div class="font-headline-sm text-on-background">Résona</div>
+<div class="text-body-sm text-on-surface-variant">© 2024 Résona. Precise Minimalism in Career Analytics.</div>
+</div>
+<div class="flex gap-8">
+<a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors" href="#">Terms</a>
+<a class="text-on-surface-variant font-body-sm hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Subtle feedback if needed
+            });
+        });
+    </script>
+</body></html>

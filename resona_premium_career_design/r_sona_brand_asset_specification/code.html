@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Résona | Brand Asset Reference Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&amp;family=IBM+Plex+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface": "#15130e",
+                "on-tertiary": "#202e59",
+                "on-surface": "#e8e2d9",
+                "on-primary": "#3f2e00",
+                "surface-bright": "#3c3933",
+                "on-secondary-fixed": "#1d1b15",
+                "on-primary-fixed-variant": "#5a4302",
+                "on-tertiary-fixed-variant": "#384571",
+                "background": "#15130e",
+                "surface-container": "#221f1a",
+                "on-error": "#690005",
+                "inverse-surface": "#e8e2d9",
+                "error-container": "#93000a",
+                "primary-container": "#c9a961",
+                "primary": "#e6c479",
+                "on-primary-fixed": "#251a00",
+                "surface-dim": "#15130e",
+                "surface-container-highest": "#37342f",
+                "primary-fixed": "#ffdf9b",
+                "tertiary-fixed-dim": "#b8c5f9",
+                "secondary-container": "#4c4942",
+                "surface-container-lowest": "#100e09",
+                "surface-container-low": "#1e1b16",
+                "tertiary-fixed": "#dce1ff",
+                "on-background": "#e8e2d9",
+                "on-error-container": "#ffdad6",
+                "inverse-primary": "#745b1b",
+                "error": "#ffb4ab",
+                "on-surface-variant": "#d0c5b4",
+                "surface-variant": "#37342f",
+                "outline-variant": "#4d4639",
+                "inverse-on-surface": "#33302a",
+                "on-tertiary-fixed": "#091843",
+                "secondary-fixed": "#e8e2d8",
+                "tertiary": "#b9c6fb",
+                "surface-tint": "#e4c278",
+                "surface-container-high": "#2c2a24",
+                "on-primary-container": "#533d00",
+                "primary-fixed-dim": "#e4c278",
+                "on-tertiary-container": "#313f6b",
+                "on-secondary-container": "#bdb8ae",
+                "outline": "#999080",
+                "secondary": "#cbc6bc",
+                "on-secondary-fixed-variant": "#49463f",
+                "tertiary-container": "#9eabde",
+                "secondary-fixed-dim": "#cbc6bc",
+                "on-secondary": "#33302a"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "gutter": "24px",
+                "unit": "8px",
+                "margin-mobile": "20px",
+                "margin-desktop": "64px",
+                "container-max": "1280px"
+            },
+            "fontFamily": {
+                "display-lg": ["Space Grotesk"],
+                "body-sm": ["IBM Plex Sans"],
+                "headline-sm": ["Space Grotesk"],
+                "headline-md": ["Space Grotesk"],
+                "headline-lg-mobile": ["Space Grotesk"],
+                "body-lg": ["IBM Plex Sans"],
+                "headline-lg": ["Space Grotesk"],
+                "body-md": ["IBM Plex Sans"],
+                "label-md": ["IBM Plex Sans"]
+            },
+            "fontSize": {
+                "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .monogram-maskable::after {
+            content: '';
+            position: absolute;
+            top: 10%; left: 10%; right: 10%; bottom: 10%;
+            border: 1px dashed #e6c479;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .loader-ring {
+            width: 48px;
+            height: 48px;
+            border: 1.5px solid rgba(230, 196, 121, 0.2);
+            border-top: 1.5px solid #e6c479;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .bg-graphite { background-color: #16140F; }
+        .text-champagne { color: #C9A961; }
+        .border-graphite-variant { border-color: #2A2822; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Anchor -->
+<header class="sticky top-0 z-50 bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">Résona</div>
+<nav class="hidden md:flex gap-unit * 4 items-center">
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Tracker</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">History</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Support</a>
+<div class="h-4 w-px bg-outline-variant mx-2"></div>
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200">Sign Out</button>
+</nav>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-desktop py-16">
+<div class="mb-16">
+<h1 class="font-display-lg text-display-lg mb-4">Brand Asset Reference Sheet</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Visual guidelines and technical specifications for the Résona brand ecosystem. Built on precise minimalism and senior-level authority.</p>
+</div>
+<!-- Section 1: Monogram System -->
+<section class="mb-24">
+<div class="flex items-center gap-4 mb-8 border-b border-outline-variant pb-4">
+<span class="font-label-md text-label-md text-primary">01</span>
+<h2 class="font-headline-lg text-headline-lg font-bold uppercase tracking-wider">Monogram System</h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<div class="lg:col-span-4 flex flex-col gap-8">
+<div class="p-8 bg-surface-container border border-outline-variant rounded-lg flex flex-col items-center">
+<div class="w-32 h-32 bg-graphite rounded-xl flex items-center justify-center mb-6">
+<span class="font-headline-lg text-6xl text-champagne font-bold">R</span>
+</div>
+<div class="text-center">
+<p class="font-headline-sm text-headline-sm mb-2">Core Monogram</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Space Grotesk 700, Sentence case R. Used for favicons and mobile app launchers.</p>
+</div>
+</div>
+<div class="p-8 bg-surface-container border border-outline-variant rounded-lg flex flex-col items-center">
+<div class="monogram-maskable w-32 h-32 bg-graphite rounded-xl flex items-center justify-center mb-6 relative overflow-hidden">
+<span class="font-headline-lg text-6xl text-champagne font-bold">R</span>
+</div>
+<div class="text-center">
+<p class="font-headline-sm text-headline-sm mb-2">Maskable Variant</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Android safe-zone compliant with 10% bleed margin.</p>
+</div>
+</div>
+</div>
+<div class="lg:col-span-8">
+<div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+<!-- Size 512 -->
+<div class="p-6 bg-surface-container-low border border-outline-variant rounded-lg">
+<div class="w-full aspect-square bg-graphite rounded-lg flex items-center justify-center mb-4">
+<span class="text-champagne font-bold text-4xl">R</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">512 x 512 px</p>
+</div>
+<!-- Size 192 -->
+<div class="p-6 bg-surface-container-low border border-outline-variant rounded-lg">
+<div class="w-full aspect-square bg-graphite rounded-lg flex items-center justify-center mb-4">
+<span class="text-champagne font-bold text-2xl">R</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">192 x 192 px</p>
+</div>
+<!-- Size 180 -->
+<div class="p-6 bg-surface-container-low border border-outline-variant rounded-lg">
+<div class="w-full aspect-square bg-graphite rounded-lg flex items-center justify-center mb-4">
+<span class="text-champagne font-bold text-xl">R</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">180 x 180 px</p>
+</div>
+<!-- Size 32 -->
+<div class="p-6 bg-surface-container-low border border-outline-variant rounded-lg">
+<div class="w-8 h-8 bg-graphite rounded flex items-center justify-center mb-4">
+<span class="text-champagne font-bold text-[10px]">R</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">32 x 32 px</p>
+</div>
+<!-- Size 16 -->
+<div class="p-6 bg-surface-container-low border border-outline-variant rounded-lg">
+<div class="w-4 h-4 bg-graphite rounded-sm flex items-center justify-center mb-4">
+<span class="text-champagne font-bold text-[6px]">R</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">16 x 16 px</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Open Graph Image -->
+<section class="mb-24">
+<div class="flex items-center gap-4 mb-8 border-b border-outline-variant pb-4">
+<span class="font-label-md text-label-md text-primary">02</span>
+<h2 class="font-headline-lg text-headline-lg font-bold uppercase tracking-wider">Social Share (OG)</h2>
+</div>
+<div class="relative w-full aspect-[1200/630] bg-graphite rounded-xl border border-outline-variant overflow-hidden flex flex-col items-center justify-center">
+<!-- Cropped ScoreRing Background Graphic -->
+<div class="absolute -right-24 -bottom-24 w-[600px] h-[600px] border-[2px] border-[#C9A961]/10 rounded-full"></div>
+<div class="absolute -right-12 -bottom-12 w-[400px] h-[400px] border-[1px] border-[#C9A961]/5 rounded-full"></div>
+<!-- Content -->
+<div class="relative z-10 text-center">
+<div class="font-headline-lg text-6xl font-bold text-primary tracking-tighter mb-4">Résona</div>
+<p class="font-headline-sm text-2xl text-on-surface-variant">Your resume, aligned to every opportunity.</p>
+</div>
+<!-- Technical Label -->
+<div class="absolute top-6 left-6 px-3 py-1 border border-outline-variant bg-surface/50 backdrop-blur-sm rounded">
+<p class="font-label-md text-[10px] text-on-surface-variant uppercase tracking-widest">OG:IMAGE | 1200x630</p>
+</div>
+</div>
+</section>
+<!-- Section 3: Global App Loader -->
+<section class="mb-24">
+<div class="flex items-center gap-4 mb-8 border-b border-outline-variant pb-4">
+<span class="font-label-md text-label-md text-primary">03</span>
+<h2 class="font-headline-lg text-headline-lg font-bold uppercase tracking-wider">Global App Loader</h2>
+</div>
+<div class="w-full h-96 bg-graphite rounded-xl border border-outline-variant flex flex-col items-center justify-center">
+<div class="loader-ring mb-8"></div>
+<div class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Résona</div>
+<div class="mt-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest opacity-50">Calibrating Insights</div>
+</div>
+<p class="mt-6 font-body-sm text-body-sm text-on-surface-variant text-center">A full-page graphite canvas with a thin, rotating champagne gold ring and minimalist wordmark.</p>
+</section>
+<!-- Section 4: Skeleton Loading Patterns -->
+<section class="mb-24">
+<div class="flex items-center gap-4 mb-8 border-b border-outline-variant pb-4">
+<span class="font-label-md text-label-md text-primary">04</span>
+<h2 class="font-headline-lg text-headline-lg font-bold uppercase tracking-wider">Skeleton Patterns</h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<!-- Dashboard Skeletons -->
+<div class="space-y-6">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase mb-4">Dashboard Context</h3>
+<div class="p-8 border border-outline-variant rounded-xl bg-surface-container-low">
+<div class="grid grid-cols-3 gap-4 mb-8">
+<div class="h-24 bg-surface-container-highest rounded-lg"></div>
+<div class="h-24 bg-surface-container-highest rounded-lg"></div>
+<div class="h-24 bg-surface-container-highest rounded-lg"></div>
+</div>
+<div class="h-48 bg-surface-container-highest rounded-lg mb-6 w-full"></div>
+<div class="space-y-4">
+<div class="h-4 bg-surface-container-highest rounded w-3/4"></div>
+<div class="h-4 bg-surface-container-highest rounded w-1/2"></div>
+</div>
+</div>
+</div>
+<!-- History Skeletons -->
+<div class="space-y-6">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase mb-4">History List Context</h3>
+<div class="p-8 border border-outline-variant rounded-xl bg-surface-container-low">
+<div class="space-y-4">
+<div class="flex items-center gap-4 py-3 border-b border-outline-variant/30">
+<div class="w-10 h-10 bg-surface-container-highest rounded-lg flex-shrink-0"></div>
+<div class="flex-1 space-y-2">
+<div class="h-3 bg-surface-container-highest rounded w-1/3"></div>
+<div class="h-2 bg-surface-container-highest rounded w-1/4 opacity-50"></div>
+</div>
+<div class="w-16 h-4 bg-surface-container-highest rounded"></div>
+</div>
+<div class="flex items-center gap-4 py-3 border-b border-outline-variant/30">
+<div class="w-10 h-10 bg-surface-container-highest rounded-lg flex-shrink-0"></div>
+<div class="flex-1 space-y-2">
+<div class="h-3 bg-surface-container-highest rounded w-1/3"></div>
+<div class="h-2 bg-surface-container-highest rounded w-1/4 opacity-50"></div>
+</div>
+<div class="w-16 h-4 bg-surface-container-highest rounded"></div>
+</div>
+<div class="flex items-center gap-4 py-3 border-b border-outline-variant/30">
+<div class="w-10 h-10 bg-surface-container-highest rounded-lg flex-shrink-0"></div>
+<div class="flex-1 space-y-2">
+<div class="h-3 bg-surface-container-highest rounded w-1/3"></div>
+<div class="h-2 bg-surface-container-highest rounded w-1/4 opacity-50"></div>
+</div>
+<div class="w-16 h-4 bg-surface-container-highest rounded"></div>
+</div>
+<div class="flex items-center gap-4 py-3">
+<div class="w-10 h-10 bg-surface-container-highest rounded-lg flex-shrink-0"></div>
+<div class="flex-1 space-y-2">
+<div class="h-3 bg-surface-container-highest rounded w-1/3"></div>
+<div class="h-2 bg-surface-container-highest rounded w-1/4 opacity-50"></div>
+</div>
+<div class="w-16 h-4 bg-surface-container-highest rounded"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 bg-primary-container/10 border border-primary-container/20 rounded-lg">
+<p class="font-body-sm text-body-sm text-primary">Note: Skeleton states must use flat #37342F (highest surface) colors with no shimmer animations to maintain the "Precise Minimalism" aesthetic.</p>
+</div>
+</section>
+</main>
+<!-- Footer Anchor -->
+<footer class="bg-surface border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center w-full py-8 px-margin-desktop max-w-container-max mx-auto">
+<div class="font-headline-sm text-headline-sm text-on-surface mb-4 md:mb-0">Résona</div>
+<div class="flex gap-unit * 4 text-on-surface-variant font-label-md text-label-md">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Cookies</a>
+</div>
+<div class="mt-4 md:mt-0 font-body-sm text-body-sm text-secondary">
+                © 2024 Résona. All rights reserved.
+            </div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for logo hover
+        const logo = document.querySelector('.font-headline-lg');
+        logo.addEventListener('mouseenter', () => {
+            logo.style.opacity = '0.8';
+            logo.style.transition = 'opacity 0.2s';
+        });
+        logo.addEventListener('mouseleave', () => {
+            logo.style.opacity = '1';
+        });
+    </script>
+</body></html>

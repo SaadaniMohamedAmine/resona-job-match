@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=IBM+Plex+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #15130e;
+            color: #e8e2d9;
+            font-family: 'IBM Plex Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .kanban-column {
+            min-height: calc(100vh - 280px);
+        }
+        /* Custom Scrollbar for columns */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2a2822;
+            border-radius: 10px;
+        }
+        /* Card Hover Effect */
+        .application-card:hover {
+            border-color: #4d4639;
+            background-color: #1e1c16;
+            transition: all 0.2s ease;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#33302a",
+                      "error-container": "#93000a",
+                      "on-secondary-container": "#bdb8ae",
+                      "secondary-fixed": "#e8e2d8",
+                      "primary-container": "#c9a961",
+                      "surface": "#15130e",
+                      "outline-variant": "#4d4639",
+                      "surface-container-low": "#1e1b16",
+                      "surface-bright": "#3c3933",
+                      "on-tertiary-container": "#313f6b",
+                      "on-surface-variant": "#d0c5b4",
+                      "secondary-container": "#4c4942",
+                      "on-primary-fixed": "#251a00",
+                      "inverse-primary": "#745b1b",
+                      "surface-container-high": "#2c2a24",
+                      "on-tertiary-fixed-variant": "#384571",
+                      "on-primary": "#3f2e00",
+                      "on-primary-container": "#533d00",
+                      "on-error": "#690005",
+                      "on-secondary-fixed": "#1d1b15",
+                      "error": "#ffb4ab",
+                      "on-primary-fixed-variant": "#5a4302",
+                      "primary": "#e6c479",
+                      "on-background": "#e8e2d9",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#091843",
+                      "secondary-fixed-dim": "#cbc6bc",
+                      "background": "#15130e",
+                      "tertiary-container": "#9eabde",
+                      "tertiary": "#b9c6fb",
+                      "surface-dim": "#15130e",
+                      "surface-variant": "#37342f",
+                      "inverse-surface": "#e8e2d9",
+                      "surface-container-highest": "#37342f",
+                      "surface-container": "#221f1a",
+                      "on-tertiary": "#202e59",
+                      "on-secondary-fixed-variant": "#49463f",
+                      "secondary": "#cbc6bc",
+                      "outline": "#999080",
+                      "surface-tint": "#e4c278",
+                      "tertiary-fixed": "#dce1ff",
+                      "on-secondary": "#33302a",
+                      "tertiary-fixed-dim": "#b8c5f9",
+                      "primary-fixed": "#ffdf9b",
+                      "on-surface": "#e8e2d9",
+                      "surface-container-lowest": "#100e09",
+                      "primary-fixed-dim": "#e4c278"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "unit": "8px",
+                      "margin-mobile": "20px",
+                      "margin-desktop": "64px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Space Grotesk"],
+                      "display-lg": ["Space Grotesk"],
+                      "headline-sm": ["Space Grotesk"],
+                      "body-md": ["IBM Plex Sans"],
+                      "headline-lg": ["Space Grotesk"],
+                      "label-md": ["IBM Plex Sans"],
+                      "body-sm": ["IBM Plex Sans"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                      "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopAppBar from JSON -->
+<header class="bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline-variant sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="flex items-center gap-12">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary tracking-tight">Résona</span>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-primary dark:text-primary border-b-2 border-primary pb-1" href="#">Tracker</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">History</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">Support</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="font-label-md text-label-md text-secondary dark:text-secondary hover:text-primary transition-colors">Sign Out</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Professional studio portrait of a user for their digital profile. The lighting is soft and directional, with a dark graphite-toned background consistent with a high-end architectural aesthetic. The user is dressed in neutral, minimalist attire, fitting the premium and professional tone of Résona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgDPvu6sH7GC508tlg3jjv4uW5b8c6I620mnJ9dwGhtBABA7NexG4DZGvLYmm0fm8-cFfJmPXM_laWSJACw__pjtDRS9GOnT6OCYboMCLexSerf7xplFEftRMHwfrtnL3r56oRcfv4glmonpcm8xLw_bBRoRdrC2RLSVaMszAjUJ11oBFyR3BrdGEWqZ-NcF2aWZ6fOfZjaMFeEwRb5moh9uIHm5sOXsFCiGQj3RKR5F5OgOygK3Ljbg"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-desktop py-12">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-10">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Application Tracker</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your career progression with precision-engineered data.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary-container text-on-primary-container px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-opacity-90 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Add application
+            </button>
+</div>
+<!-- Kanban Board -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-start">
+<!-- Column: Applied -->
+<div class="flex flex-col gap-4 kanban-column">
+<div class="flex items-center justify-between px-2 pb-2 border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Applied</span>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px] border border-outline-variant">4</span>
+</div>
+<div class="flex flex-col gap-4 overflow-y-auto custom-scrollbar pr-1">
+<!-- Card 1 -->
+<div class="application-card bg-surface-container-low border border-outline-variant rounded-xl p-5 flex flex-col gap-4 group">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Architecto AI</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Product Designer</p>
+</div>
+<div class="flex items-center justify-center h-8 w-8 rounded-full border border-outline-variant text-primary-container">
+<span class="material-symbols-outlined text-[16px]">monitoring</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Oct 12, 2024</span>
+<div class="flex items-center gap-1 bg-surface-container-highest border border-outline-variant rounded-lg px-2 py-1">
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-label-md text-label-md text-primary">94%</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="application-card bg-surface-container-low border border-outline-variant rounded-xl p-5 flex flex-col gap-4 group">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Mono Systems</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">UX Engineer</p>
+</div>
+<div class="flex items-center justify-center h-8 w-8 rounded-full border border-outline-variant text-primary-container">
+<span class="material-symbols-outlined text-[16px]">developer_mode</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Oct 10, 2024</span>
+<div class="flex items-center gap-1 bg-surface-container-highest border border-outline-variant rounded-lg px-2 py-1">
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-label-md text-label-md text-primary">88%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Interview -->
+<div class="flex flex-col gap-4 kanban-column">
+<div class="flex items-center justify-between px-2 pb-2 border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Interview</span>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px] border border-outline-variant">2</span>
+</div>
+<div class="flex flex-col gap-4 overflow-y-auto custom-scrollbar pr-1">
+<!-- Card 3 -->
+<div class="application-card bg-surface-container-low border border-outline-variant rounded-xl p-5 flex flex-col gap-4 group">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Linear Labs</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Design Lead</p>
+</div>
+<div class="flex items-center justify-center h-8 w-8 rounded-full border border-outline-variant text-primary-container">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="bg-surface-container border border-primary/20 rounded p-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">calendar_today</span>
+<span class="font-label-md text-label-md text-primary">Round 2: Oct 18, 2:00 PM</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Sep 28, 2024</span>
+<div class="flex items-center gap-1 bg-surface-container-highest border border-outline-variant rounded-lg px-2 py-1">
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-label-md text-label-md text-primary">91%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Offer -->
+<div class="flex flex-col gap-4 kanban-column">
+<div class="flex items-center justify-between px-2 pb-2 border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Offer</span>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px] border border-outline-variant">1</span>
+</div>
+<div class="flex flex-col gap-4 overflow-y-auto custom-scrollbar pr-1">
+<!-- Card 4 -->
+<div class="application-card bg-surface-container-low border border-primary/30 rounded-xl p-5 flex flex-col gap-4 group">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-primary">Foundry UI</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Senior Product Designer</p>
+</div>
+<div class="flex items-center justify-center h-8 w-8 rounded-full bg-primary-container/20 text-primary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Sep 15, 2024</span>
+<div class="flex items-center gap-1 bg-primary-container text-on-primary-container rounded-lg px-2 py-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-label-md text-label-md">97% Match</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Rejected -->
+<div class="flex flex-col gap-4 kanban-column">
+<div class="flex items-center justify-between px-2 pb-2 border-b border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Rejected</span>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded text-[10px] border border-outline-variant">3</span>
+</div>
+<div class="flex flex-col gap-4 opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all overflow-y-auto custom-scrollbar pr-1">
+<!-- Card 5 -->
+<div class="application-card bg-surface-container-low border border-outline-variant rounded-xl p-5 flex flex-col gap-4 group">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Ocular VR</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Interface Specialist</p>
+</div>
+<div class="flex items-center justify-center h-8 w-8 rounded-full border border-outline-variant text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">visibility_off</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Aug 30, 2024</span>
+<div class="flex items-center gap-1 bg-surface-container-highest border border-outline-variant rounded-lg px-2 py-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 0;">bolt</span>
+<span class="font-label-md text-label-md text-on-surface-variant">72%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer from JSON -->
+<footer class="bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline-variant mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center w-full py-8 px-margin-desktop max-w-container-max mx-auto">
+<span class="font-headline-sm text-headline-sm text-on-surface mb-4 md:mb-0">Résona</span>
+<div class="flex gap-8 mb-4 md:mb-0">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors" href="#">Cookies</a>
+</div>
+<p class="font-body-sm text-body-sm text-secondary dark:text-secondary">© 2024 Résona. All rights reserved.</p>
+</div>
+</footer>
+<!-- Simple Interactivity -->
+<script>
+        // Micro-interaction for cards
+        document.querySelectorAll('.application-card').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+                card.style.opacity = '0.8';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1)';
+                card.style.opacity = '1';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+                card.style.opacity = '1';
+            });
+        });
+    </script>
+</body></html>

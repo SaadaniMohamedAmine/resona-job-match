@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>404 - Page Not Found | Résona</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#33302a",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#bdb8ae",
+                        "secondary-fixed": "#e8e2d8",
+                        "primary-container": "#c9a961",
+                        "surface": "#15130e",
+                        "outline-variant": "#4d4639",
+                        "surface-container-low": "#1e1b16",
+                        "surface-bright": "#3c3933",
+                        "on-tertiary-container": "#313f6b",
+                        "on-surface-variant": "#d0c5b4",
+                        "secondary-container": "#4c4942",
+                        "on-primary-fixed": "#251a00",
+                        "inverse-primary": "#745b1b",
+                        "surface-container-high": "#2c2a24",
+                        "on-tertiary-fixed-variant": "#384571",
+                        "on-primary": "#3f2e00",
+                        "on-primary-container": "#533d00",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#1d1b15",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#5a4302",
+                        "primary": "#e6c479",
+                        "on-background": "#e8e2d9",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#091843",
+                        "secondary-fixed-dim": "#cbc6bc",
+                        "background": "#15130e",
+                        "tertiary-container": "#9eabde",
+                        "tertiary": "#b9c6fb",
+                        "surface-dim": "#15130e",
+                        "surface-variant": "#37342f",
+                        "inverse-surface": "#e8e2d9",
+                        "surface-container-highest": "#37342f",
+                        "surface-container": "#221f1a",
+                        "on-tertiary": "#202e59",
+                        "on-secondary-fixed-variant": "#49463f",
+                        "secondary": "#cbc6bc",
+                        "outline": "#999080",
+                        "surface-tint": "#e4c278",
+                        "tertiary-fixed": "#dce1ff",
+                        "on-secondary": "#33302a",
+                        "tertiary-fixed-dim": "#b8c5f9",
+                        "primary-fixed": "#ffdf9b",
+                        "on-surface": "#e8e2d9",
+                        "surface-container-lowest": "#100e09",
+                        "primary-fixed-dim": "#e4c278"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "headline-sm": ["Space Grotesk"],
+                        "body-md": ["IBM Plex Sans"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "body-lg": ["IBM Plex Sans"],
+                        "headline-lg": ["Space Grotesk"],
+                        "label-md": ["IBM Plex Sans"],
+                        "body-sm": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #15130e;
+            color: #e8e2d9;
+            overflow: hidden;
+        }
+
+        .precision-grid {
+            background-image: radial-gradient(circle, #2A2822 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .cursor-trail {
+            pointer-events: none;
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(201, 169, 97, 0.03) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.5s ease;
+        }
+
+        .vertical-line {
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, #4d4639, transparent);
+        }
+
+        .horizontal-line {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #4d4639, transparent);
+        }
+
+        .cta-hover:hover .cta-overlay {
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen selection:bg-primary selection:text-surface">
+<!-- Subtle Background Layer -->
+<div class="fixed inset-0 precision-grid opacity-30"></div>
+<div class="cursor-trail" id="glow"></div>
+<!-- Top Navigation (Shell Implementation) -->
+<header class="relative z-10 w-full">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">Résona</div>
+<div class="hidden md:flex gap-8 items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">SECURE_NODE_04</span>
+</div>
+</div>
+<div class="w-full h-[1px] bg-outline-variant opacity-20"></div>
+</header>
+<!-- Main Content Canvas -->
+<main class="relative z-10 flex-grow flex flex-col items-center justify-center px-margin-mobile text-center">
+<!-- Minimalist Architectural Layout Elements -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+<div class="vertical-line h-[80vh]"></div>
+</div>
+<div class="space-y-unit max-w-2xl">
+<!-- Functional Status Indicator -->
+<div class="flex items-center justify-center gap-2 mb-8 animate-pulse">
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">error</span>
+<span class="font-label-md text-label-md uppercase tracking-[0.2em] text-primary">Error Code 404</span>
+</div>
+<!-- Main Heading -->
+<h1 class="font-display-lg text-display-lg text-on-surface mb-4">
+                Path Unresolved
+            </h1>
+<!-- Descriptive Message -->
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-md mx-auto">
+                Page not found. This path does not exist in our system.
+            </p>
+<!-- CTA Container -->
+<div class="flex flex-col md:flex-row items-center justify-center gap-gutter">
+<a class="group relative cta-hover bg-primary text-surface px-8 py-4 font-label-md text-label-md uppercase tracking-widest transition-all duration-300 overflow-hidden" href="#">
+<span class="relative z-10">Back to dashboard</span>
+<div class="absolute inset-0 bg-black opacity-0 cta-overlay transition-opacity duration-200"></div>
+</a>
+<a class="border border-outline-variant px-8 py-4 font-label-md text-label-md uppercase tracking-widest text-on-surface-variant hover:border-primary hover:text-primary transition-all duration-300" href="#">
+                    System History
+                </a>
+</div>
+</div>
+<!-- Decorative Technical Data -->
+<div class="absolute bottom-12 left-margin-desktop hidden lg:block">
+<div class="flex flex-col gap-2 font-label-md text-label-md text-outline">
+<span class="opacity-40">COORDINATES: 40.7128° N, 74.0060° W</span>
+<span class="opacity-40">LATENCY: 12ms</span>
+</div>
+</div>
+<div class="absolute bottom-12 right-margin-desktop hidden lg:block">
+<div class="flex flex-col items-end gap-2 font-label-md text-label-md text-outline">
+<span class="opacity-40 text-right">PROTOCOL: RES-256</span>
+<span class="opacity-40 text-right">SESSION: ID_NULL_ERROR</span>
+</div>
+</div>
+</main>
+<!-- Footer (Shell Implementation) -->
+<footer class="relative z-10 w-full mt-auto">
+<div class="w-full h-[1px] bg-outline-variant opacity-20"></div>
+<div class="flex flex-col md:flex-row justify-between items-center w-full py-8 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto gap-4">
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Résona. All rights reserved.</p>
+<div class="flex gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Cookies</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for mouse atmospheric glow
+        const glow = document.getElementById('glow');
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            glow.style.left = x + 'px';
+            glow.style.top = y + 'px';
+        });
+
+        // Add subtle parallax effect to the grid on mouse move
+        const grid = document.querySelector('.precision-grid');
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) / 50;
+            const moveY = (e.clientY - window.innerHeight / 2) / 50;
+            grid.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+    </script>
+</body></html>
