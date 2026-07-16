@@ -61,10 +61,37 @@
 - Upstash Redis (rate limiting)
 - Toutes les env vars ajoutées sur Vercel (non-sensitive + sensitive)
 
+## Phase 3 — Frontend & Parcours ✅
+
+### Pages créées
+- Auth (sign-up, login), Upload (step 1), Analyzing (step 2), Results (step 3), Rewrite, Cover Letter, Resume History, Tracker Kanban, Dashboard, Settings Account, Privacy, Terms, 404, Language Switcher
+
+## Phase 4 — Billing Stripe ✅
+
+### Endpoints
+- `POST /api/stripe/checkout`, `POST /api/stripe/webhook`, `POST /api/stripe/portal`
+- Rate limiter plan-aware (Free 3/30j, Pro 200/30j)
+- Pro-only gate sur rewrite + cover-letter
+- Pages : `/pricing`, `/settings/billing`
+
+## Phase 5 — Qualité & Tests ✅
+
+- Vitest : 5 fichiers, 11 tests (unit + intégration)
+- Playwright : config + test e2e flow
+- GitHub Actions CI (lint + build + tests)
+- Lint 0 errors, coverage configuré
+
+## Phase 6 — Déploiement ✅
+
+### Script de seed
+- `prisma/seed.ts` — compte démo `demo@resona.dev` / `demo-password-2026`
+- Données : résumé, analyse (score 87%), 4 applications kanban
+- `vercel.json` configuré
+
+### Checklist pré-déploiement
+- [ ] Exécuter `npm run db:seed` sur la base de production
+- [ ] Exécuter la migration vector sur Neon : `CREATE EXTENSION IF NOT EXISTS vector;`
+- [ ] Roter les clés API avant mise en ligne publique
+
 ### À faire
-- [ ] Push initial sur Neon (créer l'extension vector + prisma db push)
-- [ ] Phase 3 : Frontend & Parcours (toutes les pages)
-- [ ] Phase 4 : Billing Stripe
-- [ ] Phase 5 : Tests & Qualité
-- [ ] Phase 6 : Déploiement + seed
 - [ ] Phase 7 : Présentation portfolio
