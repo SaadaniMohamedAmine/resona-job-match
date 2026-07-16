@@ -32,11 +32,37 @@
 - ✅ Sentry
 - ⏳ LinkedIn (reporté)
 
+## Phase 2 — Backend & IA ✅
+
+### Branche : `feat-integration-phase-2`
+
+### Endpoints API implémentés
+- `POST /api/analyze` — Analyse CV + embeddings + score match
+- `POST /api/rewrite` — Réécriture de section
+- `POST /api/cover-letter` — Génération lettre de motivation
+- `GET /api/resumes` + `DELETE /api/resumes/[id]` — CRUD analyses
+- `GET /api/applications` + `POST` + `PATCH /[id]` + `DELETE /[id]` — CRUD candidatures
+
+### Librairies ajoutées
+- `pdf-parse` v2 — extraction texte PDF
+- `@upstash/ratelimit` + `@upstash/redis` — rate limiting
+
+### Fichiers créés
+- `lib/pdf.ts` — extraction PDF
+- `lib/rate-limit.ts` — rate limiter Upstash (5/jour free, 30/min global)
+- `lib/api-handler.ts` — wrapper d'erreurs Sentry
+
+### Fixes
+- Client Groq lazy (évite crash build sans env var)
+- Params Promise Next.js 16 (layout, routes avec params)
+- Prisma 6 downgrade (v7 incompatible), Zod 3 downgrade
+
+### Infra configurée
+- Upstash Redis (rate limiting)
+- Toutes les env vars ajoutées sur Vercel (non-sensitive + sensitive)
+
 ### À faire
 - [ ] Push initial sur Neon (créer l'extension vector + prisma db push)
-- [ ] Tester `npm run dev`
-- [ ] Merge PR `feat-integration-phase-1` → `main`
-- [ ] Phase 2 : Backend & IA (endpoints API)
 - [ ] Phase 3 : Frontend & Parcours (toutes les pages)
 - [ ] Phase 4 : Billing Stripe
 - [ ] Phase 5 : Tests & Qualité
