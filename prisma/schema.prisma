@@ -69,7 +69,7 @@ model Resume {
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   analyses  Analysis[]
 
-  embedding Unsupported("vector(1536)")?
+  embedding Unsupported("vector(384)")?
 }
 
 model JobPost {
@@ -81,7 +81,7 @@ model JobPost {
 
   analyses Analysis[]
 
-  embedding Unsupported("vector(1536)")?
+  embedding Unsupported("vector(384)")?
 }
 
 model Analysis {
