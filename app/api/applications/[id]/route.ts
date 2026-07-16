@@ -8,7 +8,7 @@ const updateSchema = z.object({
   status: z.enum(["APPLIED", "INTERVIEW", "OFFER", "REJECTED"]),
 });
 
-export const PATCH = withErrorHandling(async (req: Request, context: any) => {
+export const PATCH = withErrorHandling(async (req: Request, context: { params: Promise<{ id: string }> }) => {
   const session = await auth();
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -28,7 +28,7 @@ export const PATCH = withErrorHandling(async (req: Request, context: any) => {
   return NextResponse.json({ application: updated });
 });
 
-export const DELETE = withErrorHandling(async (req: Request, context: any) => {
+export const DELETE = withErrorHandling(async (req: Request, context: { params: Promise<{ id: string }> }) => {
   const session = await auth();
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 

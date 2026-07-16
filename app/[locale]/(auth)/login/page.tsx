@@ -2,6 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import Link from "next/link";
 import { Wordmark } from "@/components/ui/wordmark";
 
 export default function LoginPage() {
@@ -73,9 +74,9 @@ export default function LoginPage() {
         </div>
         <p className="mt-6 text-center text-xs text-[var(--color-muted)]">
           Don&apos;t have an account?{" "}
-          <a href="/sign-up" className="text-[var(--color-accent)]">
+          <Link href="/sign-up" className="text-[var(--color-accent)]">
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
     </div>

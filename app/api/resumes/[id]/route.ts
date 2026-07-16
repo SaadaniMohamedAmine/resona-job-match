@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { withErrorHandling } from "@/lib/api-handler";
 
-export const DELETE = withErrorHandling(async (req: Request, context: any) => {
+export const DELETE = withErrorHandling(async (req: Request, context: { params: Promise<{ id: string }> }) => {
   const session = await auth();
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 

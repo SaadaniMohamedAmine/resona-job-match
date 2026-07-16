@@ -18,9 +18,11 @@ export async function POST(req: Request) {
 
   switch (event.type) {
     case "checkout.session.completed": {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const session = event.data.object as any;
       const userId: string = session.metadata.userId;
       const subId: string = session.subscription;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const subscription = (await getStripe().subscriptions.retrieve(subId)) as any;
 
       await db.subscription.upsert({
@@ -46,6 +48,7 @@ export async function POST(req: Request) {
     }
 
     case "customer.subscription.deleted": {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const subscription = event.data.object as any;
       const existing = await db.subscription.findFirst({
         where: { stripeSubscriptionId: subscription.id },
