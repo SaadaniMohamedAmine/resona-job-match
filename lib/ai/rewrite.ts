@@ -1,4 +1,4 @@
-import { groq } from "./client";
+import { getGroq } from "./client";
 import { z } from "zod";
 
 const rewriteSchema = z.object({ rewritten: z.string() });
@@ -8,7 +8,7 @@ export async function rewriteSection(
   section: "summary" | "experience" | "skills",
   jobDescription: string
 ): Promise<string> {
-  const completion = await groq.chat.completions.create({
+  const completion = await getGroq().chat.completions.create({
     model: "mixtral-8x7b-32768",
     response_format: { type: "json_object" },
     messages: [

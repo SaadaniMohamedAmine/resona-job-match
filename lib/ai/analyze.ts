@@ -1,4 +1,4 @@
-import { groq } from "./client";
+import { getGroq } from "./client";
 import { z } from "zod";
 
 export const analysisResultSchema = z.object({
@@ -26,7 +26,7 @@ const SYSTEM_PROMPT = `You are an expert technical recruiter and ATS specialist.
 Be precise and factual. Do not invent skills that are not in the job description.`;
 
 export async function analyzeResume(resumeText: string, jobDescription: string): Promise<AnalysisResult> {
-  const completion = await groq.chat.completions.create({
+  const completion = await getGroq().chat.completions.create({
     model: "mixtral-8x7b-32768",
     response_format: { type: "json_object" },
     messages: [
