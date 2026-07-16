@@ -4,7 +4,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import "../globals.css";
 
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await props.params;
   return {
     title: "Résona — Your resume, aligned to every opportunity.",
     description:
@@ -12,7 +13,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
     openGraph: {
       title: "Résona",
       description: "Your resume, aligned to every opportunity.",
-      locale: params.locale,
+      locale,
       type: "website",
     },
     metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
@@ -33,11 +34,12 @@ const ibmPlexSans = IBM_Plex_Sans({
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
   const messages = await getMessages();
   return (
     <html lang={locale} data-theme="dark">
