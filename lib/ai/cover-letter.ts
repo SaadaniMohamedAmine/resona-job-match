@@ -1,11 +1,11 @@
-import { groq } from "./client";
+import { getGroq } from "./client";
 
 export async function generateCoverLetter(
   resumeText: string,
   jobDescription: string,
   companyName?: string
 ): Promise<string> {
-  const completion = await groq.chat.completions.create({
+  const completion = await getGroq().chat.completions.create({
     model: "mixtral-8x7b-32768",
     messages: [
       {
