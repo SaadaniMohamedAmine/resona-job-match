@@ -1,9 +1,11 @@
+import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 
 export default async function DashboardPage() {
   const session = await auth();
-  const userId = session!.user!.id;
+  if (!session?.user) redirect("/login");
+  const userId = session.user.id;
 
   const [applicationsCount, analyses, respondedCount] = await Promise.all([
     db.application.count({ where: { userId } }),

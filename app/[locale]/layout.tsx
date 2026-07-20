@@ -43,8 +43,14 @@ export default async function LocaleLayout({
   const { locale } = await params;
   const messages = await getMessages();
   return (
-    <html lang={locale} data-theme="dark">
+    <html lang={locale} data-theme="dark" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('resona-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();",
+          }}
+        />
         <SiteLoader />
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
