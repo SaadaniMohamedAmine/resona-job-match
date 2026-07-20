@@ -43,8 +43,8 @@ button:disabled {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -54,7 +54,6 @@ button:disabled {
 ::-webkit-scrollbar-thumb {
   background-color: var(--color-accent);
   border-radius: 9999px;
-  border: 2px solid var(--color-base);
 }
 
 ::-webkit-scrollbar-thumb:hover {

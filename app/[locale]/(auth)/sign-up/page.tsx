@@ -28,12 +28,12 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="flex flex-1 items-center justify-center px-4 py-16">
+    <div className="flex flex-1 items-center justify-center px-4 py-6">
       <div className="w-full max-w-110">
         <div className="overflow-hidden rounded-(--radius-control) border border-track bg-track/20">
-          <div className="p-8 md:p-10">
+          <div className="p-6 md:p-8">
             {/* Decorative step indicator */}
-            <div className="mb-8">
+            <div className="mb-6">
               <div className="relative h-px w-full bg-track">
                 <div className="absolute top-0 left-0 h-0.75 w-1/2 -translate-y-px bg-accent" />
               </div>
@@ -49,30 +49,30 @@ export default function SignUpPage() {
 
             {message && <p className="mb-4 text-center text-sm text-accent">{message}</p>}
 
-            <div className="mb-8 flex flex-col gap-3">
+            <div className="mb-6 flex flex-col gap-3">
               <button
                 onClick={() => signIn("google", { callbackUrl: "/upload" })}
-                className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-3 text-sm text-base-light transition-all hover:bg-track active:scale-[0.98]"
+                className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-2.5 text-sm text-base-light transition-all hover:bg-track active:scale-[0.98]"
               >
                 <GoogleIcon />
                 Continue with Google
               </button>
               <button
                 onClick={() => alert("Fonctionnalité disponible dans les prochains mois")}
-                className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-3 text-sm text-muted opacity-60 transition-all hover:bg-track active:scale-[0.98]"
+                className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-2.5 text-sm text-muted opacity-60 transition-all hover:bg-track active:scale-[0.98]"
               >
                 <LinkedInIcon />
                 Continue with LinkedIn
               </button>
             </div>
 
-            <div className="mb-8 flex items-center gap-4">
+            <div className="mb-6 flex items-center gap-4">
               <div className="h-px flex-1 bg-track" />
               <span className="text-xs tracking-widest text-muted uppercase">or use email</span>
               <div className="h-px flex-1 bg-track" />
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="text-xs tracking-widest text-muted uppercase">
                   Email address
@@ -126,7 +126,7 @@ export default function SignUpPage() {
               </button>
             </form>
 
-            <p className="mt-8 text-center text-sm text-muted">
+            <p className="mt-6 text-center text-sm text-muted">
               By signing up, you agree to our{" "}
               <Link href="/terms" className="text-accent hover:underline">
                 Terms
@@ -140,7 +140,7 @@ export default function SignUpPage() {
           </div>
         </div>
 
-        <p className="mt-10 text-center text-sm text-muted">
+        <p className="mt-6 text-center text-sm text-muted">
           Already have an account?{" "}
           <Link href="/login" className="font-bold text-accent hover:underline">
             Log in

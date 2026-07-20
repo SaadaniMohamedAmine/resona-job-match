@@ -26,7 +26,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex flex-1 items-center justify-center px-4 py-16">
+    <div className="flex flex-1 items-center justify-center px-4 py-6">
       <div className="w-full max-w-110">
         <div className="overflow-hidden rounded-(--radius-control) border border-track bg-track/20">
           {/* Decorative step indicator */}
@@ -35,12 +35,12 @@ export default function LoginPage() {
             <div className="h-px w-2/3 bg-muted opacity-30" />
           </div>
 
-          <div className="p-8 md:p-10">
-            <h2 className="mb-8 font-display text-xl font-medium text-base-light">Welcome back</h2>
+          <div className="p-6 md:p-8">
+            <h2 className="mb-6 font-display text-xl font-medium text-base-light">Welcome back</h2>
 
             {message && <p className="mb-4 text-center text-sm text-accent">{message}</p>}
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="text-xs tracking-widest text-muted uppercase">
                   Email address
@@ -88,7 +88,7 @@ export default function LoginPage() {
               </button>
             </form>
 
-            <div className="relative my-10">
+            <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-track" />
               </div>
@@ -100,14 +100,14 @@ export default function LoginPage() {
             <div className="grid grid-cols-1 gap-3">
               <button
                 onClick={() => signIn("google", { callbackUrl: "/upload" })}
-                className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-3 text-sm text-base-light transition-all hover:bg-track active:scale-[0.98]"
+                className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-2.5 text-sm text-base-light transition-all hover:bg-track active:scale-[0.98]"
               >
                 <GoogleIcon />
                 Continue with Google
               </button>
               <button
                 onClick={() => alert("Fonctionnalité disponible dans les prochains mois")}
-                className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-3 text-sm text-muted opacity-60 transition-all hover:bg-track active:scale-[0.98]"
+                className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-2.5 text-sm text-muted opacity-60 transition-all hover:bg-track active:scale-[0.98]"
               >
                 <LinkedInIcon />
                 Continue with LinkedIn
@@ -116,7 +116,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="mt-10 text-center text-sm text-muted">
+        <p className="mt-6 text-center text-sm text-muted">
           Don&apos;t have an account?{" "}
           <Link href="/sign-up" className="font-medium text-accent hover:underline">
             Sign up
