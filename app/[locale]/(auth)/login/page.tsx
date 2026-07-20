@@ -3,7 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import Link from "next/link";
-import { IconBrandGoogle, IconBrandLinkedin } from "@tabler/icons-react";
+import { GoogleIcon, LinkedInIcon } from "@/components/ui/brand-icons";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -27,11 +27,11 @@ export default function LoginPage() {
 
   return (
     <div className="flex flex-1 items-center justify-center px-4 py-16">
-      <div className="w-full max-w-[440px]">
+      <div className="w-full max-w-110">
         <div className="overflow-hidden rounded-(--radius-control) border border-track bg-track/20">
           {/* Decorative step indicator */}
           <div className="flex h-1 w-full items-end">
-            <div className="h-[3px] w-1/3 bg-accent" />
+            <div className="h-0.75 w-1/3 bg-accent" />
             <div className="h-px w-2/3 bg-muted opacity-30" />
           </div>
 
@@ -102,14 +102,14 @@ export default function LoginPage() {
                 onClick={() => signIn("google", { callbackUrl: "/upload" })}
                 className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-3 text-sm text-base-light transition-all hover:bg-track active:scale-[0.98]"
               >
-                <IconBrandGoogle size={18} stroke={1.5} />
+                <GoogleIcon />
                 Continue with Google
               </button>
               <button
                 onClick={() => alert("Fonctionnalité disponible dans les prochains mois")}
                 className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-3 text-sm text-muted opacity-60 transition-all hover:bg-track active:scale-[0.98]"
               >
-                <IconBrandLinkedin size={18} stroke={1.5} />
+                <LinkedInIcon />
                 Continue with LinkedIn
               </button>
             </div>
