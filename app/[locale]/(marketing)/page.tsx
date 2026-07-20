@@ -98,7 +98,7 @@ export default function LandingPage() {
       </section>
 
       {/* Core Intelligence — Bento Grid */}
-      <section className="py-24">
+      <section id="features" className="py-24">
         <div className="mx-auto max-w-7xl px-5 md:px-16">
           <Reveal className="mb-16">
             <h2 className="mb-4 font-display text-3xl font-bold text-base-light">Core Intelligence</h2>

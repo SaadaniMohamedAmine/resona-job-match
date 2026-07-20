@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/ui/wordmark";
+import { SectionNavLink } from "@/components/layout/section-nav-link";
 
 export function PublicNavbar() {
   return (
@@ -9,14 +10,14 @@ export function PublicNavbar() {
           <Wordmark />
         </Link>
         <div className="hidden items-center gap-8 text-sm text-muted md:flex">
-          <Link href="/#process" className="transition-colors hover:text-accent">
+          <SectionNavLink sectionId="features" className="transition-colors hover:text-accent">
+            Functionalities
+          </SectionNavLink>
+          <SectionNavLink sectionId="process" className="transition-colors hover:text-accent">
             Process
-          </Link>
-          <Link href="/resumes" className="transition-colors hover:text-accent">
-            History
-          </Link>
-          <Link href="mailto:hello@resona.dev" className="transition-colors hover:text-accent">
-            Support
+          </SectionNavLink>
+          <Link href="/pricing" className="transition-colors hover:text-accent">
+            Pricing
           </Link>
         </div>
         <div className="flex items-center gap-4">
