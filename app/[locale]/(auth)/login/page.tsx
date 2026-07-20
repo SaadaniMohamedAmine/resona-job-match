@@ -3,7 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import Link from "next/link";
-import { Wordmark } from "@/components/ui/wordmark";
+import { GoogleIcon, LinkedInIcon } from "@/components/ui/brand-icons";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -26,55 +26,99 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm rounded-[var(--radius-card)] border border-[var(--color-track)] p-8">
-        <div className="mb-8 flex justify-center">
-          <Wordmark />
+    <div className="flex flex-1 items-center justify-center px-4 py-6">
+      <div className="w-full max-w-110">
+        <div className="overflow-hidden rounded-(--radius-control) border border-track bg-track/20">
+          {/* Decorative step indicator */}
+          <div className="flex h-1 w-full items-end">
+            <div className="h-0.75 w-1/3 bg-accent" />
+            <div className="h-px w-2/3 bg-muted opacity-30" />
+          </div>
+
+          <div className="p-6 md:p-8">
+            <h2 className="mb-6 font-display text-xl font-medium text-base-light">Welcome back</h2>
+
+            {message && <p className="mb-4 text-center text-sm text-accent">{message}</p>}
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <label htmlFor="email" className="text-xs tracking-widest text-muted uppercase">
+                  Email address
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="name@company.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="rounded-(--radius-control) border border-track bg-transparent px-4 py-3 text-sm text-base-light placeholder:text-muted focus:border-accent focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <label htmlFor="password" className="text-xs tracking-widest text-muted uppercase">
+                    Password
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => alert("Fonctionnalité disponible dans les prochains mois")}
+                    className="text-xs text-accent transition-opacity hover:opacity-80"
+                  >
+                    Forgot?
+                  </button>
+                </div>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="rounded-(--radius-control) border border-track bg-transparent px-4 py-3 text-sm text-base-light placeholder:text-muted focus:border-accent focus:outline-none"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="mt-4 rounded-(--radius-control) bg-accent py-3.5 text-sm font-medium text-[var(--color-base)] transition-all hover:opacity-90 active:scale-[0.98]"
+              >
+                Sign In
+              </button>
+            </form>
+
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-track" />
+              </div>
+              <div className="relative flex justify-center bg-track/20 px-4 text-xs tracking-widest text-muted uppercase">
+                Or continue with
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-3">
+              <button
+                onClick={() => signIn("google", { callbackUrl: "/upload" })}
+                className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-2.5 text-sm text-base-light transition-all hover:bg-track active:scale-[0.98]"
+              >
+                <GoogleIcon />
+                Continue with Google
+              </button>
+              <button
+                onClick={() => alert("Fonctionnalité disponible dans les prochains mois")}
+                className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-2.5 text-sm text-muted opacity-60 transition-all hover:bg-track active:scale-[0.98]"
+              >
+                <LinkedInIcon />
+                Continue with LinkedIn
+              </button>
+            </div>
+          </div>
         </div>
-        {message && (
-          <p className="mb-4 text-center text-sm text-[var(--color-accent)]">{message}</p>
-        )}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="rounded-[var(--radius-control)] border border-[var(--color-track)] bg-transparent px-4 py-2.5 text-sm text-[var(--color-base-light)] placeholder:text-[var(--color-muted)]"
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="rounded-[var(--radius-control)] border border-[var(--color-track)] bg-transparent px-4 py-2.5 text-sm text-[var(--color-base-light)] placeholder:text-[var(--color-muted)]"
-            required
-          />
-          <button
-            type="submit"
-            className="rounded-[var(--radius-control)] bg-[var(--color-accent)] py-2.5 text-sm font-medium text-[var(--color-base)] transition-opacity hover:opacity-90"
-          >
-            Log in
-          </button>
-        </form>
-        <div className="mt-4 flex flex-col gap-2">
-          <button
-            onClick={() => signIn("google", { callbackUrl: "/upload" })}
-            className="rounded-[var(--radius-control)] border border-[var(--color-track)] py-2.5 text-sm text-[var(--color-base-light)] transition-opacity hover:opacity-90"
-          >
-            Continue with Google
-          </button>
-          <button
-            onClick={() => alert("Fonctionnalité disponible dans les prochains mois")}
-            className="cursor-not-allowed rounded-[var(--radius-control)] border border-[var(--color-track)] py-2.5 text-sm text-[var(--color-muted)] opacity-60"
-          >
-            Continue with LinkedIn
-          </button>
-        </div>
-        <p className="mt-6 text-center text-xs text-[var(--color-muted)]">
+
+        <p className="mt-6 text-center text-sm text-muted">
           Don&apos;t have an account?{" "}
-          <Link href="/sign-up" className="text-[var(--color-accent)]">
+          <Link href="/sign-up" className="font-medium text-accent hover:underline">
             Sign up
           </Link>
         </p>

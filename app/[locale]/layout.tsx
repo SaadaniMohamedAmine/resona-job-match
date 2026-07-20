@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, IBM_Plex_Sans } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { SiteLoader } from "@/components/layout/site-loader";
 import "../globals.css";
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -44,6 +45,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} data-theme="dark">
       <body className={`${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
+        <SiteLoader />
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>
