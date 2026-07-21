@@ -1,4 +1,12 @@
-export function ScoreRing({ score, size = 120 }: { score: number; size?: number }) {
+export function ScoreRing({
+  score,
+  size = 120,
+  showLabel = true,
+}: {
+  score: number;
+  size?: number;
+  showLabel?: boolean;
+}) {
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (score / 100) * circumference;
@@ -19,17 +27,19 @@ export function ScoreRing({ score, size = 120 }: { score: number; size?: number 
         transform="rotate(-90 50 50)"
         style={{ transition: "stroke-dashoffset 0.8s ease-out" }}
       />
-      <text
-        x="50"
-        y="55"
-        textAnchor="middle"
-        fontSize="18"
-        fontWeight="500"
-        fill="var(--color-accent)"
-        className="font-[family-name:var(--font-display)]"
-      >
-        {score}%
-      </text>
+      {showLabel && (
+        <text
+          x="50"
+          y="55"
+          textAnchor="middle"
+          fontSize="18"
+          fontWeight="500"
+          fill="var(--color-accent)"
+          className="font-display"
+        >
+          {score}%
+        </text>
+      )}
     </svg>
   );
 }
