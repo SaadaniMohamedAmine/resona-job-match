@@ -140,9 +140,20 @@ button:disabled {
   animation: scan-sweep 6s ease-in-out infinite;
 }
 
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-ring-spin {
+  animation: ring-spin 3s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-orbit-spin,
-  .animate-scan-sweep {
+  .animate-scan-sweep,
+  .animate-ring-spin {
     animation: none;
   }
 }

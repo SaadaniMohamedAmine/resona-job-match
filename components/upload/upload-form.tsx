@@ -2,12 +2,17 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { IconUpload, IconLock } from "@tabler/icons-react";
 import { useUploadThing } from "@/lib/uploadthing-client";
 import { LoaderRing } from "@/components/ui/loader-ring";
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const MIN_WORD_COUNT = 20;
 
 export function UploadForm({ quotaExceeded }: { quotaExceeded: boolean }) {
   const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
+  const [dragActive, setDragActive] = useState(false);
   const [jobTitle, setJobTitle] = useState("");
   const [company, setCompany] = useState("");
   const [jobDescription, setJobDescription] = useState("");
@@ -16,8 +21,25 @@ export function UploadForm({ quotaExceeded }: { quotaExceeded: boolean }) {
 
   const { startUpload } = useUploadThing("resumeUploader");
 
+  const wordCount = jobDescription.trim() ? jobDescription.trim().split(/\s+/).length : 0;
+  const canAnalyze = !!file && !!jobTitle && wordCount > MIN_WORD_COUNT && !quotaExceeded;
+
+  function pickFile(candidate: File | null | undefined) {
+    if (!candidate) return;
+    if (candidate.type !== "application/pdf") {
+      setError("Please upload a PDF file.");
+      return;
+    }
+    if (candidate.size > MAX_FILE_SIZE) {
+      setError("File exceeds the 5MB limit.");
+      return;
+    }
+    setError("");
+    setFile(candidate);
+  }
+
   async function handleAnalyze() {
-    if (!file || !jobTitle || !jobDescription) return;
+    if (!canAnalyze || !file) return;
     setSubmitting(true);
     setError("");
 
@@ -40,55 +62,99 @@ export function UploadForm({ quotaExceeded }: { quotaExceeded: boolean }) {
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <label className="flex cursor-pointer flex-col items-center justify-center rounded-[var(--radius-card)] border border-dashed border-[var(--color-track)] px-6 py-12 text-center text-sm text-[var(--color-muted)] transition-colors hover:border-[var(--color-accent)]">
-        {file ? (
-          <span className="text-[var(--color-base-light)]">{file.name}</span>
-        ) : (
-          <span>Drop your resume here or click to browse</span>
-        )}
+    <div className="flex flex-col gap-8">
+      <label
+        onDragEnter={(e) => {
+          e.preventDefault();
+          setDragActive(true);
+        }}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setDragActive(true);
+        }}
+        onDragLeave={(e) => {
+          e.preventDefault();
+          setDragActive(false);
+        }}
+        onDrop={(e) => {
+          e.preventDefault();
+          setDragActive(false);
+          pickFile(e.dataTransfer.files?.[0]);
+        }}
+        className={`group relative flex cursor-pointer flex-col items-center justify-center rounded-(--radius-card) border border-dashed px-6 py-12 text-center transition-colors ${
+          dragActive || file
+            ? "border-accent bg-track/30"
+            : "border-track bg-track/10 hover:bg-track/20"
+        }`}
+      >
+        <div className="mb-4 flex size-16 items-center justify-center rounded-full border border-track bg-track/40 transition-colors group-hover:border-accent">
+          <IconUpload size={28} stroke={1.5} className="text-accent" />
+        </div>
+        <h3 className="mb-2 font-display text-lg font-medium text-base-light">
+          {file ? file.name : "Upload your resume"}
+        </h3>
+        <p className="text-sm text-muted">
+          {file ? "File ready for analysis" : "Drag and drop or click to browse (PDF only, max 5MB)"}
+        </p>
         <input
           type="file"
           accept="application/pdf"
-          className="hidden"
-          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          className="absolute inset-0 cursor-pointer opacity-0"
+          onChange={(e) => pickFile(e.target.files?.[0])}
         />
       </label>
 
-      <input
-        placeholder="Job title"
-        value={jobTitle}
-        onChange={(e) => setJobTitle(e.target.value)}
-        className="rounded-[var(--radius-control)] border border-[var(--color-track)] bg-transparent px-4 py-2.5 text-sm text-[var(--color-base-light)] placeholder:text-[var(--color-muted)]"
-      />
-      <input
-        placeholder="Company (optional)"
-        value={company}
-        onChange={(e) => setCompany(e.target.value)}
-        className="rounded-[var(--radius-control)] border border-[var(--color-track)] bg-transparent px-4 py-2.5 text-sm text-[var(--color-base-light)] placeholder:text-[var(--color-muted)]"
-      />
-      <textarea
-        placeholder="Paste the job description"
-        value={jobDescription}
-        onChange={(e) => setJobDescription(e.target.value)}
-        rows={10}
-        className="rounded-[var(--radius-control)] border border-[var(--color-track)] bg-transparent px-4 py-2.5 text-sm text-[var(--color-base-light)] placeholder:text-[var(--color-muted)]"
-      />
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <input
+          placeholder="Job title"
+          value={jobTitle}
+          onChange={(e) => setJobTitle(e.target.value)}
+          className="rounded-(--radius-control) border border-track bg-transparent px-4 py-2.5 text-sm text-base-light placeholder:text-muted focus:border-accent focus:outline-none"
+        />
+        <input
+          placeholder="Company (optional)"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          className="rounded-(--radius-control) border border-track bg-transparent px-4 py-2.5 text-sm text-base-light placeholder:text-muted focus:border-accent focus:outline-none"
+        />
+      </div>
 
-      {error && <p className="text-sm text-[var(--color-accent)]">{error}</p>}
+      <div className="flex flex-col gap-3">
+        <label className="text-xs tracking-widest text-muted uppercase">
+          Target Job Description
+        </label>
+        <div className="relative">
+          <textarea
+            placeholder="Paste the full job description here..."
+            value={jobDescription}
+            onChange={(e) => setJobDescription(e.target.value)}
+            rows={10}
+            className="w-full resize-none rounded-(--radius-card) border border-track bg-transparent p-6 text-sm text-base-light placeholder:text-muted focus:border-accent focus:outline-none"
+          />
+          <span className="absolute right-4 bottom-4 text-xs text-muted">{wordCount} words</span>
+        </div>
+      </div>
+
+      {error && <p className="text-sm text-accent">{error}</p>}
       {quotaExceeded && (
-        <p className="text-sm text-[var(--color-accent)]">
+        <p className="text-sm text-accent">
           You&apos;ve used all your analyses for this month. Upgrade to Pro for more.
         </p>
       )}
 
-      <button
-        disabled={!file || !jobTitle || !jobDescription || submitting || quotaExceeded}
-        onClick={handleAnalyze}
-        className="flex items-center justify-center gap-2 rounded-[var(--radius-control)] bg-[var(--color-accent)] py-3 text-sm font-medium text-[var(--color-base)] transition-opacity hover:opacity-90 disabled:opacity-40"
-      >
-        {submitting ? <LoaderRing size={16} /> : quotaExceeded ? "Limit reached" : "Analyze"}
-      </button>
+      <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
+        <div className="flex items-center gap-2 text-muted">
+          <IconLock size={16} stroke={1.5} />
+          <span className="text-sm">Your data is encrypted and private.</span>
+        </div>
+        <button
+          disabled={!canAnalyze || submitting}
+          onClick={handleAnalyze}
+          className="flex w-full items-center justify-center gap-2 rounded-(--radius-control) bg-accent px-12 py-4 text-sm font-bold text-[var(--color-base)] transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-30 md:w-auto"
+        >
+          {submitting ? <LoaderRing size={16} /> : "Analyze Resume"}
+        </button>
+      </div>
     </div>
   );
 }
