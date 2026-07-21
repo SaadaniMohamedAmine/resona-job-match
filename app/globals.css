@@ -91,3 +91,97 @@ button:disabled {
     opacity: 1;
   }
 }
+
+@keyframes orbit-spin {
+  0% {
+    transform: translate(58px, 0);
+  }
+  12.5% {
+    transform: translate(41px, 41px);
+  }
+  25% {
+    transform: translate(0, 58px);
+  }
+  37.5% {
+    transform: translate(-41px, 41px);
+  }
+  50% {
+    transform: translate(-58px, 0);
+  }
+  62.5% {
+    transform: translate(-41px, -41px);
+  }
+  75% {
+    transform: translate(0, -58px);
+  }
+  87.5% {
+    transform: translate(41px, -41px);
+  }
+  100% {
+    transform: translate(58px, 0);
+  }
+}
+
+.animate-orbit-spin {
+  animation: orbit-spin 12s linear infinite;
+}
+
+@keyframes scan-sweep {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(140px);
+  }
+}
+
+.animate-scan-sweep {
+  animation: scan-sweep 6s ease-in-out infinite;
+}
+
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-ring-spin {
+  animation: ring-spin 3s linear infinite;
+}
+
+@keyframes hex-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-hex-draw {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: hex-draw 2.5s ease-out forwards;
+}
+
+@keyframes hex-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+.animate-hex-float {
+  animation: hex-float 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-orbit-spin,
+  .animate-scan-sweep,
+  .animate-ring-spin,
+  .animate-hex-draw,
+  .animate-hex-float {
+    animation: none;
+  }
+}

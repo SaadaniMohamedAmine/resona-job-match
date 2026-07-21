@@ -20,5 +20,17 @@
     "resumes_body": "Upload your first resume to get your match score.",
     "applications": "Nothing tracked yet",
     "applications_body": "Add your first application to start tracking."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "analyze": "Analyze",
+    "history": "History",
+    "tracker": "Applications",
+    "settings": "Settings"
+  },
+  "userMenu": {
+    "settings": "Settings",
+    "billing": "Billing",
+    "signOut": "Sign out"
   }
 }

@@ -1,16 +1,18 @@
 export function Stepper({ steps, currentStep }: { steps: string[]; currentStep: number }) {
   return (
-    <ol className="flex items-center gap-4">
+    <ol className="flex w-full gap-4 md:gap-6">
       {steps.map((step, i) => (
-        <li key={step} className="flex items-center gap-2">
+        <li key={step} className="flex-1">
+          <div
+            className={`mb-3 w-full rounded-full transition-colors ${
+              i === currentStep ? "h-0.75 bg-accent" : i < currentStep ? "h-px bg-accent" : "h-px bg-track"
+            }`}
+          />
           <span
-            className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium ${
-              i <= currentStep ? "bg-[var(--color-accent)] text-[var(--color-base)]" : "border border-[var(--color-track)] text-[var(--color-muted)]"
+            className={`text-xs tracking-widest uppercase ${
+              i === currentStep ? "font-bold text-accent" : "text-muted"
             }`}
           >
-            {i + 1}
-          </span>
-          <span className={i === currentStep ? "text-[var(--color-base-light)]" : "text-[var(--color-muted)]"}>
             {step}
           </span>
         </li>

@@ -1,0 +1,36 @@
+{
+  "landing": {
+    "tagline": "Votre CV, aligné sur chaque opportunité.",
+    "cta_primary": "Analyser votre CV",
+    "cta_secondary": "Découvrir comment ça marche"
+  },
+  "upload": {
+    "dropzone_label": "Déposez votre CV ici ou cliquez pour parcourir",
+    "jd_label": "Collez la description du poste",
+    "cta": "Analyser"
+  },
+  "results": {
+    "matching_skills": "Compétences correspondantes",
+    "missing_skills": "Compétences manquantes",
+    "rewrite_cta": "Réécrire mon CV",
+    "cover_letter_cta": "Générer une lettre de motivation"
+  },
+  "empty": {
+    "resumes": "Rien d'analysé pour l'instant",
+    "resumes_body": "Téléversez votre premier CV pour obtenir votre score de correspondance.",
+    "applications": "Rien de suivi pour l'instant",
+    "applications_body": "Ajoutez votre première candidature pour commencer le suivi."
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "analyze": "Analyser",
+    "history": "Historique",
+    "tracker": "Suivi candidatures",
+    "settings": "Paramètres"
+  },
+  "userMenu": {
+    "settings": "Paramètres",
+    "billing": "Facturation",
+    "signOut": "Déconnexion"
+  }
+}
