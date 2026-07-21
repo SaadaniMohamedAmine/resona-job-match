@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Stepper } from "@/components/ui/stepper";
 import { LoaderRing } from "@/components/ui/loader-ring";
@@ -17,6 +17,7 @@ export default function AnalyzingPage() {
   const params = useSearchParams();
   const [activeStep, setActiveStep] = useState(0);
   const [error, setError] = useState("");
+  const hasRunRef = useRef(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,6 +25,11 @@ export default function AnalyzingPage() {
     }, 1200);
 
     async function run() {
+      // Guards against React Strict Mode's dev-only double-invocation of effects on
+      // mount, which would otherwise fire this real POST (and burn rate-limit quota) twice.
+      if (hasRunRef.current) return;
+      hasRunRef.current = true;
+
       const body = Object.fromEntries(params.entries());
       if (!body.fileUrl || !body.jobTitle || !body.jobDescription) {
         setError("Missing required parameters");

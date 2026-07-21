@@ -1,58 +1,121 @@
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { Prisma } from "@prisma/client";
+import { IconPlus, IconUpload } from "@tabler/icons-react";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import Link from "next/link";
+import { HistoryEmptyState } from "@/components/resumes/history-empty-state";
+import { HistoryStats } from "@/components/resumes/history-stats";
+import { HistoryFilters } from "@/components/resumes/history-filters";
+import { HistoryCard } from "@/components/resumes/history-card";
+import { HistoryPagination } from "@/components/resumes/history-pagination";
 
-export default async function ResumesPage() {
+const PAGE_SIZE = 5;
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+const TIER_RANGES: Record<string, Prisma.IntFilter> = {
+  high: { gte: 90 },
+  good: { gte: 70, lt: 90 },
+  low: { lt: 70 },
+};
+
+export default async function ResumesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; q?: string; tier?: string }>;
+}) {
   const session = await auth();
-  const analyses = await db.analysis.findMany({
-    where: { userId: session!.user!.id },
-    include: { jobPost: true },
-    orderBy: { createdAt: "desc" },
+  if (!session?.user) redirect("/login");
+  const userId = session.user.id;
+
+  const { page: pageParam, q, tier: tierParam } = await searchParams;
+  const page = Math.max(1, Number(pageParam) || 1);
+  const search = q?.trim() ?? "";
+  const tier = tierParam && TIER_RANGES[tierParam] ? tierParam : "";
+
+  const allAnalyses = await db.analysis.findMany({
+    where: { userId },
+    select: { matchScore: true, createdAt: true },
   });
 
-  if (analyses.length === 0) {
-    return (
-      <div className="mx-auto max-w-md px-4 py-24 text-center">
-        <h2 className="font-[family-name:var(--font-display)] text-xl text-[var(--color-base-light)]">
-          Nothing analyzed yet
-        </h2>
-        <p className="mt-2 text-sm text-[var(--color-muted)]">
-          Upload your first resume to get your match score.
-        </p>
-        <Link
-          href="/upload"
-          className="mt-6 inline-block rounded-[var(--radius-control)] bg-[var(--color-accent)] px-6 py-3 text-sm font-medium text-[var(--color-base)] transition-opacity hover:opacity-90"
-        >
-          Upload your first resume
-        </Link>
-      </div>
-    );
+  if (allAnalyses.length === 0) {
+    return <HistoryEmptyState />;
   }
 
+  const where = {
+    userId,
+    ...(search ? { jobPost: { title: { contains: search, mode: "insensitive" as const } } } : {}),
+    ...(tier ? { matchScore: TIER_RANGES[tier] } : {}),
+  };
+
+  const [filteredCount, analyses] = await Promise.all([
+    db.analysis.count({ where }),
+    db.analysis.findMany({
+      where,
+      include: { jobPost: { select: { title: true, company: true } } },
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * PAGE_SIZE,
+      take: PAGE_SIZE,
+    }),
+  ]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredCount / PAGE_SIZE));
+
+  // eslint-disable-next-line react-hooks/purity -- async Server Component, renders once per request
+  const now = Date.now();
+  const ageInDays = (createdAt: Date) => (now - createdAt.getTime()) / DAY_MS;
+  const recent = allAnalyses.filter((a) => ageInDays(a.createdAt) < 10).length;
+  const mid = allAnalyses.filter((a) => ageInDays(a.createdAt) >= 10 && ageInDays(a.createdAt) < 20).length;
+  const old = allAnalyses.filter((a) => ageInDays(a.createdAt) >= 20 && ageInDays(a.createdAt) < 30).length;
+  const totalThisMonth = recent + mid + old;
+  const avgScore = Math.round(
+    allAnalyses.reduce((sum, a) => sum + a.matchScore, 0) / allAnalyses.length,
+  );
+
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16">
-      <h1 className="mb-8 font-[family-name:var(--font-display)] text-2xl text-[var(--color-base-light)]">
-        Resume history
-      </h1>
-      <div className="flex flex-col gap-3">
-        {analyses.map((a) => (
-          <Link
-            key={a.id}
-            href={`/results/${a.id}`}
-            className="flex items-center justify-between rounded-[var(--radius-card)] border border-[var(--color-track)] px-5 py-4 transition-colors hover:border-[var(--color-accent)]"
-          >
-            <div>
-              <p className="text-sm text-[var(--color-base-light)]">{a.jobPost.title}</p>
-              <p className="mt-0.5 text-xs text-[var(--color-muted)]">
-                {a.createdAt.toLocaleDateString()}
-              </p>
-            </div>
-            <span className="font-[family-name:var(--font-display)] text-sm text-[var(--color-accent)]">
-              {a.matchScore}%
-            </span>
-          </Link>
-        ))}
+    <div className="mx-auto max-w-7xl px-5 py-12 md:px-16">
+      <div className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+        <div>
+          <h1 className="mb-2 font-display text-3xl font-bold text-base-light">Analysis History</h1>
+          <p className="max-w-xl text-muted">
+            Review your historical resume performance and track your career growth across different job
+            applications.
+          </p>
+        </div>
+        <Link
+          href="/upload"
+          className="flex items-center gap-2 rounded-(--radius-control) bg-accent px-6 py-3 text-sm font-medium text-[var(--color-base)] transition-opacity hover:opacity-90"
+        >
+          <IconPlus size={18} stroke={1.5} />
+          New analysis
+        </Link>
       </div>
+
+      <HistoryStats totalThisMonth={totalThisMonth} recent={recent} mid={mid} old={old} avgScore={avgScore} />
+
+      <HistoryFilters defaultQuery={search} defaultTier={tier} />
+
+      {analyses.length === 0 ? (
+        <p className="py-16 text-center text-sm text-muted">No analyses match the current filters.</p>
+      ) : (
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {analyses.map((analysis) => (
+            <HistoryCard key={analysis.id} analysis={analysis} />
+          ))}
+          <Link
+            href="/upload"
+            className="flex flex-col items-center justify-center rounded-(--radius-card) border border-dashed border-track p-6 text-center transition-colors hover:border-accent"
+          >
+            <div className="mb-4 flex size-12 items-center justify-center rounded-full border border-track">
+              <IconUpload size={18} stroke={1.5} className="text-accent" />
+            </div>
+            <h3 className="mb-1 font-display text-lg font-medium text-base-light">Upload New Resume</h3>
+            <p className="text-xs text-muted">Start a fresh career analysis</p>
+          </Link>
+        </div>
+      )}
+
+      <HistoryPagination page={page} totalPages={totalPages} search={search} tier={tier} />
     </div>
   );
 }
