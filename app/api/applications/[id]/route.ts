@@ -4,9 +4,14 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { withErrorHandling } from "@/lib/api-handler";
 
-const updateSchema = z.object({
-  status: z.enum(["APPLIED", "INTERVIEW", "OFFER", "REJECTED"]),
-});
+const updateSchema = z
+  .object({
+    status: z.enum(["APPLIED", "INTERVIEW", "OFFER", "REJECTED"]).optional(),
+    interviewAt: z.string().datetime().nullable().optional(),
+  })
+  .refine((data) => data.status !== undefined || data.interviewAt !== undefined, {
+    message: "Provide at least one field to update",
+  });
 
 export const PATCH = withErrorHandling(async (req: Request, context: { params: Promise<{ id: string }> }) => {
   const session = await auth();
@@ -23,7 +28,12 @@ export const PATCH = withErrorHandling(async (req: Request, context: { params: P
 
   const updated = await db.application.update({
     where: { id },
-    data: { status: parsed.data.status },
+    data: {
+      ...(parsed.data.status !== undefined && { status: parsed.data.status }),
+      ...(parsed.data.interviewAt !== undefined && {
+        interviewAt: parsed.data.interviewAt ? new Date(parsed.data.interviewAt) : null,
+      }),
+    },
   });
   return NextResponse.json({ application: updated });
 });
