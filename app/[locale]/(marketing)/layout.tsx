@@ -1,11 +1,21 @@
+import { auth } from "@/lib/auth";
 import { PublicNavbar } from "@/components/layout/public-navbar";
 import { PublicFooter } from "@/components/layout/public-footer";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 
-export default function MarketingLayout({ children }: { children: React.ReactNode }) {
+export default async function MarketingLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const session = await auth();
+
   return (
     <div className="flex min-h-screen flex-col">
-      <PublicNavbar />
+      <PublicNavbar locale={locale} user={session?.user} />
       <main className="flex flex-1 flex-col">{children}</main>
       <PublicFooter />
       <ScrollToTop />

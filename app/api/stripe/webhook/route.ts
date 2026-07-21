@@ -24,6 +24,9 @@ export async function POST(req: Request) {
       const subId: string = session.subscription;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const subscription = (await getStripe().subscriptions.retrieve(subId)) as any;
+      // Stripe moved the billing period fields from the subscription level down to
+      // the subscription item level; `subscription.current_period_end` no longer exists.
+      const currentPeriodEnd = new Date(subscription.items.data[0].current_period_end * 1000);
 
       await db.subscription.upsert({
         where: { userId },
@@ -33,13 +36,13 @@ export async function POST(req: Request) {
           stripeSubscriptionId: subscription.id,
           stripePriceId: subscription.items.data[0].price.id,
           status: subscription.status,
-          currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+          currentPeriodEnd,
         },
         update: {
           stripeSubscriptionId: subscription.id,
           stripePriceId: subscription.items.data[0].price.id,
           status: subscription.status,
-          currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+          currentPeriodEnd,
         },
       });
 

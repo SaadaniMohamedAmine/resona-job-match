@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useParams } from "next/navigation";
-import Link from "next/link";
 import {
   IconHistory,
   IconSparkles,
@@ -10,9 +9,9 @@ import {
   IconDeviceFloppy,
   IconRefresh,
   IconCopy,
-  IconLock,
 } from "@tabler/icons-react";
 import { LoaderRing } from "@/components/ui/loader-ring";
+import { UpgradePrompt } from "@/components/billing/upgrade-prompt";
 
 const SECTIONS = ["summary", "experience", "skills"] as const;
 type Section = (typeof SECTIONS)[number];
@@ -161,16 +160,7 @@ export default function RewritePage() {
               <LoaderRing size={28} />
             </div>
           ) : proRequired ? (
-            <div className="flex flex-col items-center gap-4 py-12 text-center">
-              <IconLock size={24} stroke={1.5} className="text-accent" />
-              <p className="text-sm text-muted">Resume rewriting is a Pro feature.</p>
-              <Link
-                href="/settings/billing"
-                className="rounded-(--radius-control) bg-accent px-6 py-2.5 text-sm font-medium text-[var(--color-base)] transition-opacity hover:opacity-90"
-              >
-                Upgrade to Pro
-              </Link>
-            </div>
+            <UpgradePrompt feature="Resume rewriting" />
           ) : current.rewritten ? (
             <p className="text-sm leading-relaxed whitespace-pre-wrap text-base-light">
               {current.rewritten}
