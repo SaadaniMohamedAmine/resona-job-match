@@ -27,7 +27,7 @@ Be precise and factual. Do not invent skills that are not in the job description
 
 export async function analyzeResume(resumeText: string, jobDescription: string): Promise<AnalysisResult> {
   const completion = await getGroq().chat.completions.create({
-    model: "mixtral-8x7b-32768",
+    model: "llama-3.3-70b-versatile",
     response_format: { type: "json_object" },
     messages: [
       { role: "system", content: SYSTEM_PROMPT },

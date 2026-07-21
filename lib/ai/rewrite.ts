@@ -9,7 +9,7 @@ export async function rewriteSection(
   jobDescription: string
 ): Promise<string> {
   const completion = await getGroq().chat.completions.create({
-    model: "mixtral-8x7b-32768",
+    model: "llama-3.3-70b-versatile",
     response_format: { type: "json_object" },
     messages: [
       {
