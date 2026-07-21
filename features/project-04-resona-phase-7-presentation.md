@@ -1,6 +1,8 @@
 # Résona — Phase 7 : Présentation Portfolio
 
 > Document de délégation. Spec, tasks, contenu complet (README, script vidéo). Dépend des Phases 1-6 (le produit doit être déployé pour que les captures/démo soient réelles, pas des mockups).
+>
+> **Rafraîchi le 2026-07-21** contre le vrai code : la stack IA réelle est Groq (Llama 3.3 70B) pour l'analyse + HuggingFace (`all-MiniLM-L6-v2`) pour les embeddings — pas OpenAI/GPT-4o comme dans la version initiale de ce doc. Le README et le diagramme ci-dessous sont corrigés, et la liste de features intègre les 6 features premium ajoutées depuis (démo publique, command palette, built-with, embeddings visibles, progression du score, mini-onboarding).
 
 ---
 
@@ -41,11 +43,16 @@ Résona is an AI-powered resume and job-match platform: upload your resume, past
 
 ## Features
 
-- **Semantic match scoring** — OpenAI embeddings (`text-embedding-3-small`) + pgvector cosine similarity, not keyword counting
-- **Gap detection** — GPT-4o identifies exactly which skills from the job description are missing
+- **Semantic match scoring** — HuggingFace embeddings (`all-MiniLM-L6-v2`) + pgvector cosine similarity, not keyword counting
+- **Gap detection** — Groq (Llama 3.3 70B) identifies exactly which skills from the job description are missing
 - **AI section rewriting** — before/after comparison, factually grounded in your original content
 - **Cover letter generation** — tailored to the specific role and company
 - **Application tracker** — kanban board (Applied → Interview → Offer → Rejected)
+- **Live demo, no signup** — try a real analysis on sample profiles straight from the landing page
+- **Semantic similarity, visualized** — the pgvector cosine score shown distinctly from the AI's language-based match score
+- **Score progression** — a trend view of your match score across every analysis
+- **Command palette (⌘K)** — instant navigation and actions, anywhere in the app
+- **Built with** — a transparent, honest breakdown of the real stack and why each piece was chosen
 - **Stripe billing** — Free / Pro plans with usage-based quotas
 - **i18n** — English and French
 - **Full test suite** — unit, integration, and e2e coverage with CI
@@ -58,7 +65,8 @@ flowchart LR
   User -->|pastes JD| Frontend[Next.js App Router]
   Frontend --> API[API Routes]
   API --> PdfParse[pdf-parse: text extraction]
-  API --> OpenAI[OpenAI: GPT-4o + embeddings]
+  API --> Groq[Groq: Llama 3.3 70B analysis]
+  API --> HF[HuggingFace: embeddings]
   API --> Postgres[(Neon PostgreSQL + pgvector)]
   API --> Stripe[Stripe: billing]
   API --> Upstash[(Upstash Redis: rate limiting)]
@@ -75,7 +83,7 @@ flowchart LR
 | Database | PostgreSQL (Neon) + pgvector |
 | ORM | Prisma |
 | Auth | NextAuth / Auth.js (email/password + Google + LinkedIn) |
-| AI | OpenAI GPT-4o + text-embedding-3-small |
+| AI | Groq (Llama 3.3 70B) + HuggingFace embeddings (all-MiniLM-L6-v2) |
 | File storage | UploadThing |
 | Payments | Stripe |
 | Rate limiting | Upstash Redis |
@@ -86,7 +94,7 @@ flowchart LR
 
 ## Key decisions
 
-- **Semantic matching over keyword matching** — the differentiator vs. most ATS-optimization tools, at the cost of higher OpenAI API usage per analysis.
+- **Semantic matching over keyword matching** — the differentiator vs. most ATS-optimization tools, computed via a dedicated embeddings model (HuggingFace) kept separate from the generation model (Groq), at the cost of an extra network call per analysis.
 - **No color-coded status system** — matching/missing skills are distinguished by icon + label only, never green/red, to keep the visual language restrained and premium rather than "dashboard-y."
 - **NextAuth over a managed auth provider** — full control over the auth flow, no vendor lock-in, at the cost of more upfront implementation.
 - **Upstash Redis for rate limiting, not in-memory** — required for correctness on Vercel's stateless serverless functions.
@@ -111,6 +119,12 @@ npm run dev
 ![Application tracker](./docs/screenshots/tracker.png)
 
 ---
+
+## Try it live
+
+- **Instant demo, no account** — `/demo` runs a real analysis on a sample profile in seconds.
+- **Command palette** — press `⌘K` / `Ctrl+K` anywhere to jump around instantly.
+- **Built with** — `/built-with` breaks down the real stack, not a marketing version of it.
 
 Built by Mohamed Amine Saadani — [portfolio](#) · [LinkedIn](#)
 ```
