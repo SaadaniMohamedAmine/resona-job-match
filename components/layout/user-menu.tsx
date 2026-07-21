@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { IconChevronDown } from "@tabler/icons-react";
 
 export function UserMenu({
@@ -14,6 +15,7 @@ export function UserMenu({
   email?: string | null;
   image?: string | null;
 }) {
+  const t = useTranslations("userMenu");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -57,14 +59,14 @@ export function UserMenu({
             onClick={() => setOpen(false)}
             className="block px-4 py-2 text-sm text-base-light hover:bg-track"
           >
-            Paramètres
+            {t("settings")}
           </Link>
           <Link
             href="/settings/billing"
             onClick={() => setOpen(false)}
             className="block px-4 py-2 text-sm text-base-light hover:bg-track"
           >
-            Facturation
+            {t("billing")}
           </Link>
           <div className="my-1 h-px bg-track" />
           <button
@@ -72,7 +74,7 @@ export function UserMenu({
             onClick={() => signOut({ callbackUrl: "/" })}
             className="block w-full px-4 py-2 text-left text-sm text-muted hover:bg-track"
           >
-            Déconnexion
+            {t("signOut")}
           </button>
         </div>
       )}

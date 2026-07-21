@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   IconLayoutDashboard,
   IconUpload,
@@ -17,14 +18,6 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { UserMenu } from "@/components/layout/user-menu";
 
-const NAV_ITEMS = [
-  { href: "/dashboard", label: "Dashboard", icon: IconLayoutDashboard },
-  { href: "/upload", label: "Analyser", icon: IconUpload },
-  { href: "/resumes", label: "Historique", icon: IconHistory },
-  { href: "/tracker", label: "Suivi candidatures", icon: IconLayoutKanban },
-  { href: "/settings/account", label: "Paramètres", icon: IconSettings },
-];
-
 export function AppNavbar({
   locale,
   user,
@@ -32,11 +25,21 @@ export function AppNavbar({
   locale: string;
   user: { name?: string | null; email?: string | null; image?: string | null };
 }) {
+  const t = useTranslations("nav");
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const NAV_ITEMS = [
+    { href: "/dashboard", label: t("dashboard"), icon: IconLayoutDashboard },
+    { href: "/upload", label: t("analyze"), icon: IconUpload },
+    { href: "/resumes", label: t("history"), icon: IconHistory },
+    { href: "/tracker", label: t("tracker"), icon: IconLayoutKanban },
+    { href: "/settings/account", label: t("settings"), icon: IconSettings },
+  ];
+
   function isActive(href: string) {
-    return pathname === href || pathname.startsWith(`${href}/`);
+    const localePath = pathname.replace(new RegExp(`^/${locale}(?=/|$)`), "") || "/";
+    return localePath === href || localePath.startsWith(`${href}/`);
   }
 
   return (
@@ -51,7 +54,7 @@ export function AppNavbar({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`border-b-2 pb-[2px] transition-colors ${
+                className={`border-b-2 pb-0.5 transition-colors ${
                   isActive(item.href)
                     ? "border-accent text-accent"
                     : "border-transparent text-muted hover:text-accent"
