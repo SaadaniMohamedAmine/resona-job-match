@@ -1,12 +1,17 @@
+import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { getAnalyzeQuota } from "@/lib/rate-limit";
+import { AnalysisQuotaBadge } from "@/components/ui/analysis-quota-badge";
 
 export default async function BillingSettingsPage() {
   const session = await auth();
-  const user = await db.user.findUnique({
-    where: { id: session!.user!.id },
-    include: { subscription: true },
-  });
+  if (!session?.user) redirect("/login");
+
+  const [user, quota] = await Promise.all([
+    db.user.findUnique({ where: { id: session.user.id }, include: { subscription: true } }),
+    getAnalyzeQuota(session.user.id),
+  ]);
 
   return (
     <div className="mx-auto max-w-md px-4 py-16">
@@ -24,6 +29,10 @@ export default async function BillingSettingsPage() {
             {new Date(user.subscription.currentPeriodEnd).toLocaleDateString()}
           </p>
         )}
+      </div>
+
+      <div className="mt-4">
+        <AnalysisQuotaBadge plan={quota.plan} remaining={quota.remaining} limit={quota.limit} />
       </div>
 
       {user?.plan === "PRO" && (

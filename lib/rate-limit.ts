@@ -22,6 +22,14 @@ export async function checkAnalyzeLimit(userId: string) {
   return limiter.limit(userId);
 }
 
+export async function getAnalyzeQuota(userId: string) {
+  const user = await db.user.findUnique({ where: { id: userId }, select: { plan: true } });
+  const isPro = user?.plan === "PRO";
+  const limiter = isPro ? proLimiter : freeLimiter;
+  const { remaining, limit } = await limiter.getRemaining(userId);
+  return { plan: isPro ? ("PRO" as const) : ("FREE" as const), remaining, limit };
+}
+
 export const globalApiLimiter = new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(30, "1 m"),
