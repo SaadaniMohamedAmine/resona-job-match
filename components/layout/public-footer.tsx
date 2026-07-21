@@ -3,7 +3,7 @@ import { Wordmark } from "@/components/ui/wordmark";
 
 export function PublicFooter() {
   return (
-    <footer className="relative z-10 mt-auto w-full border-t border-track py-12">
+    <footer className="relative z-10 mt-auto w-full border-t border-track py-12 print:hidden">
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-8 px-5 md:flex-row md:px-16">
         <div className="flex flex-col items-center gap-4 md:items-start">
           <Wordmark />
