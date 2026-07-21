@@ -1,39 +1,34 @@
-"use client";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { SettingsSidebar } from "@/components/settings/settings-sidebar";
+import { AccountForm } from "@/components/settings/account-form";
 
-import { useSession, signOut } from "next-auth/react";
-import { Wordmark } from "@/components/ui/wordmark";
+export default async function AccountSettingsPage() {
+  const session = await auth();
+  if (!session?.user) redirect("/login");
 
-export default function AccountSettingsPage() {
-  const { data: session } = useSession();
+  const user = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { name: true, email: true, bio: true, password: true },
+  });
+  if (!user) redirect("/login");
 
   return (
-    <div className="mx-auto max-w-md px-4 py-16">
-      <div className="mb-8 flex justify-center">
-        <Wordmark />
-      </div>
-      <div className="flex flex-col gap-4">
-        <div>
-          <label className="text-xs text-[var(--color-muted)]">Name</label>
-          <input
-            defaultValue={session?.user?.name ?? ""}
-            className="mt-1 w-full rounded-[var(--radius-control)] border border-[var(--color-track)] bg-transparent px-4 py-2.5 text-sm text-[var(--color-base-light)]"
-            placeholder="Your name"
-          />
-        </div>
-        <div>
-          <label className="text-xs text-[var(--color-muted)]">Email</label>
-          <input
-            defaultValue={session?.user?.email ?? ""}
-            disabled
-            className="mt-1 w-full rounded-[var(--radius-control)] border border-[var(--color-track)] bg-transparent px-4 py-2.5 text-sm text-[var(--color-base-light)] opacity-60"
-          />
-        </div>
-        <button
-          onClick={() => signOut({ callbackUrl: "/" })}
-          className="mt-4 self-start rounded-[var(--radius-control)] border border-[var(--color-track)] px-4 py-2 text-sm text-[var(--color-base-light)] transition-opacity hover:opacity-90"
-        >
-          Sign out
-        </button>
+    <div className="mx-auto max-w-7xl px-5 py-12 md:px-16">
+      <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-12">
+        <SettingsSidebar
+          title="Account Settings"
+          description="Configure your identity and security preferences. Your data is handled with precision and privacy."
+          active="account"
+          insight="A precise digital presence starts with accurate data anchoring. Keep your profile information current and your credentials secure."
+        />
+        <AccountForm
+          initialName={user.name ?? ""}
+          email={user.email}
+          initialBio={user.bio ?? ""}
+          hasPassword={!!user.password}
+        />
       </div>
     </div>
   );

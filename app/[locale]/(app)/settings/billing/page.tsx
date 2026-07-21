@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getAnalyzeQuota } from "@/lib/rate-limit";
 import { AnalysisQuotaBadge } from "@/components/ui/analysis-quota-badge";
+import { SettingsSidebar } from "@/components/settings/settings-sidebar";
 
 export default async function BillingSettingsPage() {
   const session = await auth();
@@ -14,34 +15,37 @@ export default async function BillingSettingsPage() {
   ]);
 
   return (
-    <div className="mx-auto max-w-md px-4 py-16">
-      <h1 className="mb-8 font-[family-name:var(--font-display)] text-2xl text-[var(--color-base-light)]">
-        Billing
-      </h1>
-      <div className="rounded-[var(--radius-card)] border border-[var(--color-track)] p-6">
-        <p className="text-xs text-[var(--color-muted)]">Current plan</p>
-        <p className="mt-1 font-[family-name:var(--font-display)] text-xl text-[var(--color-accent)]">
-          {user?.plan}
-        </p>
-        {user?.subscription?.currentPeriodEnd && (
-          <p className="mt-2 text-xs text-[var(--color-muted)]">
-            Renews on{" "}
-            {new Date(user.subscription.currentPeriodEnd).toLocaleDateString()}
-          </p>
-        )}
-      </div>
+    <div className="mx-auto max-w-7xl px-5 py-12 md:px-16">
+      <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-12">
+        <SettingsSidebar
+          title="Billing"
+          description="Manage your plan and monitor your monthly analysis usage."
+          active="billing"
+          insight="Résona Pro removes the monthly ceiling entirely — 200 analyses gives you room to iterate on every application without watching a counter."
+        />
 
-      <div className="mt-4">
-        <AnalysisQuotaBadge plan={quota.plan} remaining={quota.remaining} limit={quota.limit} />
-      </div>
+        <section className="space-y-8 lg:col-span-8">
+          <div className="rounded-(--radius-card) border border-track bg-track/20 p-8">
+            <p className="text-xs tracking-widest text-muted uppercase">Current plan</p>
+            <p className="mt-1 font-display text-2xl font-bold text-accent">{user?.plan}</p>
+            {user?.subscription?.currentPeriodEnd && (
+              <p className="mt-2 text-xs text-muted">
+                Renews on {new Date(user.subscription.currentPeriodEnd).toLocaleDateString()}
+              </p>
+            )}
+          </div>
 
-      {user?.plan === "PRO" && (
-        <form action="/api/stripe/portal" method="POST" className="mt-4">
-          <button className="rounded-[var(--radius-control)] border border-[var(--color-track)] px-4 py-2 text-sm text-[var(--color-base-light)] transition-opacity hover:opacity-90">
-            Manage subscription
-          </button>
-        </form>
-      )}
+          <AnalysisQuotaBadge plan={quota.plan} remaining={quota.remaining} limit={quota.limit} />
+
+          {user?.plan === "PRO" && (
+            <form action="/api/stripe/portal" method="POST">
+              <button className="rounded-(--radius-control) border border-track px-6 py-2.5 text-sm text-base-light transition-colors hover:bg-track">
+                Manage subscription
+              </button>
+            </form>
+          )}
+        </section>
+      </div>
     </div>
   );
 }
