@@ -29,7 +29,8 @@
     "openUserMenu": "Open user menu",
     "toggleMenu": "Toggle menu",
     "changeLanguage": "Change language",
-    "matchScoreAria": "Match score: {score}%"
+    "matchScoreAria": "Match score: {score}%",
+    "footerBuiltWith": "Built With"
   },
   "userMenu": {
     "settings": "Settings",
@@ -464,5 +465,28 @@
     "subscriptionCanceled": "Your subscription has been canceled.",
     "networkError": "Connection issue. Please check your network.",
     "generic": "Something went wrong. Please try again."
+  },
+  "builtWith": {
+    "title": "Built with",
+    "subtitle": "The real stack behind Résona, and why each piece was chosen.",
+    "categoryFrontend": "Frontend",
+    "categoryAi": "Artificial Intelligence",
+    "categoryData": "Data",
+    "categoryPlatform": "Platform",
+    "frontendItem1Detail": "App Router, hybrid rendering, edge-ready deploys.",
+    "frontendItem2Detail": "End-to-end typing, mature ecosystem.",
+    "frontendItem3Detail": "CSS-first token system (@theme), fast iteration.",
+    "aiItem1Detail": "Near-instant inference for scoring, rewriting, cover letters.",
+    "aiItem2Detail": "all-MiniLM-L6-v2 sentence embeddings, decoupled from the generation model.",
+    "dataItem1Detail": "Serverless Postgres with the pgvector extension enabled.",
+    "dataItem2Detail": "Native vector similarity search in the database — no external vector store.",
+    "dataItem3Detail": "Typed migrations, raw SQL for vector-column operations.",
+    "platformItem1Detail": "Google OAuth + credentials, Prisma adapter.",
+    "platformItem2Detail": "Real Checkout, Customer Portal, and webhook-driven plan sync.",
+    "platformItem3Detail": "Sliding-window rate limiting that works in serverless functions.",
+    "platformItem4Detail": "File handling without a self-managed storage backend.",
+    "platformItem5Detail": "EN/FR locale routing and message catalogs.",
+    "platformItem6Detail": "Runtime error monitoring in production.",
+    "platformItem7Detail": "CI/CD native to the Next.js framework."
   }
 }

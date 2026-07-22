@@ -29,7 +29,8 @@
     "openUserMenu": "Ouvrir le menu utilisateur",
     "toggleMenu": "Basculer le menu",
     "changeLanguage": "Changer de langue",
-    "matchScoreAria": "Score de matching : {score} %"
+    "matchScoreAria": "Score de matching : {score} %",
+    "footerBuiltWith": "Stack technique"
   },
   "userMenu": {
     "settings": "Paramètres",
@@ -464,5 +465,28 @@
     "subscriptionCanceled": "Votre abonnement a été annulé.",
     "networkError": "Problème de connexion. Vérifiez votre réseau.",
     "generic": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "builtWith": {
+    "title": "Stack technique",
+    "subtitle": "La vraie stack derrière Résona, et pourquoi chaque choix a été fait.",
+    "categoryFrontend": "Frontend",
+    "categoryAi": "Intelligence artificielle",
+    "categoryData": "Données",
+    "categoryPlatform": "Plateforme",
+    "frontendItem1Detail": "App Router, rendu hybride, déploiements prêts pour l'edge.",
+    "frontendItem2Detail": "Typage de bout en bout, écosystème mature.",
+    "frontendItem3Detail": "Système de tokens CSS natif (@theme), itération rapide.",
+    "aiItem1Detail": "Inférence quasi instantanée pour le scoring, la réécriture et les lettres de motivation.",
+    "aiItem2Detail": "Plongements sémantiques all-MiniLM-L6-v2, découplés du modèle de génération.",
+    "dataItem1Detail": "Postgres serverless avec l'extension pgvector activée.",
+    "dataItem2Detail": "Recherche de similarité vectorielle native en base — aucun store vectoriel externe.",
+    "dataItem3Detail": "Migrations typées, SQL brut pour les opérations sur les colonnes vectorielles.",
+    "platformItem1Detail": "Google OAuth + identifiants, adaptateur Prisma.",
+    "platformItem2Detail": "Vrai Checkout, portail client, et synchronisation des offres via webhooks.",
+    "platformItem3Detail": "Limitation de débit à fenêtre glissante, fonctionne en serverless.",
+    "platformItem4Detail": "Gestion de fichiers sans backend de stockage à maintenir.",
+    "platformItem5Detail": "Routage par locale EN/FR et catalogues de messages.",
+    "platformItem6Detail": "Supervision des erreurs runtime en production.",
+    "platformItem7Detail": "CI/CD natif au framework Next.js."
   }
 }
