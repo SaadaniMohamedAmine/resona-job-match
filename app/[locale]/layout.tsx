@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, IBM_Plex_Sans } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { SiteLoader } from "@/components/layout/site-loader";
 import "../globals.css";
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await props.params;
+  const t = await getTranslations({ locale, namespace: "metadata" });
   return {
-    title: "Résona — Your resume, aligned to every opportunity.",
-    description:
-      "AI-powered resume and job-match analysis. Get your match score, close the gaps, and rewrite your resume for every application.",
+    title: t("title"),
+    description: t("description"),
     openGraph: {
       title: "Résona",
-      description: "Your resume, aligned to every opportunity.",
+      description: t("ogDescription"),
       locale,
       type: "website",
     },

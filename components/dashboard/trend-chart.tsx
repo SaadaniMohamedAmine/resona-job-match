@@ -1,8 +1,11 @@
+import { useTranslations } from "next-intl";
+
 const WIDTH = 1000;
 const HEIGHT = 200;
 const GRID_LINES = [0, 0.33, 0.66, 1];
 
 export function TrendChart({ data }: { data: { label: string; count: number }[] }) {
+  const t = useTranslations("dashboard");
   const max = Math.max(1, ...data.map((d) => d.count));
   const stepX = data.length > 1 ? WIDTH / (data.length - 1) : WIDTH;
 
@@ -53,7 +56,7 @@ export function TrendChart({ data }: { data: { label: string; count: number }[] 
       <div className="mt-4 flex justify-between text-xs text-muted">
         <span>{data[0]?.label}</span>
         <span>{data[Math.floor(data.length / 2)]?.label}</span>
-        <span>Today</span>
+        <span>{t("today")}</span>
       </div>
     </div>
   );

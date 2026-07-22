@@ -1,4 +1,9 @@
 {
+  "metadata": {
+    "title": "Résona — Votre CV, aligné à chaque opportunité.",
+    "description": "Analyse de CV et de matching d'emploi propulsée par l'IA. Obtenez votre score de matching, comblez les lacunes et réécrivez votre CV pour chaque candidature.",
+    "ogDescription": "Votre CV, aligné à chaque opportunité."
+  },
   "nav": {
     "dashboard": "Tableau de bord",
     "analyze": "Analyser",
@@ -17,7 +22,14 @@
     "footerContact": "Contact",
     "loaderTagline": "Minimalisme précis pour l'analyse de carrière",
     "loaderProgress": "Chargement",
-    "calibratingInsights": "Calibrage des analyses"
+    "calibratingInsights": "Calibrage des analyses",
+    "backToTop": "Retour en haut",
+    "switchToLightTheme": "Passer au thème clair",
+    "switchToDarkTheme": "Passer au thème sombre",
+    "openUserMenu": "Ouvrir le menu utilisateur",
+    "toggleMenu": "Basculer le menu",
+    "changeLanguage": "Changer de langue",
+    "matchScoreAria": "Score de matching : {score} %"
   },
   "userMenu": {
     "settings": "Paramètres",
@@ -283,7 +295,8 @@
     "statusApplied": "Candidature envoyée",
     "statusInterview": "Entretien",
     "statusOffer": "Offre",
-    "statusRejected": "Refusée"
+    "statusRejected": "Refusée",
+    "today": "Aujourd'hui"
   },
   "settings": {
     "accountTab": "Compte",

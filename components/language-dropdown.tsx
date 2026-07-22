@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { IconChevronDown } from "@tabler/icons-react";
 import { locales } from "@/i18n/request";
 
@@ -11,6 +12,7 @@ const LANGUAGES: Record<string, { label: string; flag: string }> = {
 };
 
 export function LanguageDropdown({ currentLocale }: { currentLocale: string }) {
+  const t = useTranslations("nav");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -37,7 +39,7 @@ export function LanguageDropdown({ currentLocale }: { currentLocale: string }) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label="Change language"
+        aria-label={t("changeLanguage")}
         aria-expanded={open}
         className="flex items-center gap-2 rounded-(--radius-control) border border-track px-3 py-1.5 text-xs text-muted transition-colors hover:text-accent"
       >

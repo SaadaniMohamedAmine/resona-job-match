@@ -77,7 +77,7 @@ export function AppNavbar({
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
             className="text-muted md:hidden"
-            aria-label="Toggle menu"
+            aria-label={t("toggleMenu")}
           >
             {mobileOpen ? <IconX size={22} stroke={1.5} /> : <IconMenu2 size={22} stroke={1.5} />}
           </button>
