@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 
 const MIN_VISIBLE_MS = 900;
 const FADE_MS = 400;
+const STORAGE_KEY = "resona-site-loader-shown";
 
 export function SiteLoader() {
   const t = useTranslations("nav");
@@ -13,6 +14,14 @@ export function SiteLoader() {
   const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
+    // A locale switch remounts this layout client-side (no full document reload), so skip
+    // the splash animation past the very first time it's shown in this tab.
+    if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setVisible(false);
+      return;
+    }
+
     const tick = setInterval(() => {
       setProgress((p) => (p >= 90 ? p : p + (90 - p) * 0.15));
     }, 100);
@@ -26,6 +35,7 @@ export function SiteLoader() {
     Promise.all([minDelay, pageReady]).then(() => {
       clearInterval(tick);
       setProgress(100);
+      sessionStorage.setItem(STORAGE_KEY, "1");
       setTimeout(() => setVisible(false), 200);
     });
 
