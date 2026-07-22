@@ -297,7 +297,12 @@
     "statusInterview": "Entretien",
     "statusOffer": "Offre",
     "statusRejected": "Refusée",
-    "today": "Aujourd'hui"
+    "today": "Aujourd'hui",
+    "scoreProgressionTitle": "Progression du score",
+    "scoreProgressionSubtitle": "Score de matching de chaque analyse, dans l'ordre",
+    "scoreProgressionLegend": "Score de matching",
+    "scoreThresholdLabel": "{threshold} — seuil cible",
+    "scoreProgressionEmptyHint": "Analysez encore quelques CV pour voir votre progression de score dans le temps."
   },
   "settings": {
     "accountTab": "Compte",

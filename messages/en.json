@@ -297,7 +297,12 @@
     "statusApplied": "Applied",
     "statusInterview": "Interview",
     "statusOffer": "Offer",
-    "statusRejected": "Rejected"
+    "statusRejected": "Rejected",
+    "scoreProgressionTitle": "Score Progression",
+    "scoreProgressionSubtitle": "Match score across every analysis, in order",
+    "scoreProgressionLegend": "Match score",
+    "scoreThresholdLabel": "{threshold} — target threshold",
+    "scoreProgressionEmptyHint": "Analyze a couple more resumes to see your score progression over time."
   },
   "settings": {
     "accountTab": "Account",
