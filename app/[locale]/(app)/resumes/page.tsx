@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Prisma } from "@prisma/client";
+import { getTranslations } from "next-intl/server";
 import { IconPlus, IconUpload } from "@tabler/icons-react";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -27,6 +28,7 @@ export default async function ResumesPage({
   const session = await auth();
   if (!session?.user) redirect("/login");
   const userId = session.user.id;
+  const t = await getTranslations("history");
 
   const { page: pageParam, q, tier: tierParam } = await searchParams;
   const page = Math.max(1, Number(pageParam) || 1);
@@ -76,18 +78,15 @@ export default async function ResumesPage({
     <div className="mx-auto max-w-7xl px-5 py-12 md:px-16">
       <div className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
         <div>
-          <h1 className="mb-2 font-display text-3xl font-bold text-base-light">Analysis History</h1>
-          <p className="max-w-xl text-muted">
-            Review your historical resume performance and track your career growth across different job
-            applications.
-          </p>
+          <h1 className="mb-2 font-display text-3xl font-bold text-base-light">{t("pageTitle")}</h1>
+          <p className="max-w-xl text-muted">{t("pageSubtitle")}</p>
         </div>
         <Link
           href="/upload"
           className="flex items-center gap-2 rounded-(--radius-control) bg-accent px-6 py-3 text-sm font-medium text-[var(--color-base)] transition-opacity hover:opacity-90"
         >
           <IconPlus size={18} stroke={1.5} />
-          New analysis
+          {t("newAnalysisCta")}
         </Link>
       </div>
 
@@ -96,7 +95,7 @@ export default async function ResumesPage({
       <HistoryFilters defaultQuery={search} defaultTier={tier} />
 
       {analyses.length === 0 ? (
-        <p className="py-16 text-center text-sm text-muted">No analyses match the current filters.</p>
+        <p className="py-16 text-center text-sm text-muted">{t("noResults")}</p>
       ) : (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {analyses.map((analysis) => (
@@ -109,8 +108,10 @@ export default async function ResumesPage({
             <div className="mb-4 flex size-12 items-center justify-center rounded-full border border-track">
               <IconUpload size={18} stroke={1.5} className="text-accent" />
             </div>
-            <h3 className="mb-1 font-display text-lg font-medium text-base-light">Upload New Resume</h3>
-            <p className="text-xs text-muted">Start a fresh career analysis</p>
+            <h3 className="mb-1 font-display text-lg font-medium text-base-light">
+              {t("uploadNewTitle")}
+            </h3>
+            <p className="text-xs text-muted">{t("uploadNewSubtitle")}</p>
           </Link>
         </div>
       )}

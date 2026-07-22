@@ -2,37 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { IconCheck } from "@tabler/icons-react";
 
 type Plan = "FREE" | "PRO";
-
-function buildPlans(proPrice: string) {
-  return [
-    {
-      id: "FREE" as const,
-      name: "Free",
-      price: "$0",
-      period: "forever",
-      description: "Try Résona and see your first match score.",
-      features: ["3 analyses per month", "Match score & gap detection", "5 saved analyses"],
-    },
-    {
-      id: "PRO" as const,
-      name: "Pro",
-      price: proPrice,
-      period: "/ month",
-      description: "For an active job search, without limits.",
-      features: [
-        "Unlimited analyses",
-        "AI section rewriting",
-        "Cover letter generation",
-        "Unlimited history",
-        "PDF export",
-      ],
-      highlighted: true,
-    },
-  ];
-}
 
 export function PricingCards({
   currentPlan,
@@ -45,9 +18,35 @@ export function PricingCards({
   proPrice: string;
   locale: string;
 }) {
-  const PLANS = buildPlans(proPrice);
+  const t = useTranslations("pricing");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+
+  const PLANS = [
+    {
+      id: "FREE" as const,
+      name: t("freeName"),
+      price: "$0",
+      period: t("freePeriod"),
+      description: t("freeDescription"),
+      features: [t("freeFeature1"), t("freeFeature2"), t("freeFeature3")],
+    },
+    {
+      id: "PRO" as const,
+      name: t("proName"),
+      price: proPrice,
+      period: t("proPeriod"),
+      description: t("proDescription"),
+      features: [
+        t("proFeature1"),
+        t("proFeature2"),
+        t("proFeature3"),
+        t("proFeature4"),
+        t("proFeature5"),
+      ],
+      highlighted: true,
+    },
+  ];
 
   async function handleUpgrade() {
     if (!isAuthenticated) {
@@ -81,7 +80,7 @@ export function PricingCards({
           >
             {plan.highlighted && (
               <span className="mb-4 inline-block rounded-(--radius-control) bg-accent px-3 py-1 text-xs font-medium tracking-widest text-[var(--color-base)] uppercase">
-                Most popular
+                {t("mostPopular")}
               </span>
             )}
             <h2 className="font-display text-xl font-bold text-base-light">{plan.name}</h2>
@@ -104,7 +103,7 @@ export function PricingCards({
                 <form action="/api/stripe/portal" method="POST" className="mt-8">
                   <input type="hidden" name="locale" value={locale} />
                   <button className="w-full rounded-(--radius-control) border border-track py-3 text-sm text-base-light transition-colors hover:bg-track">
-                    Downgrade
+                    {t("downgrade")}
                   </button>
                 </form>
               ) : (
@@ -112,7 +111,7 @@ export function PricingCards({
                   disabled
                   className="mt-8 w-full cursor-not-allowed rounded-(--radius-control) border border-track py-3 text-sm text-muted opacity-60"
                 >
-                  {isCurrent ? "Current plan" : "Included"}
+                  {isCurrent ? t("currentPlan") : t("included")}
                 </button>
               )
             ) : isCurrent ? (
@@ -120,7 +119,7 @@ export function PricingCards({
                 disabled
                 className="mt-8 w-full cursor-not-allowed rounded-(--radius-control) bg-accent/40 py-3 text-sm font-medium text-[var(--color-base)] opacity-70"
               >
-                Current plan
+                {t("currentPlan")}
               </button>
             ) : (
               <button
@@ -128,7 +127,7 @@ export function PricingCards({
                 disabled={loading}
                 className="mt-8 w-full rounded-(--radius-control) bg-accent py-3 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90 disabled:opacity-40"
               >
-                {loading ? "Redirecting…" : "Upgrade to Pro"}
+                {loading ? t("redirecting") : t("upgradeToPro")}
               </button>
             )}
           </div>

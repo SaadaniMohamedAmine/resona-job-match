@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { ScoreRing } from "@/components/ui/score-ring";
 
 export function HistoryStats({
@@ -13,16 +14,17 @@ export function HistoryStats({
   old: number;
   avgScore: number;
 }) {
+  const t = useTranslations("history");
   const max = Math.max(1, recent, mid, old);
 
   return (
     <div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-12">
       <div className="flex flex-col justify-between rounded-(--radius-card) border border-track p-8 md:col-span-8">
         <div>
-          <h2 className="mb-4 text-xs tracking-widest text-muted uppercase">Total Impact</h2>
+          <h2 className="mb-4 text-xs tracking-widest text-muted uppercase">{t("totalImpact")}</h2>
           <div className="flex items-baseline gap-2">
             <span className="font-display text-6xl font-bold text-accent">{totalThisMonth}</span>
-            <span className="text-muted">Analyses completed this month</span>
+            <span className="text-muted">{t("analysesCompletedThisMonth")}</span>
           </div>
         </div>
         <div className="mt-8 flex gap-1">
@@ -48,7 +50,7 @@ export function HistoryStats({
             {avgScore}
           </span>
         </div>
-        <p className="text-xs tracking-widest text-muted uppercase">Average Score</p>
+        <p className="text-xs tracking-widest text-muted uppercase">{t("averageScore")}</p>
       </div>
     </div>
   );

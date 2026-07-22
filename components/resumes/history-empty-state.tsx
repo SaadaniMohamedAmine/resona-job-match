@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { IconUpload, IconShieldCheck, IconChartDots, IconBrain } from "@tabler/icons-react";
 import { SectionNavLink } from "@/components/layout/section-nav-link";
 
 export function HistoryEmptyState() {
+  const t = useTranslations("history");
+
   return (
     <div className="mx-auto flex w-full max-w-xl flex-col items-center px-5 py-24 text-center">
       {/* Illustration */}
@@ -59,11 +62,12 @@ export function HistoryEmptyState() {
 
       {/* Content */}
       <h1 className="font-display text-2xl font-bold tracking-tight text-base-light">
-        Nothing analyzed yet
+        {t("emptyTitle2")}
       </h1>
       <p className="mx-auto mt-4 max-w-md leading-relaxed text-muted">
-        Upload your first resume to begin the <span className="text-accent">precision alignment
-        process</span>. Our expert-level analysis engine is ready to evaluate your career trajectory.
+        {t.rich("emptyBody2", {
+          highlight: (chunks) => <span className="text-accent">{chunks}</span>,
+        })}
       </p>
 
       {/* CTAs */}
@@ -73,13 +77,13 @@ export function HistoryEmptyState() {
           className="flex items-center gap-3 rounded-(--radius-control) bg-accent px-8 py-4 text-sm font-medium tracking-wide text-[var(--color-base)] transition-all hover:opacity-90 active:scale-95"
         >
           <IconUpload size={20} stroke={1.5} />
-          Upload your first resume
+          {t("emptyCta2")}
         </Link>
         <SectionNavLink
           sectionId="features"
           className="rounded-(--radius-control) border border-track px-8 py-4 text-sm tracking-wide text-muted transition-all hover:bg-track"
         >
-          View Sample Report
+          {t("viewSampleReport")}
         </SectionNavLink>
       </div>
 
@@ -87,17 +91,17 @@ export function HistoryEmptyState() {
       <div className="mt-12 flex items-center gap-6 text-muted/40">
         <div className="flex items-center gap-2">
           <IconShieldCheck size={16} stroke={1.5} />
-          <span className="text-[10px] tracking-[0.2em] uppercase">ATS Optimization</span>
+          <span className="text-[10px] tracking-[0.2em] uppercase">{t("atsOptimization")}</span>
         </div>
         <div className="size-1 rounded-full bg-track" />
         <div className="flex items-center gap-2">
           <IconChartDots size={16} stroke={1.5} />
-          <span className="text-[10px] tracking-[0.2em] uppercase">Gap Analysis</span>
+          <span className="text-[10px] tracking-[0.2em] uppercase">{t("gapAnalysis")}</span>
         </div>
         <div className="size-1 rounded-full bg-track" />
         <div className="flex items-center gap-2">
           <IconBrain size={16} stroke={1.5} />
-          <span className="text-[10px] tracking-[0.2em] uppercase">Expert Alignment</span>
+          <span className="text-[10px] tracking-[0.2em] uppercase">{t("expertAlignment")}</span>
         </div>
       </div>
     </div>

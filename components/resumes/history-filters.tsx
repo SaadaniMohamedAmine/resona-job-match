@@ -2,14 +2,8 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { IconSearch, IconFilter } from "@tabler/icons-react";
-
-const TIERS = [
-  { value: "", label: "All scores" },
-  { value: "high", label: "High match (90+)" },
-  { value: "good", label: "Good match (70-89)" },
-  { value: "low", label: "Needs improvement (<70)" },
-];
 
 export function HistoryFilters({
   defaultQuery,
@@ -18,11 +12,19 @@ export function HistoryFilters({
   defaultQuery: string;
   defaultTier: string;
 }) {
+  const t = useTranslations("history");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(defaultQuery);
   const [, startTransition] = useTransition();
+
+  const TIERS = [
+    { value: "", label: t("tierAll") },
+    { value: "high", label: t("tierHigh") },
+    { value: "good", label: t("tierGood") },
+    { value: "low", label: t("tierLow") },
+  ];
 
   function pushParams(next: Record<string, string>) {
     const params = new URLSearchParams(searchParams.toString());
@@ -52,7 +54,7 @@ export function HistoryFilters({
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search by job title..."
+          placeholder={t("searchPlaceholder")}
           className="w-full rounded-(--radius-control) border border-track bg-transparent py-2.5 pr-4 pl-10 text-sm text-base-light placeholder:text-muted focus:border-accent focus:outline-none"
         />
       </div>

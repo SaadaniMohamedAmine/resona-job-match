@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import {
   IconSend,
   IconChartBar,
@@ -21,39 +22,11 @@ import { TrendChart } from "@/components/dashboard/trend-chart";
 const DAY_MS = 24 * 60 * 60 * 1000;
 const RESPONDED_STATUSES = ["INTERVIEW", "OFFER"];
 
-const STATUS_LABELS: Record<string, string> = {
-  APPLIED: "Applied",
-  INTERVIEW: "Interview",
-  OFFER: "Offer",
-  REJECTED: "Rejected",
-};
-
-const ONBOARDING_STEPS = [
-  {
-    phase: "Step 01",
-    title: "Upload",
-    description: "Drop your resume and paste the job description you're targeting.",
-    icon: IconUpload,
-  },
-  {
-    phase: "Step 02",
-    title: "Analyze",
-    description: "We compare both against real ATS logic to compute your match score.",
-    icon: IconChartBar,
-  },
-  {
-    phase: "Step 03",
-    title: "Results",
-    description: "Get matching/missing skills, a rewrite pass, and a tailored cover letter.",
-    icon: IconClipboardCheck,
-  },
-];
-
-function greeting() {
+function greeting(t: Awaited<ReturnType<typeof getTranslations<"dashboard">>>) {
   const hour = new Date().getHours();
-  if (hour < 12) return "Morning";
-  if (hour < 18) return "Afternoon";
-  return "Evening";
+  if (hour < 12) return t("greetingMorning");
+  if (hour < 18) return t("greetingAfternoon");
+  return t("greetingEvening");
 }
 
 function pctChange(current: number, previous: number) {
@@ -67,11 +40,24 @@ function responseRateOf(apps: { status: string }[]) {
     : 0;
 }
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const session = await auth();
   if (!session?.user) redirect("/login");
   const userId = session.user.id;
   const firstName = session.user.name?.split(" ")[0] ?? "there";
+  const t = await getTranslations("dashboard");
+
+  const STATUS_LABELS: Record<string, string> = {
+    APPLIED: t("statusApplied"),
+    INTERVIEW: t("statusInterview"),
+    OFFER: t("statusOffer"),
+    REJECTED: t("statusRejected"),
+  };
 
   const [analyses, applications] = await Promise.all([
     db.analysis.findMany({
@@ -83,6 +69,17 @@ export default async function DashboardPage() {
   ]);
 
   if (analyses.length === 0) {
+    const ONBOARDING_STEPS = [
+      { phase: t("step1Phase"), title: t("step1Title"), description: t("step1Body"), icon: IconUpload },
+      { phase: t("step2Phase"), title: t("step2Title"), description: t("step2Body"), icon: IconChartBar },
+      {
+        phase: t("step3Phase"),
+        title: t("step3Title"),
+        description: t("step3Body"),
+        icon: IconClipboardCheck,
+      },
+    ];
+
     return (
       <div className="mx-auto w-full max-w-4xl px-5 py-16 md:px-16">
         <div className="flex flex-col items-center py-8 text-center">
@@ -90,24 +87,21 @@ export default async function DashboardPage() {
             <IconSparkles size={28} stroke={1.5} className="text-accent" />
           </div>
           <h1 className="mb-3 font-display text-2xl font-bold text-base-light">
-            {greeting()}, {firstName}
+            {t("greetingHeadline", { greeting: greeting(t), name: firstName })}
           </h1>
-          <p className="mb-8 max-w-md text-muted">
-            You haven&apos;t analyzed a resume yet. Upload one against a job description to get your match
-            score, close the gaps, and generate a tailored cover letter.
-          </p>
+          <p className="mb-8 max-w-md text-muted">{t("emptyBody")}</p>
           <Link
             href="/upload"
             className="flex items-center gap-2 rounded-(--radius-control) bg-accent px-8 py-4 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90"
           >
             <IconUpload size={18} stroke={1.5} />
-            Analyze my first resume
+            {t("emptyCta")}
           </Link>
         </div>
 
         <div className="mt-20 border-t border-track pt-16">
           <h2 className="mb-12 text-center font-display text-xl font-medium text-base-light">
-            How it works
+            {t("howItWorks")}
           </h2>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             {ONBOARDING_STEPS.map((step) => (
@@ -155,7 +149,7 @@ export default async function DashboardPage() {
       (a) => a.appliedAt >= dayStart && a.appliedAt < dayEnd,
     ).length;
     return {
-      label: dayStart.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+      label: new Intl.DateTimeFormat(locale, { month: "short", day: "numeric" }).format(dayStart),
       count,
     };
   });
@@ -185,18 +179,16 @@ export default async function DashboardPage() {
     <div className="mx-auto w-full max-w-7xl px-5 py-12 md:px-16">
       <header className="mb-16">
         <h1 className="mb-2 font-display text-3xl font-bold text-base-light">
-          {greeting()}, {firstName}
+          {t("greetingHeadline", { greeting: greeting(t), name: firstName })}
         </h1>
-        <p className="max-w-xl text-muted">
-          Here is your career performance digest, updated as you analyze and apply.
-        </p>
+        <p className="max-w-xl text-muted">{t("subtitle")}</p>
       </header>
 
       {/* Stat cards */}
       <div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-3">
         <div className="flex h-48 flex-col justify-between rounded-(--radius-card) border border-track p-8 transition-colors hover:border-accent/40">
           <div className="flex items-start justify-between">
-            <span className="text-xs tracking-widest text-muted uppercase">Applications sent</span>
+            <span className="text-xs tracking-widest text-muted uppercase">{t("statApplications")}</span>
             <IconSend size={18} stroke={1.5} className="text-accent" />
           </div>
           <div>
@@ -209,14 +201,16 @@ export default async function DashboardPage() {
               ) : (
                 <IconArrowDown size={12} stroke={1.5} />
               )}
-              {Math.abs(applicationsTrend)}% from last month
+              {t("trendFromLastMonth", { percent: Math.abs(applicationsTrend) })}
             </span>
           </div>
         </div>
 
         <div className="flex h-48 flex-col justify-between rounded-(--radius-card) border border-track p-8 transition-colors hover:border-accent/40">
           <div className="flex items-start justify-between">
-            <span className="text-xs tracking-widest text-muted uppercase">Response rate</span>
+            <span className="text-xs tracking-widest text-muted uppercase">
+              {t("statResponseRate")}
+            </span>
             <IconChartBar size={18} stroke={1.5} className="text-accent" />
           </div>
           <div>
@@ -229,21 +223,21 @@ export default async function DashboardPage() {
               ) : (
                 <IconArrowDown size={12} stroke={1.5} />
               )}
-              {Math.abs(responseRateTrend)}pts from last month
+              {t("ptsFromLastMonth", { points: Math.abs(responseRateTrend) })}
             </span>
           </div>
         </div>
 
         <div className="flex h-48 flex-col justify-between rounded-(--radius-card) border border-track p-8 transition-colors hover:border-accent/40">
           <div className="flex items-start justify-between">
-            <span className="text-xs tracking-widest text-muted uppercase">Average match score</span>
+            <span className="text-xs tracking-widest text-muted uppercase">{t("statAvgScore")}</span>
             <ScoreRing score={avgMatchScore} size={32} showLabel={false} />
           </div>
           <div>
             <span className="block font-display text-4xl font-bold text-base-light">
               {avgMatchScore}
             </span>
-            <span className="text-xs text-muted">Optimal range target</span>
+            <span className="text-xs text-muted">{t("optimalRangeTarget")}</span>
           </div>
         </div>
       </div>
@@ -254,13 +248,13 @@ export default async function DashboardPage() {
           <div className="mb-12 flex items-end justify-between">
             <div>
               <h2 className="mb-1 font-display text-xl font-medium text-base-light">
-                Application Trends
+                {t("applicationTrendsTitle")}
               </h2>
-              <p className="text-sm text-muted">Activity volume over the last 30 days</p>
+              <p className="text-sm text-muted">{t("activityVolumeSubtitle")}</p>
             </div>
             <div className="flex items-center gap-2 text-xs text-muted">
               <span className="size-3 rounded-full bg-accent" />
-              Active submissions
+              {t("activeSubmissions")}
             </div>
           </div>
           <TrendChart data={chartData} />
@@ -270,12 +264,12 @@ export default async function DashboardPage() {
       {/* Recent activity */}
       <section>
         <div className="mb-8 flex items-center justify-between">
-          <h2 className="font-display text-xl font-medium text-base-light">Recent Activity</h2>
+          <h2 className="font-display text-xl font-medium text-base-light">{t("recentActivity")}</h2>
           <Link
             href="/resumes"
             className="flex items-center gap-1 text-sm text-accent transition-opacity hover:opacity-80"
           >
-            View Full History
+            {t("viewFullHistory")}
             <IconArrowRight size={14} stroke={1.5} />
           </Link>
         </div>
@@ -295,8 +289,11 @@ export default async function DashboardPage() {
                   <h4 className="font-medium text-base-light">{item.title}</h4>
                   <p className="text-sm text-muted">
                     {item.type === "analysis"
-                      ? `Analysis complete • ${formatRelativeTime(item.timestamp)}`
-                      : `Moved to ${STATUS_LABELS[item.status]} • ${formatRelativeTime(item.timestamp)}`}
+                      ? t("analysisCompletePrefix", { time: formatRelativeTime(item.timestamp, locale) })
+                      : t("movedToPrefix", {
+                          status: STATUS_LABELS[item.status],
+                          time: formatRelativeTime(item.timestamp, locale),
+                        })}
                   </p>
                 </div>
               </div>
@@ -305,14 +302,14 @@ export default async function DashboardPage() {
                 <div className="flex items-center gap-6">
                   <div className="text-right">
                     <span className="mb-1 block text-xs tracking-widest text-muted uppercase">
-                      Match score
+                      {t("matchScoreLabel")}
                     </span>
                     <span className="font-display text-lg font-medium text-accent">
                       {item.matchScore}%
                     </span>
                   </div>
                   <SkillTag
-                    label={item.matchScore >= 70 ? "Matches requirements" : "Needs improvement"}
+                    label={item.matchScore >= 70 ? t("matchesRequirements") : t("needsImprovement")}
                     variant={item.matchScore >= 70 ? "match" : "gap"}
                   />
                 </div>

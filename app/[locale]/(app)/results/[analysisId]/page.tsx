@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { IconCircleCheck, IconAlertCircle, IconEdit, IconSparkles, IconFileText } from "@tabler/icons-react";
 import { ScoreRing } from "@/components/ui/score-ring";
 import { SkillTag } from "@/components/ui/skill-tag";
@@ -11,48 +12,72 @@ import Link from "next/link";
 
 type Suggestion = { section: string; issue: string; recommendation: string };
 
-function scoreCopy(score: number, jobTitle: string, missingCount: number) {
+function scoreCopy(
+  score: number,
+  jobTitle: string,
+  missingCount: number,
+  t: Awaited<ReturnType<typeof getTranslations<"results">>>
+) {
   if (score >= 85) {
     return {
-      headline: "Optimized Precision",
-      description: `Your resume shows a strong technical alignment with the ${jobTitle} role.${
-        missingCount > 0
-          ? ` Strengthening ${missingCount === 1 ? "the missing skill" : "specific missing skills"} could push you into the top percentile.`
-          : ""
-      }`,
+      headline: t("highHeadline"),
+      description:
+        t("highDescription", { jobTitle }) +
+        (missingCount > 0
+          ? missingCount === 1
+            ? t("highDescriptionSkillSingular")
+            : t("highDescriptionSkillPlural")
+          : ""),
     };
   }
   if (score >= 65) {
     return {
-      headline: "Strong Alignment",
-      description: `Your resume aligns well with the ${jobTitle} role. Closing the ${missingCount} gap${missingCount === 1 ? "" : "s"} identified below would meaningfully strengthen your application.`,
+      headline: t("strongHeadline"),
+      description:
+        missingCount === 1
+          ? t("strongDescriptionSingular", { jobTitle })
+          : t("strongDescriptionPlural", { jobTitle, count: missingCount }),
     };
   }
   return {
-    headline: "Room to Sharpen",
-    description: `Your resume covers some ground for the ${jobTitle} role, but ${missingCount} key area${missingCount === 1 ? "" : "s"} could use attention before you apply.`,
+    headline: t("roomHeadline"),
+    description:
+      missingCount === 1
+        ? t("roomDescriptionSingular", { jobTitle, count: missingCount })
+        : t("roomDescriptionPlural", { jobTitle, count: missingCount }),
   };
 }
 
-export default async function ResultsPage({ params }: { params: Promise<{ analysisId: string }> }) {
+export default async function ResultsPage({
+  params,
+}: {
+  params: Promise<{ analysisId: string; locale: string }>;
+}) {
   const session = await auth();
-  const { analysisId } = await params;
+  const { analysisId, locale } = await params;
   const analysis = await db.analysis.findUnique({
     where: { id: analysisId },
     include: { resume: { select: { fileName: true } }, jobPost: { select: { title: true, company: true } } },
   });
   if (!analysis || analysis.userId !== session?.user?.id) notFound();
 
+  const t = await getTranslations("results");
+  const tUpload = await getTranslations("upload");
+
   const suggestions = analysis.suggestions as unknown as Suggestion[];
   const { headline, description } = scoreCopy(
     analysis.matchScore,
     analysis.jobPost.title,
-    analysis.missingSkills.length
+    analysis.missingSkills.length,
+    t
   );
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-12 md:px-16">
-      <Stepper steps={["Upload", "Analyze", "Results"]} currentStep={2} />
+      <Stepper
+        steps={[tUpload("stepUpload"), tUpload("stepAnalyze"), tUpload("stepResults")]}
+        currentStep={2}
+      />
 
       <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-12">
         <div className="flex flex-col gap-8 lg:col-span-8">
@@ -66,28 +91,32 @@ export default async function ResultsPage({ params }: { params: Promise<{ analys
             <div className="rounded-(--radius-card) border border-track bg-track/20 p-6">
               <div className="mb-6 flex items-center gap-2">
                 <IconCircleCheck size={20} stroke={1.5} className="text-accent" />
-                <h3 className="font-display text-lg font-medium text-base-light">Matching skills</h3>
+                <h3 className="font-display text-lg font-medium text-base-light">
+                  {t("matchingSkills")}
+                </h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {analysis.matchingSkills.map((skill) => (
                   <SkillTag key={skill} label={skill} variant="match" />
                 ))}
                 {analysis.matchingSkills.length === 0 && (
-                  <p className="text-sm text-muted">None identified</p>
+                  <p className="text-sm text-muted">{t("noneIdentified")}</p>
                 )}
               </div>
             </div>
             <div className="rounded-(--radius-card) border border-track bg-track/20 p-6">
               <div className="mb-6 flex items-center gap-2">
                 <IconAlertCircle size={20} stroke={1.5} className="text-accent" />
-                <h3 className="font-display text-lg font-medium text-base-light">Missing skills</h3>
+                <h3 className="font-display text-lg font-medium text-base-light">
+                  {t("missingSkills")}
+                </h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {analysis.missingSkills.map((skill) => (
                   <SkillTag key={skill} label={skill} variant="gap" />
                 ))}
                 {analysis.missingSkills.length === 0 && (
-                  <p className="text-sm text-muted">None identified</p>
+                  <p className="text-sm text-muted">{t("noneIdentified")}</p>
                 )}
               </div>
             </div>
@@ -96,13 +125,13 @@ export default async function ResultsPage({ params }: { params: Promise<{ analys
 
         <aside className="lg:col-span-4">
           <div className="sticky top-24 rounded-(--radius-card) border border-track bg-track/20 p-8">
-            <h2 className="font-display text-lg font-medium text-base-light">Recommendations</h2>
+            <h2 className="font-display text-lg font-medium text-base-light">
+              {t("recommendations")}
+            </h2>
 
             <div className="mt-6 flex flex-col gap-5">
               {suggestions.length === 0 && (
-                <p className="text-sm leading-relaxed text-muted">
-                  No specific recommendations were flagged — your resume is well matched to this role.
-                </p>
+                <p className="text-sm leading-relaxed text-muted">{t("noRecommendations")}</p>
               )}
               {suggestions.map((s, i) => (
                 <div key={i} className="border-b border-track pb-5 last:border-0 last:pb-0">
@@ -121,14 +150,14 @@ export default async function ResultsPage({ params }: { params: Promise<{ analys
                 className="flex items-center justify-center gap-2 rounded-(--radius-control) bg-accent py-4 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90"
               >
                 <IconEdit size={18} stroke={1.5} />
-                Rewrite my resume
+                {t("rewriteCta")}
               </Link>
               <Link
                 href={`/results/${analysis.id}/cover-letter`}
                 className="flex items-center justify-center gap-2 rounded-(--radius-control) border border-accent py-4 text-sm font-bold text-accent transition-colors hover:bg-accent/5"
               >
                 <IconSparkles size={18} stroke={1.5} />
-                Generate cover letter
+                {t("coverLetterCta")}
               </Link>
             </div>
 
@@ -141,7 +170,9 @@ export default async function ResultsPage({ params }: { params: Promise<{ analys
                   <p className="truncate text-sm font-medium text-base-light">
                     {analysis.resume.fileName}
                   </p>
-                  <p className="text-xs text-muted">Analyzed {formatRelativeTime(analysis.createdAt)}</p>
+                  <p className="text-xs text-muted">
+                    {t("analyzedPrefix", { time: formatRelativeTime(analysis.createdAt, locale) })}
+                  </p>
                 </div>
               </div>
               <DownloadReportButton

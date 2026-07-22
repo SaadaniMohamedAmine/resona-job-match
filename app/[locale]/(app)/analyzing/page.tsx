@@ -2,23 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { IconCheck, IconLoader2, IconHourglassEmpty } from "@tabler/icons-react";
 import { Stepper } from "@/components/ui/stepper";
 import { AnalyzingRing } from "@/components/ui/analyzing-ring";
 
-const STEPS = [
-  "Extracting your resume",
-  "Comparing with the job description",
-  "Calculating your match score",
-  "Preparing suggestions",
-];
-
 export default function AnalyzingPage() {
+  const t = useTranslations("analyzing");
+  const tUpload = useTranslations("upload");
+  const tNotify = useTranslations("notifications");
   const router = useRouter();
   const params = useSearchParams();
   const [activeStep, setActiveStep] = useState(0);
   const [error, setError] = useState("");
   const hasRunRef = useRef(false);
+
+  const STEPS = [t("stepExtract"), t("stepCompare"), t("stepScore"), t("stepSuggestions")];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,7 +32,7 @@ export default function AnalyzingPage() {
 
       const body = Object.fromEntries(params.entries());
       if (!body.fileUrl || !body.jobTitle || !body.jobDescription) {
-        setError("Missing required parameters");
+        setError(t("missingParams"));
         clearInterval(interval);
         return;
       }
@@ -46,14 +45,14 @@ export default function AnalyzingPage() {
         });
         if (!res.ok) {
           const data = await res.json();
-          throw new Error(data.error || "Analysis failed");
+          throw new Error(data.error || tNotify("analysisFailed"));
         }
         const data = await res.json();
         clearInterval(interval);
         router.replace(`/results/${data.analysisId}`);
       } catch (err) {
         clearInterval(interval);
-        setError(err instanceof Error ? err.message : "Something went wrong");
+        setError(err instanceof Error ? err.message : tNotify("generic"));
       }
     }
     run();
@@ -64,10 +63,12 @@ export default function AnalyzingPage() {
 
   const percent = Math.round(((activeStep + 1) / STEPS.length) * 100);
 
+  const stepperLabels = [tUpload("stepUpload"), tUpload("stepAnalyze"), tUpload("stepResults")];
+
   if (error) {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center px-4 py-24 text-center">
-        <Stepper steps={["Upload", "Analyze", "Results"]} currentStep={1} />
+        <Stepper steps={stepperLabels} currentStep={1} />
         <div className="mt-16">
           <p className="text-sm text-accent">{error}</p>
         </div>
@@ -75,7 +76,7 @@ export default function AnalyzingPage() {
           onClick={() => router.push("/upload")}
           className="mt-6 rounded-(--radius-control) border border-track px-6 py-3 text-sm text-base-light transition-colors hover:bg-track"
         >
-          Try again
+          {t("tryAgain")}
         </button>
       </div>
     );
@@ -83,19 +84,15 @@ export default function AnalyzingPage() {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col items-center px-4 py-16 text-center">
-      <Stepper steps={["Upload", "Analyze", "Results"]} currentStep={1} />
+      <Stepper steps={stepperLabels} currentStep={1} />
 
       <div className="mt-16">
         <AnalyzingRing percent={percent} />
       </div>
 
       <div className="mt-10 mb-10">
-        <h1 className="font-display text-2xl font-bold text-base-light md:text-3xl">
-          Analyzing Profile
-        </h1>
-        <p className="mt-2 max-w-md text-sm text-muted">
-          Cross-referencing historical performance data with current industry benchmarks.
-        </p>
+        <h1 className="font-display text-2xl font-bold text-base-light md:text-3xl">{t("title")}</h1>
+        <p className="mt-2 max-w-md text-sm text-muted">{t("subtitle")}</p>
       </div>
 
       <ul className="flex w-full max-w-sm flex-col gap-4">

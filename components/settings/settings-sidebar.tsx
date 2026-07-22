@@ -1,10 +1,5 @@
 import Link from "next/link";
-
-const TABS = [
-  { href: "/settings/account", label: "Account" },
-  { href: "/settings/notifications", label: "Notifications" },
-  { href: "/settings/billing", label: "Billing" },
-];
+import { useTranslations } from "next-intl";
 
 export function SettingsSidebar({
   title,
@@ -17,6 +12,14 @@ export function SettingsSidebar({
   active: "account" | "notifications" | "billing";
   insight: string;
 }) {
+  const t = useTranslations("settings");
+
+  const TABS = [
+    { href: "/settings/account", label: t("accountTab") },
+    { href: "/settings/notifications", label: t("notificationsTab") },
+    { href: "/settings/billing", label: t("billingTab") },
+  ];
+
   return (
     <aside className="space-y-8 lg:col-span-4">
       <div>
@@ -42,7 +45,9 @@ export function SettingsSidebar({
       </nav>
 
       <div className="rounded-(--radius-card) border border-track bg-track/20 p-6">
-        <span className="mb-2 block text-xs tracking-widest text-accent uppercase">Expert Insight</span>
+        <span className="mb-2 block text-xs tracking-widest text-accent uppercase">
+          {t("expertInsight")}
+        </span>
         <p className="text-sm text-muted italic">&quot;{insight}&quot;</p>
       </div>
     </aside>

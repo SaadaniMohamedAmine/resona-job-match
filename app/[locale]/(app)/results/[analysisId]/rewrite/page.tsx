@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   IconHistory,
   IconSparkles,
@@ -12,22 +13,25 @@ import {
 } from "@tabler/icons-react";
 import { LoaderRing } from "@/components/ui/loader-ring";
 import { UpgradePrompt } from "@/components/billing/upgrade-prompt";
+import { notify } from "@/lib/toast";
 
 const SECTIONS = ["summary", "experience", "skills"] as const;
 type Section = (typeof SECTIONS)[number];
-
-const SECTION_LABELS: Record<Section, string> = {
-  summary: "Summary",
-  experience: "Experience",
-  skills: "Skills",
-};
 
 type SectionState = { original: string; rewritten: string };
 
 const EMPTY_STATE: SectionState = { original: "", rewritten: "" };
 
 export default function RewritePage() {
+  const t = useTranslations("rewrite");
+  const tNotify = useTranslations("notifications");
   const { analysisId } = useParams<{ analysisId: string }>();
+
+  const SECTION_LABELS: Record<Section, string> = {
+    summary: t("sectionSummary"),
+    experience: t("sectionExperience"),
+    skills: t("sectionSkills"),
+  };
   const [activeSection, setActiveSection] = useState<Section>("summary");
   const [sections, setSections] = useState<Record<Section, SectionState>>({
     summary: { ...EMPTY_STATE },
@@ -42,7 +46,6 @@ export default function RewritePage() {
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [proRequired, setProRequired] = useState(false);
-  const [error, setError] = useState("");
 
   const current = sections[activeSection];
 
@@ -53,7 +56,6 @@ export default function RewritePage() {
 
   function switchTab(section: Section) {
     setActiveSection(section);
-    setError("");
     setProRequired(false);
     setCopied(false);
   }
@@ -61,7 +63,6 @@ export default function RewritePage() {
   async function handleGenerate() {
     if (!current.original.trim()) return;
     setLoading(true);
-    setError("");
     setProRequired(false);
     try {
       const res = await fetch("/api/rewrite", {
@@ -73,16 +74,17 @@ export default function RewritePage() {
       if (res.status === 403) {
         setProRequired(true);
       } else if (!res.ok) {
-        throw new Error(data.error || "Rewrite failed");
+        notify.error(data.error || tNotify("rewriteFailed"));
       } else {
         setSections((prev) => ({
           ...prev,
           [activeSection]: { ...prev[activeSection], rewritten: data.rewritten },
         }));
         setApplied((prev) => ({ ...prev, [activeSection]: false }));
+        notify.success(tNotify("rewriteGenerated"));
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
+    } catch {
+      notify.error(tNotify("generic"));
     }
     setLoading(false);
   }
@@ -93,6 +95,7 @@ export default function RewritePage() {
       [activeSection]: { original: prev[activeSection].rewritten, rewritten: prev[activeSection].rewritten },
     }));
     setApplied((prev) => ({ ...prev, [activeSection]: true }));
+    notify.success(tNotify("rewriteApplied"));
   }
 
   async function handleCopy() {
@@ -105,12 +108,9 @@ export default function RewritePage() {
     <div className="mx-auto max-w-6xl px-5 py-12 md:px-16">
       <div className="mb-12">
         <h1 className="font-display text-3xl font-bold text-base-light md:text-4xl">
-          Rewrite Analysis
+          {t("pageTitle")}
         </h1>
-        <p className="mt-3 max-w-2xl text-muted">
-          Paste a section of your resume and let Résona rewrite it to better align with the job
-          description you analyzed against.
-        </p>
+        <p className="mt-3 max-w-2xl text-muted">{t("pageSubtitle")}</p>
       </div>
 
       <nav className="mb-8 flex gap-1 border-b border-track">
@@ -134,7 +134,7 @@ export default function RewritePage() {
         <div className="border-b border-track p-8 md:p-10 lg:border-r lg:border-b-0">
           <div className="mb-6 flex items-center justify-between">
             <span className="rounded-(--radius-control) bg-track px-3 py-1 text-xs tracking-widest text-muted uppercase">
-              Source: Original
+              {t("sourceOriginal")}
             </span>
             <IconHistory size={18} stroke={1.5} className="text-muted" />
           </div>
@@ -142,7 +142,7 @@ export default function RewritePage() {
             value={current.original}
             onChange={(e) => setOriginal(e.target.value)}
             rows={14}
-            placeholder={`Paste the ${SECTION_LABELS[activeSection].toLowerCase()} section of your resume here...`}
+            placeholder={t("placeholderPrefix", { section: SECTION_LABELS[activeSection].toLowerCase() })}
             className="w-full resize-none bg-transparent text-sm leading-relaxed text-base-light placeholder:text-muted focus:outline-none"
           />
         </div>
@@ -150,7 +150,7 @@ export default function RewritePage() {
         <div className="p-8 md:p-10">
           <div className="mb-6 flex items-center justify-between">
             <span className="rounded-(--radius-control) border border-accent/20 bg-accent/10 px-3 py-1 text-xs tracking-widest text-accent uppercase">
-              Analysis: Optimized
+              {t("analysisOptimized")}
             </span>
             <IconSparkles size={18} stroke={1.5} className="text-accent" />
           </div>
@@ -160,25 +160,19 @@ export default function RewritePage() {
               <LoaderRing size={28} />
             </div>
           ) : proRequired ? (
-            <UpgradePrompt feature="Resume rewriting" />
+            <UpgradePrompt feature={t("featureName")} />
           ) : current.rewritten ? (
             <p className="text-sm leading-relaxed whitespace-pre-wrap text-base-light">
               {current.rewritten}
             </p>
           ) : (
-            <p className="text-sm text-muted">
-              Your AI-optimized rewrite will appear here once generated.
-            </p>
+            <p className="text-sm text-muted">{t("placeholderResult")}</p>
           )}
-
-          {error && <p className="mt-4 text-sm text-accent">{error}</p>}
 
           {applied[activeSection] && (
             <div className="mt-8 flex items-center gap-3 rounded-(--radius-control) border border-accent/20 bg-accent/5 p-4">
               <IconCheck size={18} stroke={1.5} className="text-accent" />
-              <p className="text-xs text-muted">
-                Applied — this version is now your working draft for this section.
-              </p>
+              <p className="text-xs text-muted">{t("appliedNotice")}</p>
             </div>
           )}
         </div>
@@ -193,7 +187,7 @@ export default function RewritePage() {
               className="flex w-full items-center justify-center gap-3 rounded-(--radius-control) bg-accent px-12 py-4 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90 md:w-auto"
             >
               <IconDeviceFloppy size={18} stroke={1.5} />
-              Apply this rewrite
+              {t("applyCta")}
             </button>
             <button
               type="button"
@@ -201,7 +195,7 @@ export default function RewritePage() {
               className="flex w-full items-center justify-center gap-3 rounded-(--radius-control) border border-track px-12 py-4 text-sm text-base-light transition-colors hover:bg-track md:w-auto"
             >
               <IconRefresh size={18} stroke={1.5} />
-              Regenerate alternative
+              {t("regenerateCta")}
             </button>
             <button
               type="button"
@@ -209,7 +203,7 @@ export default function RewritePage() {
               className="flex w-full items-center justify-center gap-3 rounded-(--radius-control) border border-track px-12 py-4 text-sm text-base-light transition-colors hover:bg-track md:w-auto"
             >
               <IconCopy size={18} stroke={1.5} />
-              {copied ? "Copied!" : "Copy"}
+              {copied ? t("copiedCta") : t("copyCta")}
             </button>
           </>
         ) : (
@@ -220,7 +214,7 @@ export default function RewritePage() {
             className="flex w-full items-center justify-center gap-3 rounded-(--radius-control) bg-accent px-12 py-4 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-30 md:w-auto"
           >
             <IconSparkles size={18} stroke={1.5} />
-            {loading ? "Generating..." : "Generate rewrite"}
+            {loading ? t("generatingCta") : t("generateCta")}
           </button>
         )}
       </div>

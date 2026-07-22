@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 export function ScoreRing({
   score,
   size = 120,
@@ -7,12 +9,13 @@ export function ScoreRing({
   size?: number;
   showLabel?: boolean;
 }) {
+  const t = useTranslations("nav");
   const radius = 40;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (score / 100) * circumference;
 
   return (
-    <svg width={size} height={size} viewBox="0 0 100 100" role="img" aria-label={`Match score: ${score}%`}>
+    <svg width={size} height={size} viewBox="0 0 100 100" role="img" aria-label={t("matchScoreAria", { score })}>
       <circle cx="50" cy="50" r={radius} fill="none" stroke="var(--color-track)" strokeWidth="10" />
       <circle
         cx="50"

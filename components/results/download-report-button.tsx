@@ -1,6 +1,8 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { IconDownload } from "@tabler/icons-react";
+import { notify } from "@/lib/toast";
 
 type Suggestion = { section: string; issue: string; recommendation: string };
 
@@ -21,27 +23,31 @@ export function DownloadReportButton({
   missingSkills: string[];
   suggestions: Suggestion[];
 }) {
+  const t = useTranslations("results");
+  const tNotify = useTranslations("notifications");
+
   function handleDownload() {
+    const noneIdentified = `  ${t("noneIdentified")}`;
     const lines = [
-      `Résona Analysis Report`,
-      `Resume: ${fileName}`,
-      `Target role: ${jobTitle}${company ? ` — ${company}` : ""}`,
+      t("reportTitle"),
+      t("reportResume", { fileName }),
+      t("reportTargetRole", { jobTitle: company ? `${jobTitle} — ${company}` : jobTitle }),
       ``,
-      `Match score: ${matchScore}%`,
+      t("reportMatchScore", { score: matchScore }),
       ``,
-      `Matching skills:`,
-      ...(matchingSkills.length ? matchingSkills.map((s) => `  - ${s}`) : ["  None identified"]),
+      t("reportMatchingSkills"),
+      ...(matchingSkills.length ? matchingSkills.map((s) => `  - ${s}`) : [noneIdentified]),
       ``,
-      `Missing skills:`,
-      ...(missingSkills.length ? missingSkills.map((s) => `  - ${s}`) : ["  None identified"]),
+      t("reportMissingSkills"),
+      ...(missingSkills.length ? missingSkills.map((s) => `  - ${s}`) : [noneIdentified]),
       ``,
-      `Recommendations:`,
+      t("reportRecommendations"),
       ...(suggestions.length
         ? suggestions.flatMap((s) => [
             `  [${s.section}] ${s.issue}`,
             `    → ${s.recommendation}`,
           ])
-        : ["  None"]),
+        : [`  ${t("reportNone")}`]),
     ];
 
     const blob = new Blob([lines.join("\n")], { type: "text/plain" });
@@ -51,6 +57,7 @@ export function DownloadReportButton({
     a.download = `resona-report-${fileName.replace(/\.pdf$/i, "")}.txt`;
     a.click();
     URL.revokeObjectURL(url);
+    notify.success(tNotify("resumeDownloaded"));
   }
 
   return (
@@ -59,7 +66,7 @@ export function DownloadReportButton({
       onClick={handleDownload}
       className="inline-flex items-center gap-1 text-left text-xs font-medium text-accent hover:underline"
     >
-      Download full report
+      {t("downloadReport")}
       <IconDownload size={14} stroke={1.5} />
     </button>
   );

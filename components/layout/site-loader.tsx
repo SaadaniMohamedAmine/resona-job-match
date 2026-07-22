@@ -1,16 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const MIN_VISIBLE_MS = 900;
 const FADE_MS = 400;
+const STORAGE_KEY = "resona-site-loader-shown";
 
 export function SiteLoader() {
+  const t = useTranslations("nav");
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(true);
   const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
+    // A locale switch remounts this layout client-side (no full document reload), so skip
+    // the splash animation past the very first time it's shown in this tab.
+    if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setVisible(false);
+      return;
+    }
+
     const tick = setInterval(() => {
       setProgress((p) => (p >= 90 ? p : p + (90 - p) * 0.15));
     }, 100);
@@ -24,6 +35,7 @@ export function SiteLoader() {
     Promise.all([minDelay, pageReady]).then(() => {
       clearInterval(tick);
       setProgress(100);
+      sessionStorage.setItem(STORAGE_KEY, "1");
       setTimeout(() => setVisible(false), 200);
     });
 
@@ -55,7 +67,7 @@ export function SiteLoader() {
       <div className="flex flex-col items-center gap-1">
         <span className="font-display text-xl font-bold text-base-light">Résona</span>
         <span className="text-xs tracking-[0.2em] text-muted uppercase">
-          Precise Minimalism in Career Analytics
+          {t("loaderTagline")}
         </span>
       </div>
 
@@ -67,7 +79,7 @@ export function SiteLoader() {
           />
         </div>
         <div className="mt-2 flex justify-between text-[10px] tracking-widest text-muted uppercase">
-          <span>Loading</span>
+          <span>{t("loaderProgress")}</span>
           <span>{Math.round(progress)}%</span>
         </div>
       </div>

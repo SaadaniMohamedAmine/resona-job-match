@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { IconCircleCheck, IconGauge, IconSearch, IconWand, IconFileText } from "@tabler/icons-react";
 import { AnimatedScoreRing } from "@/components/ui/animated-score-ring";
 import { SkillTag } from "@/components/ui/skill-tag";
@@ -12,31 +13,15 @@ const GLASS_CARD_STYLE = {
 
 const CARD_HOVER = "transition-colors hover:border-accent/40";
 
-const PROCESS_STEPS = [
-  {
-    phase: "Phase 01",
-    title: "Upload",
-    description:
-      "Drop your current CV in PDF or DOCX format. Our parser extracts structural data with 99.9% accuracy.",
-    active: true,
-  },
-  {
-    phase: "Phase 02",
-    title: "Analyze",
-    description:
-      "Compare against millions of data points and industry-specific benchmarks to identify alignment gaps.",
-    active: false,
-  },
-  {
-    phase: "Phase 03",
-    title: "Results",
-    description:
-      "Receive a comprehensive report and an optimized version of your profile ready for submission.",
-    active: false,
-  },
-];
-
 export default function LandingPage() {
+  const t = useTranslations("landing");
+
+  const PROCESS_STEPS = [
+    { phase: t("processStep1Phase"), title: t("processStep1Title"), description: t("processStep1Body"), active: true },
+    { phase: t("processStep2Phase"), title: t("processStep2Title"), description: t("processStep2Body"), active: false },
+    { phase: t("processStep3Phase"), title: t("processStep3Title"), description: t("processStep3Body"), active: false },
+  ];
+
   return (
     <div className="flex flex-1 flex-col pb-16 md:pb-0">
       {/* Hero */}
@@ -59,22 +44,21 @@ export default function LandingPage() {
             style={{ animationDelay: "0ms" }}
           >
             <IconCircleCheck size={14} stroke={1.5} className="text-accent" />
-            <span className="text-xs tracking-widest text-muted uppercase">Precise Minimalism</span>
+            <span className="text-xs tracking-widest text-muted uppercase">{t("eyebrow")}</span>
           </div>
 
           <h1
             className="animate-fade-up mx-auto mb-6 max-w-3xl font-display text-4xl leading-tight font-bold text-base-light md:text-5xl"
             style={{ animationDelay: "100ms" }}
           >
-            Your resume, aligned to every opportunity.
+            {t("tagline")}
           </h1>
 
           <p
             className="animate-fade-up mx-auto mb-12 max-w-2xl text-lg text-muted"
             style={{ animationDelay: "200ms" }}
           >
-            Most resumes are rejected by ATS before a human ever reads them. We ensure yours makes it
-            through with technical precision and architectural clarity.
+            {t("subtitle")}
           </p>
 
           <div
@@ -85,13 +69,13 @@ export default function LandingPage() {
               href="/upload"
               className="w-full rounded-(--radius-control) bg-accent px-10 py-4 text-sm font-bold text-[var(--color-base)] transition-all hover:opacity-90 active:scale-95 md:w-auto"
             >
-              Analyze your resume
+              {t("ctaPrimary")}
             </Link>
             <Link
               href="/#process"
               className="w-full rounded-(--radius-control) border border-accent px-10 py-4 text-sm font-bold text-accent transition-all hover:bg-accent/5 active:scale-95 md:w-auto"
             >
-              See how it works
+              {t("ctaSecondary")}
             </Link>
           </div>
         </div>
@@ -101,7 +85,7 @@ export default function LandingPage() {
       <section id="features" className="py-24">
         <div className="mx-auto max-w-7xl px-5 md:px-16">
           <Reveal className="mb-16">
-            <h2 className="mb-4 font-display text-3xl font-bold text-base-light">Core Intelligence</h2>
+            <h2 className="mb-4 font-display text-3xl font-bold text-base-light">{t("featuresTitle")}</h2>
             <div className="h-1 w-16 bg-accent" />
           </Reveal>
 
@@ -115,15 +99,16 @@ export default function LandingPage() {
               <div className="flex flex-col items-center gap-12 md:flex-row">
                 <div className="flex-1">
                   <IconGauge size={36} stroke={1.5} className="mb-6 text-accent" />
-                  <h3 className="mb-4 font-display text-xl font-medium text-base-light">AI Match Score</h3>
-                  <p className="text-muted">
-                    Our proprietary algorithm simulates top-tier ATS logic, providing a definitive
-                    alignment percentage against specific job descriptions.
-                  </p>
+                  <h3 className="mb-4 font-display text-xl font-medium text-base-light">
+                    {t("featureScoreTitle")}
+                  </h3>
+                  <p className="text-muted">{t("featureScoreBody")}</p>
                 </div>
                 <div className="flex flex-col items-center justify-center">
                   <AnimatedScoreRing score={85} size={120} />
-                  <span className="mt-4 text-xs tracking-tighter text-muted uppercase">Current score</span>
+                  <span className="mt-4 text-xs tracking-tighter text-muted uppercase">
+                    {t("currentScoreLabel")}
+                  </span>
                 </div>
               </div>
             </Reveal>
@@ -136,11 +121,10 @@ export default function LandingPage() {
             >
               <div>
                 <IconSearch size={36} stroke={1.5} className="mb-6 text-accent" />
-                <h3 className="mb-4 font-display text-xl font-medium text-base-light">Gap Detection</h3>
-                <p className="text-sm text-muted">
-                  Identifying missing critical technical keywords and experience markers that recruiters
-                  look for first.
-                </p>
+                <h3 className="mb-4 font-display text-xl font-medium text-base-light">
+                  {t("featureGapTitle")}
+                </h3>
+                <p className="text-sm text-muted">{t("featureGapBody")}</p>
               </div>
               <div className="mt-8 flex flex-wrap gap-2">
                 <SkillTag label="Kubernetes" variant="gap" />
@@ -155,11 +139,10 @@ export default function LandingPage() {
               style={GLASS_CARD_STYLE}
             >
               <IconWand size={36} stroke={1.5} className="mb-6 text-accent" />
-              <h3 className="mb-4 font-display text-xl font-medium text-base-light">Section Rewriting</h3>
-              <p className="text-sm text-muted">
-                Transforming passive descriptions into high-impact, data-driven achievements that resonate
-                with decision makers.
-              </p>
+              <h3 className="mb-4 font-display text-xl font-medium text-base-light">
+                {t("featureRewriteTitle")}
+              </h3>
+              <p className="text-sm text-muted">{t("featureRewriteBody")}</p>
             </Reveal>
 
             {/* Cover Letter Generation */}
@@ -172,12 +155,9 @@ export default function LandingPage() {
                 <div className="flex-1">
                   <IconFileText size={36} stroke={1.5} className="mb-6 text-accent" />
                   <h3 className="mb-4 font-display text-xl font-medium text-base-light">
-                    Cover Letter Generation
+                    {t("featureCoverTitle")}
                   </h3>
-                  <p className="text-muted">
-                    Generate precisely tailored narratives that bridge the gap between your history and the
-                    company&apos;s future.
-                  </p>
+                  <p className="text-muted">{t("featureCoverBody")}</p>
                 </div>
                 <div className="flex-1 rounded-(--radius-control) border border-track bg-track p-4">
                   <div className="mb-2 h-2 w-full rounded bg-track" />
@@ -198,8 +178,8 @@ export default function LandingPage() {
       <section id="process" className="py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-16">
           <Reveal className="mb-20 text-center">
-            <h2 className="mb-4 font-display text-3xl font-bold text-base-light">The Process</h2>
-            <p className="text-muted">Technical alignment in three phases.</p>
+            <h2 className="mb-4 font-display text-3xl font-bold text-base-light">{t("processTitle")}</h2>
+            <p className="text-muted">{t("processSubtitle")}</p>
           </Reveal>
 
           <div className="relative">
@@ -231,18 +211,13 @@ export default function LandingPage() {
             className="max-w-2xl rounded-(--radius-card) p-12 text-center"
             style={GLASS_CARD_STYLE}
           >
-            <h2 className="mb-6 font-display text-3xl font-bold text-base-light">
-              Designed for Experts by Experts.
-            </h2>
-            <p className="mb-8 text-muted">
-              Résona eliminates the guesswork of job hunting through factual data and architectural resume
-              construction.
-            </p>
+            <h2 className="mb-6 font-display text-3xl font-bold text-base-light">{t("trustTitle")}</h2>
+            <p className="mb-8 text-muted">{t("trustBody")}</p>
             <Link
               href="/upload"
               className="inline-block rounded-(--radius-control) bg-accent px-8 py-4 text-sm font-bold text-[var(--color-base)] transition-all hover:opacity-90 active:scale-95"
             >
-              Start Your Alignment
+              {t("trustCta")}
             </Link>
           </Reveal>
         </div>

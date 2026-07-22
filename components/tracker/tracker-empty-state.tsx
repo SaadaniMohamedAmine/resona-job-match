@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export function TrackerEmptyState({ onAdd }: { onAdd: () => void }) {
+  const t = useTranslations("tracker");
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
@@ -58,18 +60,15 @@ export function TrackerEmptyState({ onAdd }: { onAdd: () => void }) {
         </svg>
       </div>
 
-      <h1 className="font-display text-2xl font-bold text-base-light">Nothing tracked yet</h1>
-      <p className="mx-auto mt-4 max-w-sm leading-relaxed text-muted">
-        Add your first application to organize your career journey. Résona will provide real-time
-        analysis and optimization insights.
-      </p>
+      <h1 className="font-display text-2xl font-bold text-base-light">{t("emptyTitle")}</h1>
+      <p className="mx-auto mt-4 max-w-sm leading-relaxed text-muted">{t("emptyBody")}</p>
 
       <button
         type="button"
         onClick={onAdd}
         className="mt-8 rounded-(--radius-control) border border-accent bg-accent px-12 py-4 text-xs font-medium tracking-widest text-[var(--color-base)] uppercase transition-all hover:bg-transparent hover:text-accent"
       >
-        Add your first application
+        {t("emptyCta")}
       </button>
     </div>
   );

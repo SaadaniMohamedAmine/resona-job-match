@@ -3,27 +3,29 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { GoogleIcon, LinkedInIcon } from "@/components/ui/brand-icons";
+import { notify } from "@/lib/toast";
 
 export default function SignUpPage() {
+  const t = useTranslations("auth");
+  const tNotify = useTranslations("notifications");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setMessage("");
     const res = await fetch("/api/register", {
       method: "POST",
       body: JSON.stringify({ email, password }),
     });
     if (!res.ok) {
-      const data = await res.json();
-      setMessage(typeof data.error === "string" ? data.error : "Something went wrong");
+      notify.error(res.status === 409 ? tNotify("emailInUse") : tNotify("generic"));
       return;
     }
+    notify.success(tNotify("accountCreated"));
     await signIn("credentials", { email, password, callbackUrl: "/upload" });
   }
 
@@ -38,16 +40,14 @@ export default function SignUpPage() {
                 <div className="absolute top-0 left-0 h-0.75 w-1/2 -translate-y-px bg-accent" />
               </div>
               <div className="mt-3 flex justify-between text-xs uppercase">
-                <span className="text-accent">Identity</span>
-                <span className="text-muted">Experience</span>
+                <span className="text-accent">{t("identityStep")}</span>
+                <span className="text-muted">{t("experienceStep")}</span>
               </div>
             </div>
 
             <h2 className="mb-6 font-display text-xl font-medium text-base-light">
-              Create your profile
+              {t("signUpTitle")}
             </h2>
-
-            {message && <p className="mb-4 text-center text-sm text-accent">{message}</p>}
 
             <div className="mb-6 flex flex-col gap-3">
               <button
@@ -55,27 +55,27 @@ export default function SignUpPage() {
                 className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-2.5 text-sm text-base-light transition-all hover:bg-track active:scale-[0.98]"
               >
                 <GoogleIcon />
-                Continue with Google
+                {t("continueWithGoogle")}
               </button>
               <button
-                onClick={() => alert("Fonctionnalité disponible dans les prochains mois")}
+                onClick={() => alert(t("comingSoon"))}
                 className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-2.5 text-sm text-muted opacity-60 transition-all hover:bg-track active:scale-[0.98]"
               >
                 <LinkedInIcon />
-                Continue with LinkedIn
+                {t("continueWithLinkedIn")}
               </button>
             </div>
 
             <div className="mb-6 flex items-center gap-4">
               <div className="h-px flex-1 bg-track" />
-              <span className="text-xs tracking-widest text-muted uppercase">or use email</span>
+              <span className="text-xs tracking-widest text-muted uppercase">{t("orUseEmail")}</span>
               <div className="h-px flex-1 bg-track" />
             </div>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="text-xs tracking-widest text-muted uppercase">
-                  Email address
+                  {t("emailLabel")}
                 </label>
                 <input
                   id="email"
@@ -90,13 +90,13 @@ export default function SignUpPage() {
 
               <div className="flex flex-col gap-2">
                 <label htmlFor="password" className="text-xs tracking-widest text-muted uppercase">
-                  Password
+                  {t("passwordLabel")}
                 </label>
                 <div className="relative">
                   <input
                     id="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder="Password"
+                    placeholder={t("passwordPlaceholder")}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full rounded-(--radius-control) border border-track bg-transparent px-4 py-3 pr-11 text-sm text-base-light placeholder:text-muted focus:border-accent focus:outline-none"
@@ -106,7 +106,7 @@ export default function SignUpPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword((v) => !v)}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-label={showPassword ? t("hidePassword") : t("showPassword")}
                     className="absolute top-1/2 right-3 -translate-y-1/2 text-muted transition-colors hover:text-base-light"
                   >
                     {showPassword ? (
@@ -122,28 +122,31 @@ export default function SignUpPage() {
                 type="submit"
                 className="mt-4 rounded-(--radius-control) bg-accent py-3.5 text-sm font-bold text-[var(--color-base)] transition-all hover:opacity-90 active:scale-[0.98]"
               >
-                Create Account
+                {t("createAccount")}
               </button>
             </form>
 
             <p className="mt-6 text-center text-sm text-muted">
-              By signing up, you agree to our{" "}
-              <Link href="/terms" className="text-accent hover:underline">
-                Terms
-              </Link>{" "}
-              and{" "}
-              <Link href="/privacy" className="text-accent hover:underline">
-                Privacy Policy
-              </Link>
-              .
+              {t.rich("termsNotice", {
+                terms: (chunks) => (
+                  <Link href="/terms" className="text-accent hover:underline">
+                    {chunks}
+                  </Link>
+                ),
+                privacy: (chunks) => (
+                  <Link href="/privacy" className="text-accent hover:underline">
+                    {chunks}
+                  </Link>
+                ),
+              })}
             </p>
           </div>
         </div>
 
         <p className="mt-6 text-center text-sm text-muted">
-          Already have an account?{" "}
+          {t("alreadyHaveAccount")}{" "}
           <Link href="/login" className="font-bold text-accent hover:underline">
-            Log in
+            {t("logIn")}
           </Link>
         </p>
       </div>

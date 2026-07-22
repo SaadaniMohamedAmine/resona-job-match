@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { IconX } from "@tabler/icons-react";
 import { Select } from "@/components/ui/select";
 
@@ -15,6 +16,7 @@ export function AddApplicationModal({
   onClose: () => void;
   onSubmit: (input: { company: string; role: string; analysisId?: string }) => Promise<void>;
 }) {
+  const t = useTranslations("tracker");
   const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
   const [analysisId, setAnalysisId] = useState("");
@@ -67,11 +69,11 @@ export function AddApplicationModal({
         className="w-full max-w-md rounded-(--radius-card) border border-track bg-base p-8"
       >
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="font-display text-lg font-medium text-base-light">Add application</h2>
+          <h2 className="font-display text-lg font-medium text-base-light">{t("modalTitle")}</h2>
           <button
             type="button"
             onClick={handleClose}
-            aria-label="Close"
+            aria-label={t("closeAriaLabel")}
             className="rounded-full p-1 text-muted transition-colors hover:bg-track hover:text-base-light"
           >
             <IconX size={18} stroke={1.5} />
@@ -79,14 +81,14 @@ export function AddApplicationModal({
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
-            placeholder="Company"
+            placeholder={t("companyLabel")}
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             required
             className="rounded-(--radius-control) border border-track bg-transparent px-4 py-2.5 text-sm text-base-light placeholder:text-muted focus:border-accent focus:outline-none"
           />
           <input
-            placeholder="Role"
+            placeholder={t("roleLabel")}
             value={role}
             onChange={(e) => setRole(e.target.value)}
             required
@@ -96,9 +98,9 @@ export function AddApplicationModal({
             <Select
               value={analysisId}
               onChange={setAnalysisId}
-              placeholder="Not linked to an analysis"
+              placeholder={t("linkAnalysisLabel")}
               options={[
-                { value: "", label: "Not linked to an analysis" },
+                { value: "", label: t("linkAnalysisLabel") },
                 ...analyses.map((a) => ({
                   value: a.id,
                   label: `${a.jobTitle} — ${a.matchScore}%`,
@@ -112,14 +114,14 @@ export function AddApplicationModal({
               onClick={handleClose}
               className="rounded-(--radius-control) border border-track px-4 py-2 text-sm text-base-light transition-colors hover:bg-track"
             >
-              Cancel
+              {t("cancel")}
             </button>
             <button
               type="submit"
               disabled={submitting}
               className="rounded-(--radius-control) bg-accent px-6 py-2.5 text-sm font-medium text-[var(--color-base)] transition-opacity hover:opacity-90 disabled:opacity-40"
             >
-              {submitting ? "Adding…" : "Add application"}
+              {submitting ? t("addingCta") : t("addApplication")}
             </button>
           </div>
         </form>

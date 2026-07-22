@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { auth } from "@/lib/auth";
 import { getAnalyzeQuota } from "@/lib/rate-limit";
 import { IconInfoCircle } from "@tabler/icons-react";
@@ -10,10 +11,11 @@ export default async function UploadPage() {
   const session = await auth();
   if (!session?.user) redirect("/login");
   const quota = await getAnalyzeQuota(session.user.id);
+  const t = await getTranslations("upload");
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-12 md:px-16">
-      <Stepper steps={["Upload", "Analyze", "Results"]} currentStep={0} />
+      <Stepper steps={[t("stepUpload"), t("stepAnalyze"), t("stepResults")]} currentStep={0} />
 
       <div className="mt-8">
         <AnalysisQuotaBadge plan={quota.plan} remaining={quota.remaining} limit={quota.limit} />
@@ -22,17 +24,12 @@ export default async function UploadPage() {
       <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <h1 className="font-display text-4xl font-bold text-base-light md:text-5xl">
-            Define Your Ambition.
+            {t("heroTitle")}
           </h1>
-          <p className="mt-6 max-w-md leading-relaxed text-muted">
-            Our precision-engineered engine benchmarks your professional trajectory against
-            specific industry requirements.
-          </p>
+          <p className="mt-6 max-w-md leading-relaxed text-muted">{t("heroSubtitle")}</p>
           <div className="mt-8 flex items-start gap-4 rounded-(--radius-card) border border-track bg-track/20 p-4">
             <IconInfoCircle size={20} stroke={1.5} className="mt-0.5 shrink-0 text-accent" />
-            <p className="text-sm text-muted">
-              Ensure your resume is in PDF format for the most accurate structural extraction.
-            </p>
+            <p className="text-sm text-muted">{t("tipPdf")}</p>
           </div>
         </div>
 

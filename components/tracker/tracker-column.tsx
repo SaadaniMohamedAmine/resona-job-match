@@ -1,13 +1,7 @@
 import { useDroppable } from "@dnd-kit/core";
+import { useTranslations } from "next-intl";
 import { ApplicationCard } from "./application-card";
 import type { Application, ApplicationStatus } from "@/lib/hooks/use-applications";
-
-const COLUMN_LABELS: Record<ApplicationStatus, string> = {
-  APPLIED: "Applied",
-  INTERVIEW: "Interview",
-  OFFER: "Offer",
-  REJECTED: "Rejected",
-};
 
 export function TrackerColumn({
   status,
@@ -20,8 +14,16 @@ export function TrackerColumn({
   onSetInterviewDate: (id: string, interviewAt: string) => void;
   onDelete: (id: string) => Promise<void>;
 }) {
+  const t = useTranslations("tracker");
   const { setNodeRef, isOver } = useDroppable({ id: status });
   const isRejected = status === "REJECTED";
+
+  const COLUMN_LABELS: Record<ApplicationStatus, string> = {
+    APPLIED: t("columnApplied"),
+    INTERVIEW: t("columnInterview"),
+    OFFER: t("columnOffer"),
+    REJECTED: t("columnRejected"),
+  };
 
   return (
     <div className="flex min-h-[calc(100vh-320px)] flex-col gap-4">

@@ -16,6 +16,7 @@ export function UserMenu({
   image?: string | null;
 }) {
   const t = useTranslations("userMenu");
+  const tNav = useTranslations("nav");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -34,7 +35,7 @@ export function UserMenu({
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label="Open user menu"
+        aria-label={tNav("openUserMenu")}
         className="flex items-center gap-2"
       >
         {image ? (

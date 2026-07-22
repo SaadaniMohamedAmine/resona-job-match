@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, IBM_Plex_Sans } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
+import { ToastContainer } from "react-toastify";
 import { SiteLoader } from "@/components/layout/site-loader";
 import "../globals.css";
+import "react-toastify/dist/ReactToastify.css";
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await props.params;
+  const t = await getTranslations({ locale, namespace: "metadata" });
   return {
-    title: "Résona — Your resume, aligned to every opportunity.",
-    description:
-      "AI-powered resume and job-match analysis. Get your match score, close the gaps, and rewrite your resume for every application.",
+    title: t("title"),
+    description: t("description"),
     openGraph: {
       title: "Résona",
-      description: "Your resume, aligned to every opportunity.",
+      description: t("ogDescription"),
       locale,
       type: "website",
     },
@@ -51,8 +53,18 @@ export default async function LocaleLayout({
               "(function(){try{var t=localStorage.getItem('resona-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();",
           }}
         />
-        <SiteLoader />
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          <SiteLoader />
+          {children}
+          <ToastContainer
+            position="top-right"
+            autoClose={4000}
+            hideProgressBar
+            closeOnClick
+            theme="dark"
+            toastClassName="!min-h-0 !rounded-(--radius-control) !border !border-track !bg-base !p-4 !font-body !text-sm !text-base-light !shadow-none"
+          />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

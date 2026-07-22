@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { IconSun, IconMoon } from "@tabler/icons-react";
 
 export function ThemeToggle() {
+  const t = useTranslations("nav");
   const [theme, setTheme] = useState<"dark" | "light">("dark");
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+      aria-label={theme === "dark" ? t("switchToLightTheme") : t("switchToDarkTheme")}
       className="flex size-8 items-center justify-center rounded-(--radius-control) text-muted transition-colors hover:text-accent"
     >
       {theme === "dark" ? <IconSun size={18} stroke={1.5} /> : <IconMoon size={18} stroke={1.5} />}

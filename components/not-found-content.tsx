@@ -6,7 +6,23 @@ import { IconAlertCircle } from "@tabler/icons-react";
 import { PublicNavbar } from "@/components/layout/public-navbar";
 import { PublicFooter } from "@/components/layout/public-footer";
 
-export function NotFoundContent({ isAuthenticated }: { isAuthenticated: boolean }) {
+export function NotFoundContent({
+  isAuthenticated,
+  errorCodeLabel = "Error code 404",
+  title = "Path unresolved",
+  body = "Page not found. This path does not exist in our system.",
+  backToDashboardLabel = "Back to dashboard",
+  backToHomeLabel = "Back to home",
+  systemHistoryLabel = "System history",
+}: {
+  isAuthenticated: boolean;
+  errorCodeLabel?: string;
+  title?: string;
+  body?: string;
+  backToDashboardLabel?: string;
+  backToHomeLabel?: string;
+  systemHistoryLabel?: string;
+}) {
   const glowRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -62,15 +78,15 @@ export function NotFoundContent({ isAuthenticated }: { isAuthenticated: boolean 
         <div className="max-w-2xl">
           <div className="mb-8 flex items-center justify-center gap-2 text-accent">
             <IconAlertCircle size={14} stroke={1.5} />
-            <span className="font-body text-xs uppercase tracking-[0.2em]">Error code 404</span>
+            <span className="font-body text-xs uppercase tracking-[0.2em]">{errorCodeLabel}</span>
           </div>
 
           <h1 className="font-display text-4xl font-bold tracking-tight text-base-light md:text-5xl">
-            Path unresolved
+            {title}
           </h1>
 
           <p className="mx-auto mt-4 mb-12 max-w-md text-muted">
-            Page not found. This path does not exist in our system.
+            {body}
           </p>
 
           <div className="flex flex-col items-center justify-center gap-6 md:flex-row">
@@ -78,13 +94,13 @@ export function NotFoundContent({ isAuthenticated }: { isAuthenticated: boolean 
               href={isAuthenticated ? "/dashboard" : "/"}
               className="rounded-(--radius-control) bg-accent px-8 py-4 font-body text-xs font-medium uppercase tracking-widest text-[var(--color-base)] transition-opacity hover:opacity-90"
             >
-              {isAuthenticated ? "Back to dashboard" : "Back to home"}
+              {isAuthenticated ? backToDashboardLabel : backToHomeLabel}
             </Link>
             <Link
               href="/resumes"
               className="rounded-(--radius-control) border border-track px-8 py-4 font-body text-xs uppercase tracking-widest text-muted transition-colors hover:border-accent hover:text-accent"
             >
-              System history
+              {systemHistoryLabel}
             </Link>
           </div>
         </div>
