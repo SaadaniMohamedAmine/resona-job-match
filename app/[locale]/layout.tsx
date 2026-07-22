@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Space_Grotesk, IBM_Plex_Sans } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
+import { ToastContainer } from "react-toastify";
 import { SiteLoader } from "@/components/layout/site-loader";
 import "../globals.css";
+import "react-toastify/dist/ReactToastify.css";
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await props.params;
@@ -54,6 +56,14 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <SiteLoader />
           {children}
+          <ToastContainer
+            position="top-right"
+            autoClose={4000}
+            hideProgressBar
+            closeOnClick
+            theme="dark"
+            toastClassName="!min-h-0 !rounded-(--radius-control) !border !border-track !bg-base !p-4 !font-body !text-sm !text-base-light !shadow-none"
+          />
         </NextIntlClientProvider>
       </body>
     </html>

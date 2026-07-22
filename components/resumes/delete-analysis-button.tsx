@@ -5,18 +5,25 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { IconTrash } from "@tabler/icons-react";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { notify } from "@/lib/toast";
 
 export function DeleteAnalysisButton({ resumeId }: { resumeId: string }) {
   const t = useTranslations("history");
+  const tNotify = useTranslations("notifications");
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
   async function handleConfirm() {
     setDeleting(true);
-    await fetch(`/api/resumes/${resumeId}`, { method: "DELETE" });
+    const res = await fetch(`/api/resumes/${resumeId}`, { method: "DELETE" });
     setDeleting(false);
     setOpen(false);
+    if (!res.ok) {
+      notify.error(tNotify("generic"));
+      return;
+    }
+    notify.info(tNotify("resumeDeleted"));
     router.refresh();
   }
 

@@ -10,6 +10,7 @@ import {
   IconBrandGoogle,
 } from "@tabler/icons-react";
 import { ChangePasswordDialog } from "@/components/settings/change-password-dialog";
+import { notify } from "@/lib/toast";
 
 export function AccountForm({
   initialName,
@@ -23,23 +24,25 @@ export function AccountForm({
   hasPassword: boolean;
 }) {
   const t = useTranslations("settings");
-  const tErrors = useTranslations("errors");
+  const tNotify = useTranslations("notifications");
   const [name, setName] = useState(initialName);
   const [bio, setBio] = useState(initialBio);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState("");
   const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
 
   async function handleSave() {
     setSaving(true);
-    setMessage("");
     const res = await fetch("/api/account", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, bio }),
     });
     setSaving(false);
-    setMessage(res.ok ? t("changesSaved") : tErrors("generic"));
+    if (res.ok) {
+      notify.success(tNotify("profileUpdated"));
+    } else {
+      notify.error(tNotify("generic"));
+    }
   }
 
   return (
@@ -130,7 +133,6 @@ export function AccountForm({
         <div className="space-y-1">
           <h2 className="font-display text-xl font-medium text-base-light">{t("sessionManagement")}</h2>
           <p className="text-sm text-muted">{t("sessionManagementBody")}</p>
-          {message && <p className="text-sm text-accent">{message}</p>}
         </div>
         <div className="flex w-full gap-4 md:w-auto">
           <button

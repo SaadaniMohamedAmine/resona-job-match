@@ -5,24 +5,23 @@ import { useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { GoogleIcon, LinkedInIcon } from "@/components/ui/brand-icons";
+import { notify } from "@/lib/toast";
 
 export default function LoginPage() {
   const t = useTranslations("auth");
   const tNotify = useTranslations("notifications");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setMessage("");
     const result = await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
     if (result?.error) {
-      setMessage(tNotify("invalidCredentials"));
+      notify.error(tNotify("invalidCredentials"));
     } else {
       window.location.href = "/upload";
     }
@@ -40,8 +39,6 @@ export default function LoginPage() {
 
           <div className="p-6 md:p-8">
             <h2 className="mb-6 font-display text-xl font-medium text-base-light">{t("loginTitle")}</h2>
-
-            {message && <p className="mb-4 text-center text-sm text-accent">{message}</p>}
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">

@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { IconDownload } from "@tabler/icons-react";
+import { notify } from "@/lib/toast";
 
 type Suggestion = { section: string; issue: string; recommendation: string };
 
@@ -23,6 +24,7 @@ export function DownloadReportButton({
   suggestions: Suggestion[];
 }) {
   const t = useTranslations("results");
+  const tNotify = useTranslations("notifications");
 
   function handleDownload() {
     const noneIdentified = `  ${t("noneIdentified")}`;
@@ -55,6 +57,7 @@ export function DownloadReportButton({
     a.download = `resona-report-${fileName.replace(/\.pdf$/i, "")}.txt`;
     a.click();
     URL.revokeObjectURL(url);
+    notify.success(tNotify("resumeDownloaded"));
   }
 
   return (

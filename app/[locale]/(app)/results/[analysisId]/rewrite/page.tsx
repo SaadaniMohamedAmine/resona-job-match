@@ -13,6 +13,7 @@ import {
 } from "@tabler/icons-react";
 import { LoaderRing } from "@/components/ui/loader-ring";
 import { UpgradePrompt } from "@/components/billing/upgrade-prompt";
+import { notify } from "@/lib/toast";
 
 const SECTIONS = ["summary", "experience", "skills"] as const;
 type Section = (typeof SECTIONS)[number];
@@ -45,7 +46,6 @@ export default function RewritePage() {
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [proRequired, setProRequired] = useState(false);
-  const [error, setError] = useState("");
 
   const current = sections[activeSection];
 
@@ -56,7 +56,6 @@ export default function RewritePage() {
 
   function switchTab(section: Section) {
     setActiveSection(section);
-    setError("");
     setProRequired(false);
     setCopied(false);
   }
@@ -64,7 +63,6 @@ export default function RewritePage() {
   async function handleGenerate() {
     if (!current.original.trim()) return;
     setLoading(true);
-    setError("");
     setProRequired(false);
     try {
       const res = await fetch("/api/rewrite", {
@@ -76,16 +74,17 @@ export default function RewritePage() {
       if (res.status === 403) {
         setProRequired(true);
       } else if (!res.ok) {
-        throw new Error(data.error || tNotify("rewriteFailed"));
+        notify.error(data.error || tNotify("rewriteFailed"));
       } else {
         setSections((prev) => ({
           ...prev,
           [activeSection]: { ...prev[activeSection], rewritten: data.rewritten },
         }));
         setApplied((prev) => ({ ...prev, [activeSection]: false }));
+        notify.success(tNotify("rewriteGenerated"));
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : tNotify("generic"));
+    } catch {
+      notify.error(tNotify("generic"));
     }
     setLoading(false);
   }
@@ -96,6 +95,7 @@ export default function RewritePage() {
       [activeSection]: { original: prev[activeSection].rewritten, rewritten: prev[activeSection].rewritten },
     }));
     setApplied((prev) => ({ ...prev, [activeSection]: true }));
+    notify.success(tNotify("rewriteApplied"));
   }
 
   async function handleCopy() {
@@ -168,8 +168,6 @@ export default function RewritePage() {
           ) : (
             <p className="text-sm text-muted">{t("placeholderResult")}</p>
           )}
-
-          {error && <p className="mt-4 text-sm text-accent">{error}</p>}
 
           {applied[activeSection] && (
             <div className="mt-8 flex items-center gap-3 rounded-(--radius-control) border border-accent/20 bg-accent/5 p-4">

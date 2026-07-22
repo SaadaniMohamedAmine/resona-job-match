@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { getAnalyzeQuota } from "@/lib/rate-limit";
 import { AnalysisQuotaBadge } from "@/components/ui/analysis-quota-badge";
 import { SettingsSidebar } from "@/components/settings/settings-sidebar";
+import { BillingReturnNotice } from "@/components/settings/billing-return-notice";
 
 export default async function BillingSettingsPage({
   params,
@@ -24,6 +25,7 @@ export default async function BillingSettingsPage({
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-12 md:px-16">
+      <BillingReturnNotice />
       <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-12">
         <SettingsSidebar
           title={t("billingPageTitle")}

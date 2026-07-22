@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { IconFileText, IconX, IconCopy, IconPrinter } from "@tabler/icons-react";
 import { LoaderRing } from "@/components/ui/loader-ring";
 import { UpgradePrompt } from "@/components/billing/upgrade-prompt";
+import { notify } from "@/lib/toast";
 
 export function CoverLetterModal({
   analysisId,
@@ -43,6 +44,7 @@ export function CoverLetterModal({
           setError(typeof data.error === "string" ? data.error : tNotify("generic"));
         } else {
           setLetter(data.coverLetter);
+          notify.success(tNotify("coverLetterReady"));
         }
         setLoading(false);
       })
@@ -59,7 +61,13 @@ export function CoverLetterModal({
   async function handleCopy() {
     await navigator.clipboard.writeText(letter);
     setCopied(true);
+    notify.success(tNotify("copiedToClipboard"));
     setTimeout(() => setCopied(false), 2000);
+  }
+
+  function handleExportPdf() {
+    window.print();
+    notify.success(tNotify("coverLetterDownloaded"));
   }
 
   return (
@@ -146,7 +154,7 @@ export function CoverLetterModal({
               </button>
               <button
                 type="button"
-                onClick={() => window.print()}
+                onClick={handleExportPdf}
                 className="flex flex-1 items-center justify-center gap-2 rounded-(--radius-control) bg-accent px-8 py-3 text-xs font-bold tracking-widest text-[var(--color-base)] uppercase transition-opacity hover:opacity-90 md:flex-none"
               >
                 <IconPrinter size={16} stroke={1.5} />

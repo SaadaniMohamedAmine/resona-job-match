@@ -7,6 +7,7 @@ import { IconUpload, IconLock } from "@tabler/icons-react";
 import { useUploadThing } from "@/lib/uploadthing-client";
 import { LoaderRing } from "@/components/ui/loader-ring";
 import { UpgradePrompt } from "@/components/billing/upgrade-prompt";
+import { notify } from "@/lib/toast";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const MIN_WORD_COUNT = 20;
@@ -21,7 +22,6 @@ export function UploadForm({ quotaExceeded }: { quotaExceeded: boolean }) {
   const [company, setCompany] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
 
   const { startUpload } = useUploadThing("resumeUploader");
 
@@ -31,26 +31,24 @@ export function UploadForm({ quotaExceeded }: { quotaExceeded: boolean }) {
   function pickFile(candidate: File | null | undefined) {
     if (!candidate) return;
     if (candidate.type !== "application/pdf") {
-      setError(tNotify("wrongFileType"));
+      notify.error(tNotify("wrongFileType"));
       return;
     }
     if (candidate.size > MAX_FILE_SIZE) {
-      setError(tNotify("fileTooLarge"));
+      notify.error(tNotify("fileTooLarge"));
       return;
     }
-    setError("");
     setFile(candidate);
   }
 
   async function handleAnalyze() {
     if (!canAnalyze || !file) return;
     setSubmitting(true);
-    setError("");
 
     const uploaded = await startUpload([file]);
     const fileUrl = uploaded?.[0]?.url;
     if (!fileUrl) {
-      setError(t("uploadFailed"));
+      notify.error(t("uploadFailed"));
       setSubmitting(false);
       return;
     }
@@ -142,8 +140,6 @@ export function UploadForm({ quotaExceeded }: { quotaExceeded: boolean }) {
           </span>
         </div>
       </div>
-
-      {error && <p className="text-sm text-accent">{error}</p>}
 
       <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
         <div className="flex items-center gap-2 text-muted">

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { GoogleIcon, LinkedInIcon } from "@/components/ui/brand-icons";
+import { notify } from "@/lib/toast";
 
 export default function SignUpPage() {
   const t = useTranslations("auth");
@@ -13,19 +14,18 @@ export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setMessage("");
     const res = await fetch("/api/register", {
       method: "POST",
       body: JSON.stringify({ email, password }),
     });
     if (!res.ok) {
-      setMessage(res.status === 409 ? tNotify("emailInUse") : tNotify("generic"));
+      notify.error(res.status === 409 ? tNotify("emailInUse") : tNotify("generic"));
       return;
     }
+    notify.success(tNotify("accountCreated"));
     await signIn("credentials", { email, password, callbackUrl: "/upload" });
   }
 
@@ -48,8 +48,6 @@ export default function SignUpPage() {
             <h2 className="mb-6 font-display text-xl font-medium text-base-light">
               {t("signUpTitle")}
             </h2>
-
-            {message && <p className="mb-4 text-center text-sm text-accent">{message}</p>}
 
             <div className="mb-6 flex flex-col gap-3">
               <button
