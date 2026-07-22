@@ -525,7 +525,13 @@
     "unlockTitle": "Recommandations complètes, réécriture de CV et lettre de motivation",
     "unlockBody": "Créez un compte gratuit pour débloquer les suggestions détaillées par section et générer une réécriture adaptée à ce match.",
     "createAccountCta": "Créer un compte gratuit",
-    "analyzeOwnCta": "Analyser mon CV"
+    "analyzeOwnCta": "Analyser mon CV",
+    "matchHintWeak": "Match faible",
+    "previousPage": "Page précédente",
+    "nextPage": "Page suivante",
+    "searchPlaceholder": "Rechercher par poste ou entreprise…",
+    "filterAll": "Tous les matchs",
+    "noResults": "Aucun profil ne correspond à votre recherche."
   },
   "commandPalette": {
     "placeholder": "Tapez une commande ou recherchez…",

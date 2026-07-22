@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { IconLock, IconEdit, IconSparkles, IconCircleCheck, IconAlertCircle } from "@tabler/icons-react";
@@ -8,6 +8,10 @@ import { ScoreRing } from "@/components/ui/score-ring";
 import { SkillTag } from "@/components/ui/skill-tag";
 import { LoaderRing } from "@/components/ui/loader-ring";
 import { DEMO_SAMPLES } from "@/lib/ai/demo-samples";
+import { DemoFilters, type MatchTier } from "@/components/demo/demo-filters";
+import { DemoPagination } from "@/components/demo/demo-pagination";
+
+const PAGE_SIZE = 6;
 
 type Result = {
   matchScore: number;
@@ -17,12 +21,49 @@ type Result = {
   sample: { jobTitle: string; company?: string };
 };
 
+const MATCH_HINT_KEY = {
+  strong: "matchHintStrong",
+  partial: "matchHintPartial",
+  weak: "matchHintWeak",
+} as const;
+
 export default function DemoPage() {
   const t = useTranslations("demo");
   const [selected, setSelected] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<Result | null>(null);
+
+  const [query, setQuery] = useState("");
+  const [tier, setTier] = useState<MatchTier>("");
+  const [page, setPage] = useState(1);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return DEMO_SAMPLES.filter((sample) => {
+      const matchesQuery =
+        !q ||
+        sample.label.toLowerCase().includes(q) ||
+        sample.jobTitle.toLowerCase().includes(q) ||
+        sample.company.toLowerCase().includes(q);
+      const matchesTier = !tier || sample.matchHint === tier;
+      return matchesQuery && matchesTier;
+    });
+  }, [query, tier]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pageItems = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
+  function handleQueryChange(value: string) {
+    setQuery(value);
+    setPage(1);
+  }
+
+  function handleTierChange(value: MatchTier) {
+    setTier(value);
+    setPage(1);
+  }
 
   async function runDemo(sampleId: string) {
     setSelected(sampleId);
@@ -44,32 +85,40 @@ export default function DemoPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-5 py-24 md:px-16">
+    <div className="mx-auto max-w-7xl px-5 py-24 md:px-16">
       <div className="mb-16 text-center">
         <h1 className="font-display text-3xl font-bold text-base-light">{t("title")}</h1>
         <p className="mx-auto mt-3 max-w-xl text-muted">{t("subtitle")}</p>
       </div>
 
-      <div className="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {DEMO_SAMPLES.map((sample) => (
-          <button
-            key={sample.id}
-            onClick={() => runDemo(sample.id)}
-            disabled={loading}
-            className={`rounded-(--radius-card) border p-6 text-left transition-colors disabled:opacity-50 ${
-              selected === sample.id ? "border-accent bg-track/30" : "border-track hover:border-accent/40"
-            }`}
-          >
-            <p className="font-display text-lg font-medium text-base-light">{sample.label}</p>
-            <p className="mt-1 text-sm text-muted">
-              {t("vsPrefix", { jobTitle: sample.jobTitle, company: sample.company })}
-            </p>
-            <span className="mt-3 inline-block text-xs tracking-widest text-accent uppercase">
-              {sample.matchHint === "strong" ? t("matchHintStrong") : t("matchHintPartial")}
-            </span>
-          </button>
-        ))}
-      </div>
+      <DemoFilters query={query} onQueryChange={handleQueryChange} tier={tier} onTierChange={handleTierChange} />
+
+      {pageItems.length === 0 ? (
+        <p className="py-16 text-center text-sm text-muted">{t("noResults")}</p>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {pageItems.map((sample) => (
+            <button
+              key={sample.id}
+              onClick={() => runDemo(sample.id)}
+              disabled={loading}
+              className={`rounded-(--radius-card) border p-6 text-left transition-colors disabled:opacity-50 ${
+                selected === sample.id ? "border-accent bg-track/30" : "border-track hover:border-accent/40"
+              }`}
+            >
+              <p className="font-display text-lg font-medium text-base-light">{sample.label}</p>
+              <p className="mt-1 text-sm text-muted">
+                {t("vsPrefix", { jobTitle: sample.jobTitle, company: sample.company })}
+              </p>
+              <span className="mt-3 inline-block text-xs tracking-widest text-accent uppercase">
+                {t(MATCH_HINT_KEY[sample.matchHint])}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      <DemoPagination page={currentPage} totalPages={totalPages} onPageChange={setPage} />
 
       {loading && (
         <div className="flex flex-col items-center gap-4 py-16">
@@ -81,7 +130,7 @@ export default function DemoPage() {
       {error && <p className="text-center text-sm text-accent">{error}</p>}
 
       {result && !loading && (
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+        <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-12">
           <div className="flex flex-col gap-8 lg:col-span-8">
             <section className="flex flex-col items-center rounded-(--radius-card) border border-track bg-track/20 p-10 text-center">
               <ScoreRing score={result.matchScore} size={140} />
