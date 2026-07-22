@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations, useLocale } from "next-intl";
 import { IconChevronRight } from "@tabler/icons-react";
 import { ScoreRing } from "@/components/ui/score-ring";
 import { DeleteAnalysisButton } from "@/components/resumes/delete-analysis-button";
@@ -14,6 +15,8 @@ export function HistoryCard({
     jobPost: { title: string; company: string | null };
   };
 }) {
+  const t = useTranslations("history");
+  const locale = useLocale();
   const isHighMatch = analysis.matchScore >= 90;
 
   return (
@@ -29,16 +32,14 @@ export function HistoryCard({
             </div>
             {isHighMatch && (
               <span className="rounded-sm border border-accent/20 px-1.5 py-0.5 text-[10px] tracking-tighter text-accent uppercase">
-                High Match
+                {t("highMatch")}
               </span>
             )}
           </div>
           <span className="text-xs text-muted">
-            {analysis.createdAt.toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })}
+            {new Intl.DateTimeFormat(locale, { month: "short", day: "numeric", year: "numeric" }).format(
+              analysis.createdAt
+            )}
           </span>
         </div>
         <h3 className="mb-1 truncate font-display text-lg font-medium text-base-light">
@@ -51,7 +52,7 @@ export function HistoryCard({
           href={`/results/${analysis.id}`}
           className="group flex items-center gap-1 text-xs font-medium tracking-widest text-accent uppercase hover:opacity-80"
         >
-          View Analysis
+          {t("viewAnalysis")}
           <IconChevronRight
             size={14}
             stroke={1.5}
