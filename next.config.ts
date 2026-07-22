@@ -9,7 +9,9 @@ const nextConfig: NextConfig = {
   },
   // pdf-parse wraps pdfjs-dist, which locates its worker script via a self-referential
   // path at runtime; bundling it breaks that lookup ("Cannot find module .../pdf.worker.mjs").
-  serverExternalPackages: ["pdf-parse", "pdfjs-dist"],
+  // @napi-rs/canvas is pdfjs-dist's native binary dependency (provides DOMMatrix etc.) —
+  // bundling it breaks the native binding, so it must stay external too.
+  serverExternalPackages: ["pdf-parse", "pdfjs-dist", "@napi-rs/canvas"],
 };
 
 export default withNextIntl(nextConfig);
