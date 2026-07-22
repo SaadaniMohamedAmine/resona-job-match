@@ -12,11 +12,16 @@ Résona is an AI-powered resume and job-match platform: upload your resume, past
 
 ## Features
 
-- **Semantic match scoring** — Groq (Mixtral) analysis + HuggingFace embeddings cosine similarity, not keyword counting
-- **Gap detection** — AI identifies exactly which skills from the job description are missing
+- **Semantic match scoring** — HuggingFace embeddings (`all-MiniLM-L6-v2`) + pgvector cosine similarity, not keyword counting
+- **Gap detection** — Groq (Llama 3.3 70B) identifies exactly which skills from the job description are missing
 - **AI section rewriting** — before/after comparison, factually grounded in your original content
 - **Cover letter generation** — tailored to the specific role and company
 - **Application tracker** — kanban board (Applied → Interview → Offer → Rejected)
+- **Live demo, no signup** — try a real analysis on sample profiles straight from the landing page
+- **Semantic similarity, visualized** — the pgvector cosine score shown distinctly from the AI's language-based match score
+- **Score progression** — a trend view of your match score across every analysis
+- **Command palette (⌘K)** — instant navigation and actions, anywhere in the app
+- **Built with** — a transparent, honest breakdown of the real stack and why each piece was chosen
 - **Stripe billing** — Free / Pro plans with usage-based quotas
 - **i18n** — English and French
 - **Full test suite** — unit, integration, and e2e coverage with CI
@@ -29,11 +34,12 @@ flowchart LR
   User -->|pastes JD| Frontend[Next.js App Router]
   Frontend --> API[API Routes]
   API --> PdfParse[pdf-parse: text extraction]
-  API --> AI[Groq: Mixtral AI + HuggingFace embeddings]
+  API --> Groq[Groq: Llama 3.3 70B analysis]
+  API --> HF[HuggingFace: embeddings]
   API --> Postgres[(Neon PostgreSQL + pgvector)]
   API --> Stripe[Stripe: billing]
   API --> Upstash[(Upstash Redis: rate limiting)]
-  Frontend --> Auth[NextAuth: Google / credentials]
+  Frontend --> Auth[NextAuth: Google / LinkedIn / credentials]
   API --> Sentry[Sentry: error monitoring]
 ```
 
@@ -45,8 +51,8 @@ flowchart LR
 | Styling | Tailwind CSS v4 |
 | Database | PostgreSQL (Neon) + pgvector |
 | ORM | Prisma |
-| Auth | NextAuth / Auth.js (email/password + Google) |
-| AI | Groq (Mixtral 8x7b) + HuggingFace (all-MiniLM-L6-v2) |
+| Auth | NextAuth / Auth.js (email/password + Google + LinkedIn) |
+| AI | Groq (Llama 3.3 70B) + HuggingFace embeddings (all-MiniLM-L6-v2) |
 | File storage | UploadThing |
 | Payments | Stripe |
 | Rate limiting | Upstash Redis |
@@ -57,7 +63,7 @@ flowchart LR
 
 ## Key decisions
 
-- **Semantic matching over keyword matching** — the differentiator vs. most ATS-optimization tools, at the cost of higher API usage per analysis.
+- **Semantic matching over keyword matching** — the differentiator vs. most ATS-optimization tools, computed via a dedicated embeddings model (HuggingFace) kept separate from the generation model (Groq), at the cost of an extra network call per analysis.
 - **No color-coded status system** — matching/missing skills are distinguished by icon + label only, never green/red, to keep the visual language restrained and premium rather than "dashboard-y."
 - **NextAuth over a managed auth provider** — full control over the auth flow, no vendor lock-in, at the cost of more upfront implementation.
 - **Upstash Redis for rate limiting, not in-memory** — required for correctness on Vercel's stateless serverless functions.
@@ -81,6 +87,12 @@ npm run dev
 ![Section rewrite, before/after](./docs/screenshots/rewrite.png)
 ![Application tracker](./docs/screenshots/tracker.png)
 
+## Try it live
+
+- **Instant demo, no account** — `/demo` runs a real analysis on a sample profile in seconds.
+- **Command palette** — press `⌘K` / `Ctrl+K` anywhere to jump around instantly.
+- **Built with** — `/built-with` breaks down the real stack, not a marketing version of it.
+
 ---
 
-Built by Mohamed Amine Saadani
+Built by [Mohamed Amine Saadani](https://github.com/SaadaniMohamedAmine) — [LinkedIn](https://www.linkedin.com/in/mohamed-amine-saadani-306b58338/)
