@@ -1,36 +1,194 @@
 {
-  "landing": {
-    "tagline": "Your resume, aligned to every opportunity.",
-    "cta_primary": "Analyze your resume",
-    "cta_secondary": "See how it works"
-  },
-  "upload": {
-    "dropzone_label": "Drop your resume here or click to browse",
-    "jd_label": "Paste the job description",
-    "cta": "Analyze"
-  },
-  "results": {
-    "matching_skills": "Matching skills",
-    "missing_skills": "Missing skills",
-    "rewrite_cta": "Rewrite my resume",
-    "cover_letter_cta": "Generate cover letter"
-  },
-  "empty": {
-    "resumes": "Nothing analyzed yet",
-    "resumes_body": "Upload your first resume to get your match score.",
-    "applications": "Nothing tracked yet",
-    "applications_body": "Add your first application to start tracking."
-  },
   "nav": {
     "dashboard": "Dashboard",
     "analyze": "Analyze",
     "history": "History",
     "tracker": "Applications",
-    "settings": "Settings"
+    "settings": "Settings",
+    "signIn": "Sign In",
+    "analyzeCta": "Analyze your resume",
+    "dashboardCta": "Dashboard",
+    "functionalities": "Functionalities",
+    "process": "Process",
+    "pricing": "Pricing"
   },
   "userMenu": {
     "settings": "Settings",
     "billing": "Billing",
     "signOut": "Sign out"
+  },
+  "landing": {
+    "eyebrow": "Precise Minimalism",
+    "tagline": "Your resume, aligned to every opportunity.",
+    "subtitle": "75% of resumes are rejected by ATS before a human ever reads them.",
+    "ctaPrimary": "Analyze your resume",
+    "ctaSecondary": "See how it works",
+    "featuresTitle": "Core Intelligence",
+    "featureScoreTitle": "AI Match Score",
+    "featureScoreBody": "Semantic comparison between your resume and the job description, not just keyword matching.",
+    "featureGapTitle": "Gap Detection",
+    "featureGapBody": "See exactly which skills are missing before a recruiter does.",
+    "featureRewriteTitle": "Section Rewriting",
+    "featureRewriteBody": "AI-rewritten resume sections, side by side with your original.",
+    "featureCoverTitle": "Cover Letter Generation",
+    "featureCoverBody": "A ready-to-send cover letter tailored to the role.",
+    "processTitle": "The Process",
+    "processSubtitle": "Technical alignment in three phases.",
+    "trustTitle": "Designed for Experts by Experts."
+  },
+  "auth": {
+    "signUpTitle": "Create your profile",
+    "loginTitle": "Welcome back",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithLinkedIn": "Continue with LinkedIn",
+    "orUseEmail": "or use email",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "createAccount": "Create Account",
+    "logIn": "Log in",
+    "alreadyHaveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "termsNotice": "By signing up, you agree to our {terms} and {privacy}.",
+    "terms": "Terms",
+    "privacy": "Privacy Policy"
+  },
+  "upload": {
+    "stepUpload": "Upload",
+    "stepAnalyze": "Analyze",
+    "stepResults": "Results",
+    "dropzoneLabel": "Drop your resume here or click to browse",
+    "dropzoneHint": "PDF only, up to 5MB",
+    "jobTitleLabel": "Job title",
+    "companyLabel": "Company (optional)",
+    "jdLabel": "Paste the job description",
+    "cta": "Analyze",
+    "quotaExceededTitle": "Unlimited analyses is a Pro feature",
+    "quotaExceededBody": "You've used all 3 free analyses this month. Upgrade to Pro for unlimited analyses, resume rewriting, and cover letters.",
+    "viewPlans": "View plans"
+  },
+  "analyzing": {
+    "stepExtract": "Extracting your resume",
+    "stepCompare": "Comparing with the job description",
+    "stepScore": "Calculating your match score",
+    "stepSuggestions": "Preparing suggestions"
+  },
+  "results": {
+    "matchingSkills": "Matching skills",
+    "missingSkills": "Missing skills",
+    "recommendations": "Recommendations",
+    "rewriteCta": "Rewrite my resume",
+    "coverLetterCta": "Generate cover letter",
+    "downloadReport": "Download full report",
+    "analyzedJustNow": "Analyzed just now"
+  },
+  "rewrite": {
+    "sectionSummary": "Summary",
+    "sectionExperience": "Experience",
+    "sectionSkills": "Skills",
+    "originalLabel": "Original",
+    "rewrittenLabel": "Rewritten",
+    "generateCta": "Generate rewrite",
+    "regenerateCta": "Regenerate",
+    "applyCta": "Apply this rewrite",
+    "exportCta": "Export rewritten resume"
+  },
+  "coverLetter": {
+    "generating": "Generating your cover letter…",
+    "copy": "Copy to clipboard",
+    "exportPdf": "Export as PDF",
+    "regenerate": "Regenerate",
+    "close": "Close"
+  },
+  "history": {
+    "title": "Resume History",
+    "emptyTitle": "Nothing analyzed yet",
+    "emptyBody": "Upload your first resume to get your match score.",
+    "emptyCta": "Upload your first resume"
+  },
+  "tracker": {
+    "title": "Application Tracker",
+    "addApplication": "Add application",
+    "columnApplied": "Applied",
+    "columnInterview": "Interview",
+    "columnOffer": "Offer",
+    "columnRejected": "Rejected",
+    "emptyTitle": "Nothing tracked yet",
+    "emptyBody": "Add your first application to organize your career journey. Résona will provide real-time analysis and optimization insights.",
+    "emptyCta": "Add your first application",
+    "modalTitle": "Add application",
+    "companyLabel": "Company",
+    "roleLabel": "Role",
+    "linkAnalysisLabel": "Not linked to an analysis",
+    "cancel": "Cancel"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "analyzeCta": "Analyze a new resume",
+    "statApplications": "Applications sent",
+    "statResponseRate": "Response rate",
+    "statAvgScore": "Average match score",
+    "recentActivity": "Recent activity"
+  },
+  "settings": {
+    "accountTab": "Account",
+    "notificationsTab": "Notifications",
+    "billingTab": "Billing",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "signOut": "Sign out",
+    "currentPlan": "Current plan",
+    "renewsOn": "Renews on {date}",
+    "upgradeToPro": "Upgrade to Pro",
+    "manageSubscription": "Manage subscription"
+  },
+  "pricing": {
+    "title": "Simple, honest pricing",
+    "subtitle": "Start free. Upgrade when your search gets serious.",
+    "mostPopular": "Most popular",
+    "currentPlan": "Current plan",
+    "upgradeToPro": "Upgrade to Pro",
+    "freeName": "Free",
+    "freeDescription": "Try Résona and see your first match score.",
+    "proName": "Pro",
+    "proDescription": "For an active job search, without limits."
+  },
+  "legal": {
+    "privacyTitle": "Privacy Policy",
+    "termsTitle": "Terms of Service",
+    "lastUpdated": "Last updated: {date}"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "unauthorized": "Please sign in to continue.",
+    "notFound": "This page doesn't exist.",
+    "backToDashboard": "Back to dashboard",
+    "upgradeRequired": "{feature} is a Pro feature",
+    "upgradeRequiredBody": "Upgrade to unlock unlimited rewrites, cover letters, and full history."
+  },
+  "notifications": {
+    "accountCreated": "Account created.",
+    "emailInUse": "This email is already registered.",
+    "invalidCredentials": "Incorrect email or password.",
+    "wrongFileType": "Please upload a PDF file.",
+    "fileTooLarge": "File exceeds the 5MB limit.",
+    "analysisFailed": "We couldn't analyze your resume. Please try again.",
+    "rewriteGenerated": "Rewrite generated.",
+    "rewriteApplied": "Applied to your resume.",
+    "rewriteFailed": "Rewrite failed. Please try again.",
+    "exportPreparing": "Preparing your PDF…",
+    "resumeDownloaded": "Resume downloaded.",
+    "coverLetterReady": "Cover letter ready.",
+    "copiedToClipboard": "Copied to clipboard.",
+    "coverLetterDownloaded": "Cover letter downloaded.",
+    "applicationAdded": "Application added.",
+    "statusChanged": "Moved to {status}.",
+    "applicationRemoved": "Application removed.",
+    "resumeDeleted": "Resume deleted.",
+    "profileUpdated": "Profile updated.",
+    "upgradeSuccess": "You're now on Pro. Unlimited analyses unlocked.",
+    "upgradeCanceled": "Upgrade canceled — no charge was made.",
+    "subscriptionCanceled": "Your subscription has been canceled.",
+    "networkError": "Connection issue. Please check your network.",
+    "generic": "Something went wrong. Please try again."
   }
 }

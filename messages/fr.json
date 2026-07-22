@@ -1,36 +1,194 @@
 {
-  "landing": {
-    "tagline": "Votre CV, aligné sur chaque opportunité.",
-    "cta_primary": "Analyser votre CV",
-    "cta_secondary": "Découvrir comment ça marche"
-  },
-  "upload": {
-    "dropzone_label": "Déposez votre CV ici ou cliquez pour parcourir",
-    "jd_label": "Collez la description du poste",
-    "cta": "Analyser"
-  },
-  "results": {
-    "matching_skills": "Compétences correspondantes",
-    "missing_skills": "Compétences manquantes",
-    "rewrite_cta": "Réécrire mon CV",
-    "cover_letter_cta": "Générer une lettre de motivation"
-  },
-  "empty": {
-    "resumes": "Rien d'analysé pour l'instant",
-    "resumes_body": "Téléversez votre premier CV pour obtenir votre score de correspondance.",
-    "applications": "Rien de suivi pour l'instant",
-    "applications_body": "Ajoutez votre première candidature pour commencer le suivi."
-  },
   "nav": {
     "dashboard": "Tableau de bord",
     "analyze": "Analyser",
     "history": "Historique",
     "tracker": "Suivi candidatures",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "signIn": "Se connecter",
+    "analyzeCta": "Analyser mon CV",
+    "dashboardCta": "Tableau de bord",
+    "functionalities": "Fonctionnalités",
+    "process": "Processus",
+    "pricing": "Tarifs"
   },
   "userMenu": {
     "settings": "Paramètres",
     "billing": "Facturation",
     "signOut": "Déconnexion"
+  },
+  "landing": {
+    "eyebrow": "Minimalisme Précis",
+    "tagline": "Votre CV, aligné à chaque opportunité.",
+    "subtitle": "75% des CV sont rejetés par les ATS avant qu'un humain ne les lise.",
+    "ctaPrimary": "Analyser mon CV",
+    "ctaSecondary": "Voir comment ça marche",
+    "featuresTitle": "Intelligence Principale",
+    "featureScoreTitle": "Score de matching IA",
+    "featureScoreBody": "Comparaison sémantique entre votre CV et l'offre d'emploi, pas juste des mots-clés.",
+    "featureGapTitle": "Détection des écarts",
+    "featureGapBody": "Voyez exactement quelles compétences manquent avant un recruteur.",
+    "featureRewriteTitle": "Réécriture des sections",
+    "featureRewriteBody": "Sections de CV réécrites par l'IA, comparées à l'original.",
+    "featureCoverTitle": "Génération de lettre de motivation",
+    "featureCoverBody": "Une lettre de motivation prête à envoyer, adaptée au poste.",
+    "processTitle": "Le Processus",
+    "processSubtitle": "Alignement technique en trois phases.",
+    "trustTitle": "Conçu par des experts, pour des experts."
+  },
+  "auth": {
+    "signUpTitle": "Créez votre profil",
+    "loginTitle": "Bon retour",
+    "continueWithGoogle": "Continuer avec Google",
+    "continueWithLinkedIn": "Continuer avec LinkedIn",
+    "orUseEmail": "ou utilisez votre email",
+    "emailLabel": "Adresse email",
+    "passwordLabel": "Mot de passe",
+    "createAccount": "Créer un compte",
+    "logIn": "Se connecter",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "noAccount": "Pas encore de compte ?",
+    "termsNotice": "En vous inscrivant, vous acceptez nos {terms} et notre {privacy}.",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité"
+  },
+  "upload": {
+    "stepUpload": "Upload",
+    "stepAnalyze": "Analyse",
+    "stepResults": "Résultats",
+    "dropzoneLabel": "Déposez votre CV ici ou cliquez pour parcourir",
+    "dropzoneHint": "PDF uniquement, jusqu'à 5 Mo",
+    "jobTitleLabel": "Intitulé du poste",
+    "companyLabel": "Entreprise (optionnel)",
+    "jdLabel": "Collez l'offre d'emploi",
+    "cta": "Analyser",
+    "quotaExceededTitle": "Les analyses illimitées sont une fonctionnalité Pro",
+    "quotaExceededBody": "Vous avez utilisé vos 3 analyses gratuites de ce mois. Passez à Pro pour des analyses illimitées, la réécriture de CV et les lettres de motivation.",
+    "viewPlans": "Voir les offres"
+  },
+  "analyzing": {
+    "stepExtract": "Extraction de votre CV",
+    "stepCompare": "Comparaison avec l'offre d'emploi",
+    "stepScore": "Calcul de votre score de matching",
+    "stepSuggestions": "Préparation des suggestions"
+  },
+  "results": {
+    "matchingSkills": "Compétences correspondantes",
+    "missingSkills": "Compétences manquantes",
+    "recommendations": "Recommandations",
+    "rewriteCta": "Réécrire mon CV",
+    "coverLetterCta": "Générer une lettre de motivation",
+    "downloadReport": "Télécharger le rapport complet",
+    "analyzedJustNow": "Analysé à l'instant"
+  },
+  "rewrite": {
+    "sectionSummary": "Résumé",
+    "sectionExperience": "Expérience",
+    "sectionSkills": "Compétences",
+    "originalLabel": "Original",
+    "rewrittenLabel": "Réécrit",
+    "generateCta": "Générer la réécriture",
+    "regenerateCta": "Régénérer",
+    "applyCta": "Appliquer cette réécriture",
+    "exportCta": "Exporter le CV réécrit"
+  },
+  "coverLetter": {
+    "generating": "Génération de votre lettre de motivation…",
+    "copy": "Copier",
+    "exportPdf": "Exporter en PDF",
+    "regenerate": "Régénérer",
+    "close": "Fermer"
+  },
+  "history": {
+    "title": "Historique des CV",
+    "emptyTitle": "Rien d'analysé pour le moment",
+    "emptyBody": "Téléversez votre premier CV pour obtenir votre score.",
+    "emptyCta": "Téléverser mon premier CV"
+  },
+  "tracker": {
+    "title": "Suivi des candidatures",
+    "addApplication": "Ajouter une candidature",
+    "columnApplied": "Candidature envoyée",
+    "columnInterview": "Entretien",
+    "columnOffer": "Offre",
+    "columnRejected": "Refusée",
+    "emptyTitle": "Rien de suivi pour le moment",
+    "emptyBody": "Ajoutez votre première candidature pour organiser votre recherche. Résona vous fournira des analyses et suggestions en temps réel.",
+    "emptyCta": "Ajouter ma première candidature",
+    "modalTitle": "Ajouter une candidature",
+    "companyLabel": "Entreprise",
+    "roleLabel": "Poste",
+    "linkAnalysisLabel": "Non liée à une analyse",
+    "cancel": "Annuler"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "analyzeCta": "Analyser un nouveau CV",
+    "statApplications": "Candidatures envoyées",
+    "statResponseRate": "Taux de réponse",
+    "statAvgScore": "Score de matching moyen",
+    "recentActivity": "Activité récente"
+  },
+  "settings": {
+    "accountTab": "Compte",
+    "notificationsTab": "Notifications",
+    "billingTab": "Facturation",
+    "nameLabel": "Nom",
+    "emailLabel": "Email",
+    "signOut": "Se déconnecter",
+    "currentPlan": "Offre actuelle",
+    "renewsOn": "Renouvellement le {date}",
+    "upgradeToPro": "Passer à Pro",
+    "manageSubscription": "Gérer mon abonnement"
+  },
+  "pricing": {
+    "title": "Une tarification simple et honnête",
+    "subtitle": "Commencez gratuitement. Passez à l'offre supérieure quand votre recherche s'intensifie.",
+    "mostPopular": "Le plus populaire",
+    "currentPlan": "Offre actuelle",
+    "upgradeToPro": "Passer à Pro",
+    "freeName": "Gratuit",
+    "freeDescription": "Essayez Résona et découvrez votre premier score de matching.",
+    "proName": "Pro",
+    "proDescription": "Pour une recherche d'emploi active, sans limites."
+  },
+  "legal": {
+    "privacyTitle": "Politique de confidentialité",
+    "termsTitle": "Conditions d'utilisation",
+    "lastUpdated": "Dernière mise à jour : {date}"
+  },
+  "errors": {
+    "generic": "Une erreur est survenue. Veuillez réessayer.",
+    "unauthorized": "Veuillez vous connecter pour continuer.",
+    "notFound": "Cette page n'existe pas.",
+    "backToDashboard": "Retour au tableau de bord",
+    "upgradeRequired": "{feature} est une fonctionnalité Pro",
+    "upgradeRequiredBody": "Passez à Pro pour débloquer les réécritures illimitées, les lettres de motivation et l'historique complet."
+  },
+  "notifications": {
+    "accountCreated": "Compte créé.",
+    "emailInUse": "Cet email est déjà utilisé.",
+    "invalidCredentials": "Email ou mot de passe incorrect.",
+    "wrongFileType": "Veuillez uploader un fichier PDF.",
+    "fileTooLarge": "Le fichier dépasse la limite de 5 Mo.",
+    "analysisFailed": "L'analyse a échoué. Veuillez réessayer.",
+    "rewriteGenerated": "Réécriture générée.",
+    "rewriteApplied": "Appliqué à votre CV.",
+    "rewriteFailed": "La réécriture a échoué. Veuillez réessayer.",
+    "exportPreparing": "Préparation de votre PDF…",
+    "resumeDownloaded": "CV téléchargé.",
+    "coverLetterReady": "Lettre de motivation prête.",
+    "copiedToClipboard": "Copié dans le presse-papiers.",
+    "coverLetterDownloaded": "Lettre de motivation téléchargée.",
+    "applicationAdded": "Candidature ajoutée.",
+    "statusChanged": "Déplacée vers {status}.",
+    "applicationRemoved": "Candidature supprimée.",
+    "resumeDeleted": "CV supprimé.",
+    "profileUpdated": "Profil mis à jour.",
+    "upgradeSuccess": "Vous êtes maintenant sur l'offre Pro. Analyses illimitées débloquées.",
+    "upgradeCanceled": "Mise à niveau annulée — aucun paiement effectué.",
+    "subscriptionCanceled": "Votre abonnement a été annulé.",
+    "networkError": "Problème de connexion. Vérifiez votre réseau.",
+    "generic": "Une erreur est survenue. Veuillez réessayer."
   }
 }

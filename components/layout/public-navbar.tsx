@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Wordmark } from "@/components/ui/wordmark";
 import { SectionNavLink } from "@/components/layout/section-nav-link";
 import { LanguageDropdown } from "@/components/language-dropdown";
@@ -12,6 +13,8 @@ export function PublicNavbar({
   locale?: string;
   user?: { name?: string | null; email?: string | null; image?: string | null } | null;
 }) {
+  const t = useTranslations("nav");
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-track bg-base">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-5 md:px-16">
@@ -20,13 +23,13 @@ export function PublicNavbar({
         </Link>
         <div className="hidden items-center gap-8 text-sm text-muted md:flex">
           <SectionNavLink sectionId="features" className="transition-colors hover:text-accent">
-            Functionalities
+            {t("functionalities")}
           </SectionNavLink>
           <SectionNavLink sectionId="process" className="transition-colors hover:text-accent">
-            Process
+            {t("process")}
           </SectionNavLink>
           <Link href="/pricing" className="transition-colors hover:text-accent">
-            Pricing
+            {t("pricing")}
           </Link>
         </div>
         {user ? (
@@ -39,20 +42,20 @@ export function PublicNavbar({
               href="/dashboard"
               className="rounded-(--radius-control) bg-accent px-6 py-2 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90"
             >
-              Dashboard
+              {t("dashboardCta")}
             </Link>
             <UserMenu {...user} />
           </div>
         ) : (
           <div className="flex items-center gap-4">
             <Link href="/login" className="text-sm font-medium text-accent transition-colors hover:opacity-80">
-              Sign In
+              {t("signIn")}
             </Link>
             <Link
               href="/upload"
               className="rounded-(--radius-control) bg-accent px-6 py-2 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90"
             >
-              Analyze your resume
+              {t("analyzeCta")}
             </Link>
           </div>
         )}
