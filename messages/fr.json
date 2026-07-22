@@ -101,7 +101,11 @@
     "stepExtract": "Extraction de votre CV",
     "stepCompare": "Comparaison avec l'offre d'emploi",
     "stepScore": "Calcul de votre score de matching",
-    "stepSuggestions": "Préparation des suggestions"
+    "stepSuggestions": "Préparation des suggestions",
+    "title": "Analyse du profil",
+    "subtitle": "Recoupement des données de performance historiques avec les référentiels sectoriels actuels.",
+    "tryAgain": "Réessayer",
+    "missingParams": "Paramètres requis manquants"
   },
   "results": {
     "matchingSkills": "Compétences correspondantes",

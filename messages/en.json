@@ -101,7 +101,11 @@
     "stepExtract": "Extracting your resume",
     "stepCompare": "Comparing with the job description",
     "stepScore": "Calculating your match score",
-    "stepSuggestions": "Preparing suggestions"
+    "stepSuggestions": "Preparing suggestions",
+    "title": "Analyzing Profile",
+    "subtitle": "Cross-referencing historical performance data with current industry benchmarks.",
+    "tryAgain": "Try again",
+    "missingParams": "Missing required parameters"
   },
   "results": {
     "matchingSkills": "Matching skills",
