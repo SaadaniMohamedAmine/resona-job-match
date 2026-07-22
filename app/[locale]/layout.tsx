@@ -22,7 +22,7 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
       locale,
       type: "website",
     },
-    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
+    metadataBase: process.env.NEXT_PUBLIC_APP_URL ? new URL(process.env.NEXT_PUBLIC_APP_URL) : undefined,
   };
 }
 
