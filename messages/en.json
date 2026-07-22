@@ -30,7 +30,8 @@
     "toggleMenu": "Toggle menu",
     "changeLanguage": "Change language",
     "matchScoreAria": "Match score: {score}%",
-    "footerBuiltWith": "Built With"
+    "footerBuiltWith": "Built With",
+    "footerLiveDemo": "Live Demo"
   },
   "userMenu": {
     "settings": "Settings",
@@ -66,7 +67,8 @@
     "processStep3Body": "Receive a comprehensive report and an optimized version of your profile ready for submission.",
     "trustTitle": "Designed for Experts by Experts.",
     "trustBody": "Résona eliminates the guesswork of job hunting through factual data and architectural resume construction.",
-    "trustCta": "Start Your Alignment"
+    "trustCta": "Start Your Alignment",
+    "tryLiveDemo": "or try an instant demo — no signup —"
   },
   "auth": {
     "signUpTitle": "Create your profile",
@@ -506,5 +508,22 @@
     "platformItem5Detail": "EN/FR locale routing and message catalogs.",
     "platformItem6Detail": "Runtime error monitoring in production.",
     "platformItem7Detail": "CI/CD native to the Next.js framework."
+  },
+  "demo": {
+    "title": "Try it — no signup required",
+    "subtitle": "Pick a sample profile and watch Résona run a real match analysis, live.",
+    "vsPrefix": "vs {jobTitle} @ {company}",
+    "matchHintStrong": "Strong match",
+    "matchHintPartial": "Partial match",
+    "runningAnalysis": "Running real analysis…",
+    "limitReached": "Demo limit reached. Sign up for a free account to keep analyzing.",
+    "demoUnavailable": "Demo unavailable right now.",
+    "semanticSimilarityPrefix": "Semantic similarity (pgvector): {pct}%",
+    "matchingSkillsTitle": "Matching skills",
+    "missingSkillsTitle": "Missing skills",
+    "unlockTitle": "Full recommendations, resume rewrite & cover letter",
+    "unlockBody": "Create a free account to unlock section-by-section suggestions and generate a tailored rewrite for this match.",
+    "createAccountCta": "Create free account",
+    "analyzeOwnCta": "Analyze my own resume"
   }
 }

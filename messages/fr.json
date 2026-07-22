@@ -30,7 +30,8 @@
     "toggleMenu": "Basculer le menu",
     "changeLanguage": "Changer de langue",
     "matchScoreAria": "Score de matching : {score} %",
-    "footerBuiltWith": "Stack technique"
+    "footerBuiltWith": "Stack technique",
+    "footerLiveDemo": "Démo live"
   },
   "userMenu": {
     "settings": "Paramètres",
@@ -66,7 +67,8 @@
     "processStep3Body": "Recevez un rapport complet et une version optimisée de votre profil, prête à être soumise.",
     "trustTitle": "Conçu par des experts, pour des experts.",
     "trustBody": "Résona élimine les incertitudes de la recherche d'emploi grâce à des données factuelles et une construction architecturale du CV.",
-    "trustCta": "Démarrer votre alignement"
+    "trustCta": "Démarrer votre alignement",
+    "tryLiveDemo": "ou essayez une démo instantanée — sans inscription —"
   },
   "auth": {
     "signUpTitle": "Créez votre profil",
@@ -506,5 +508,22 @@
     "platformItem5Detail": "Routage par locale EN/FR et catalogues de messages.",
     "platformItem6Detail": "Supervision des erreurs runtime en production.",
     "platformItem7Detail": "CI/CD natif au framework Next.js."
+  },
+  "demo": {
+    "title": "Essayez — sans inscription",
+    "subtitle": "Choisissez un profil exemple et regardez Résona lancer une vraie analyse de matching, en direct.",
+    "vsPrefix": "vs {jobTitle} @ {company}",
+    "matchHintStrong": "Match fort",
+    "matchHintPartial": "Match partiel",
+    "runningAnalysis": "Analyse réelle en cours…",
+    "limitReached": "Limite de démo atteinte. Créez un compte gratuit pour continuer à analyser.",
+    "demoUnavailable": "Démo indisponible pour le moment.",
+    "semanticSimilarityPrefix": "Similarité sémantique (pgvector) : {pct} %",
+    "matchingSkillsTitle": "Compétences correspondantes",
+    "missingSkillsTitle": "Compétences manquantes",
+    "unlockTitle": "Recommandations complètes, réécriture de CV et lettre de motivation",
+    "unlockBody": "Créez un compte gratuit pour débloquer les suggestions détaillées par section et générer une réécriture adaptée à ce match.",
+    "createAccountCta": "Créer un compte gratuit",
+    "analyzeOwnCta": "Analyser mon propre CV"
   }
 }

@@ -78,6 +78,14 @@ export default function LandingPage() {
               {t("ctaSecondary")}
             </Link>
           </div>
+
+          <Link
+            href="/demo"
+            className="animate-fade-up mt-6 block text-center text-sm text-muted transition-colors hover:text-accent"
+            style={{ animationDelay: "350ms" }}
+          >
+            {t("tryLiveDemo")}
+          </Link>
         </div>
       </section>
 

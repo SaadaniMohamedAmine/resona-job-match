@@ -13,6 +13,9 @@ export function PublicFooter() {
           <p className="text-xs text-muted">© 2026 Résona. {t("footerTagline")}</p>
         </div>
         <div className="flex gap-8 text-xs">
+          <Link href="/demo" className="text-muted transition-colors hover:text-accent">
+            {t("footerLiveDemo")}
+          </Link>
           <Link href="/built-with" className="text-muted transition-colors hover:text-accent">
             {t("footerBuiltWith")}
           </Link>
