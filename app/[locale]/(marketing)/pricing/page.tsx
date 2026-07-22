@@ -1,58 +1,40 @@
-"use client";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { getStripe } from "@/lib/stripe";
+import { PricingCards } from "@/components/billing/pricing-cards";
 
-const PLANS = [
-  {
-    name: "Free",
-    price: "$0",
-    features: ["3 analyses per month", "Match score & gap detection", "5 saved analyses"],
-  },
-  {
-    name: "Pro",
-    price: "$19/mo",
-    features: [
-      "Unlimited analyses",
-      "Section rewriting",
-      "Cover letter generation",
-      "PDF export",
-      "Unlimited history",
-    ],
-  },
-];
+export default async function PricingPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const session = await auth();
+  let currentPlan: "FREE" | "PRO" | null = null;
 
-export default function PricingPage() {
-  async function handleUpgrade() {
-    const res = await fetch("/api/stripe/checkout", { method: "POST" });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    }
+  if (session?.user) {
+    const user = await db.user.findUnique({ where: { id: session.user.id }, select: { plan: true } });
+    currentPlan = user?.plan ?? null;
   }
 
+  const price = await getStripe().prices.retrieve(process.env.STRIPE_PRO_PRICE_ID!);
+  const proPrice = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: price.currency,
+    minimumFractionDigits: (price.unit_amount ?? 0) % 100 === 0 ? 0 : 2,
+  }).format((price.unit_amount ?? 0) / 100);
+
   return (
-    <div className="mx-auto grid max-w-3xl grid-cols-1 gap-6 px-4 py-24 sm:grid-cols-2">
-      {PLANS.map((plan) => (
-        <div key={plan.name} className="rounded-[var(--radius-card)] border border-[var(--color-track)] p-8">
-          <h3 className="font-[family-name:var(--font-display)] text-xl text-[var(--color-base-light)]">
-            {plan.name}
-          </h3>
-          <p className="mt-2 font-[family-name:var(--font-display)] text-3xl text-[var(--color-accent)]">
-            {plan.price}
-          </p>
-          <ul className="mt-6 flex flex-col gap-2 text-sm text-[var(--color-muted)]">
-            {plan.features.map((f) => (
-              <li key={f}>{f}</li>
-            ))}
-          </ul>
-          {plan.name === "Pro" && (
-            <button
-              onClick={handleUpgrade}
-              className="mt-8 w-full rounded-[var(--radius-control)] bg-[var(--color-accent)] py-2.5 text-sm font-medium text-[var(--color-base)] transition-opacity hover:opacity-90"
-            >
-              Upgrade to Pro
-            </button>
-          )}
-        </div>
-      ))}
+    <div className="mx-auto max-w-5xl px-5 py-24 md:px-16">
+      <div className="mb-16 text-center">
+        <h1 className="font-display text-4xl font-bold text-base-light md:text-5xl">
+          Simple, honest pricing
+        </h1>
+        <p className="mt-3 text-muted">Start free. Upgrade when your search gets serious.</p>
+      </div>
+
+      <PricingCards
+        currentPlan={currentPlan}
+        isAuthenticated={!!session?.user}
+        proPrice={proPrice}
+        locale={locale}
+      />
     </div>
   );
 }

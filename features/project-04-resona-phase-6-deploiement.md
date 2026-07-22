@@ -1,6 +1,8 @@
 # Résona — Phase 6 : Déploiement
 
 > Document de délégation. Spec, tasks, configuration complète. Dépend des Phases 1-5 (tout doit passer les tests avant déploiement).
+>
+> **Rafraîchi le 2026-07-21** contre le vrai `.env.example` : la vraie stack IA est Groq (analyse) + HuggingFace (embeddings), pas OpenAI. Toutes les occurrences `OPENAI_API_KEY` ci-dessous ont été corrigées.
 
 ---
 
@@ -21,7 +23,7 @@
 - [ ] Exécuter `prisma db push` / migrations sur la base de production
 - [ ] Créer et exécuter le script de seed (compte démo)
 - [ ] Test de bout en bout en production (flow complet)
-- [ ] **Rotation des clés API avant mise en ligne publique** (OpenAI, Stripe, UploadThing — ne jamais réutiliser des clés qui ont transité en clair pendant le développement)
+- [ ] **Rotation des clés API avant mise en ligne publique** (Groq, HuggingFace, Stripe, UploadThing — ne jamais réutiliser des clés qui ont transité en clair pendant le développement)
 - [ ] Vérifier que Sentry reçoit bien les erreurs de l'environnement de production (DSN distinct de dev si possible)
 
 ---
@@ -49,7 +51,8 @@ DATABASE_URL
 AUTH_SECRET
 AUTH_GOOGLE_ID / AUTH_GOOGLE_SECRET
 AUTH_LINKEDIN_ID / AUTH_LINKEDIN_SECRET
-OPENAI_API_KEY
+GROQ_API_KEY
+HUGGINGFACE_TOKEN
 UPLOADTHING_TOKEN
 UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN
 STRIPE_SECRET_KEY (clé live, pas test, une fois prêt à facturer réellement)
@@ -103,6 +106,7 @@ async function main() {
       resumeId: resume.id,
       jobPostId: jobPost.id,
       matchScore: 87,
+      // semanticSimilarity: 0.82, // décommenter si la migration de feature-embeddings-visualization.md est appliquée
       matchingSkills: ["React", "TypeScript", "Next.js", "REST APIs"],
       missingSkills: ["GraphQL", "Kubernetes"],
       suggestions: [
@@ -143,7 +147,7 @@ main().finally(() => db.$disconnect());
 
 > Leçon tirée d'un incident précédent sur PulseAI (Project 01) : des clés API ont été exposées pendant le développement et ont dû être rotées avant toute nouvelle mise en ligne. Appliquer la même discipline ici dès le départ.
 
-- [ ] Régénérer `OPENAI_API_KEY` juste avant le déploiement final (ne pas réutiliser la clé de dev)
+- [ ] Régénérer `GROQ_API_KEY` et `HUGGINGFACE_TOKEN` juste avant le déploiement final (ne pas réutiliser les clés de dev)
 - [ ] Régénérer les secrets OAuth Google/LinkedIn si le repo a été partagé publiquement à un moment
 - [ ] Vérifier qu'aucune clé n'est présente dans l'historique Git (`git log -p | grep -i "sk-"` ou équivalent)
 - [ ] Confirmer que `.env` est bien dans `.gitignore` depuis le premier commit

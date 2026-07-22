@@ -1,6 +1,8 @@
 # Résona — Phase 5 : Qualité, Tests & Performance
 
 > Document de délégation. Spec, tasks, code complet. Dépend des Phases 1-4 (tout doit être implémenté pour être testé).
+>
+> **Rafraîchi le 2026-07-21** contre le vrai code : sélecteur e2e corrigé pour matcher le vrai `UploadForm` (pas d'`id="resume-upload"` dans le vrai composant). `ScoreRing` et `GET /api/resumes` vérifiés conformes aux tests ci-dessous, aucune autre correction nécessaire sur cette phase.
 
 ---
 
@@ -235,7 +237,7 @@ test("full flow: upload → analyze → results → tracker", async ({ page }) =
   await page.click('button[type="submit"]');
 
   await page.waitForURL("/upload");
-  await page.setInputFiles("#resume-upload", path.join(__dirname, "fixtures/sample-resume.pdf"));
+  await page.setInputFiles('input[type="file"]', path.join(__dirname, "fixtures/sample-resume.pdf"));
   await page.fill('input[placeholder="Job title"]', "Senior Frontend Engineer");
   await page.fill('textarea', "We are looking for a Senior Frontend Engineer with React and TypeScript experience.");
   await page.click('button:has-text("Analyze")');

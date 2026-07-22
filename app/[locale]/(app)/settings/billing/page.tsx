@@ -1,11 +1,17 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getAnalyzeQuota } from "@/lib/rate-limit";
 import { AnalysisQuotaBadge } from "@/components/ui/analysis-quota-badge";
 import { SettingsSidebar } from "@/components/settings/settings-sidebar";
 
-export default async function BillingSettingsPage() {
+export default async function BillingSettingsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const session = await auth();
   if (!session?.user) redirect("/login");
 
@@ -25,13 +31,23 @@ export default async function BillingSettingsPage() {
         />
 
         <section className="space-y-8 lg:col-span-8">
-          <div className="rounded-(--radius-card) border border-track bg-track/20 p-8">
-            <p className="text-xs tracking-widest text-muted uppercase">Current plan</p>
-            <p className="mt-1 font-display text-2xl font-bold text-accent">{user?.plan}</p>
-            {user?.subscription?.currentPeriodEnd && (
-              <p className="mt-2 text-xs text-muted">
-                Renews on {new Date(user.subscription.currentPeriodEnd).toLocaleDateString()}
-              </p>
+          <div className="flex flex-col items-start justify-between gap-6 rounded-(--radius-card) border border-track bg-track/20 p-8 sm:flex-row sm:items-center">
+            <div>
+              <p className="text-xs tracking-widest text-muted uppercase">Current plan</p>
+              <p className="mt-1 font-display text-2xl font-bold text-accent">{user?.plan}</p>
+              {user?.subscription?.currentPeriodEnd && (
+                <p className="mt-2 text-xs text-muted">
+                  Renews on {new Date(user.subscription.currentPeriodEnd).toLocaleDateString()}
+                </p>
+              )}
+            </div>
+            {user?.plan === "FREE" && (
+              <Link
+                href="/pricing"
+                className="rounded-(--radius-control) bg-accent px-6 py-2.5 text-sm font-medium whitespace-nowrap text-[var(--color-base)] transition-opacity hover:opacity-90"
+              >
+                Upgrade to Pro
+              </Link>
             )}
           </div>
 
@@ -39,6 +55,7 @@ export default async function BillingSettingsPage() {
 
           {user?.plan === "PRO" && (
             <form action="/api/stripe/portal" method="POST">
+              <input type="hidden" name="locale" value={locale} />
               <button className="rounded-(--radius-control) border border-track px-6 py-2.5 text-sm text-base-light transition-colors hover:bg-track">
                 Manage subscription
               </button>

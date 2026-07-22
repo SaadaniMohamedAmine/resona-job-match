@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { IconUpload, IconLock } from "@tabler/icons-react";
 import { useUploadThing } from "@/lib/uploadthing-client";
 import { LoaderRing } from "@/components/ui/loader-ring";
+import { UpgradePrompt } from "@/components/billing/upgrade-prompt";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const MIN_WORD_COUNT = 20;
@@ -59,6 +60,15 @@ export function UploadForm({ quotaExceeded }: { quotaExceeded: boolean }) {
       jobDescription,
     });
     router.push(`/analyzing?${params.toString()}`);
+  }
+
+  if (quotaExceeded) {
+    return (
+      <UpgradePrompt
+        feature="Unlimited analyses"
+        description="You've used all 3 free analyses this month. Upgrade to Pro for unlimited analyses, resume rewriting, and cover letters."
+      />
+    );
   }
 
   return (
@@ -136,11 +146,6 @@ export function UploadForm({ quotaExceeded }: { quotaExceeded: boolean }) {
       </div>
 
       {error && <p className="text-sm text-accent">{error}</p>}
-      {quotaExceeded && (
-        <p className="text-sm text-accent">
-          You&apos;ve used all your analyses for this month. Upgrade to Pro for more.
-        </p>
-      )}
 
       <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
         <div className="flex items-center gap-2 text-muted">

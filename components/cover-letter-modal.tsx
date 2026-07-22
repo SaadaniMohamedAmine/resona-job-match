@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { IconFileText, IconX, IconCopy, IconPrinter, IconLock } from "@tabler/icons-react";
+import { IconFileText, IconX, IconCopy, IconPrinter } from "@tabler/icons-react";
 import { LoaderRing } from "@/components/ui/loader-ring";
+import { UpgradePrompt } from "@/components/billing/upgrade-prompt";
 
 export function CoverLetterModal({
   analysisId,
@@ -112,18 +112,7 @@ export function CoverLetterModal({
                 <LoaderRing size={32} />
               </div>
             ) : proRequired ? (
-              <div className="flex flex-col items-center gap-4 py-16 text-center">
-                <IconLock size={28} stroke={1.5} className="text-accent" />
-                <p className="text-sm text-muted">
-                  Cover letter generation is a Pro feature.
-                </p>
-                <Link
-                  href="/settings/billing"
-                  className="rounded-(--radius-control) bg-accent px-6 py-2.5 text-sm font-medium text-[var(--color-base)] transition-opacity hover:opacity-90"
-                >
-                  Upgrade to Pro
-                </Link>
-              </div>
+              <UpgradePrompt feature="Cover letter generation" />
             ) : error ? (
               <p className="py-16 text-center text-sm text-accent">{error}</p>
             ) : (
