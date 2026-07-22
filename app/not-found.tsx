@@ -27,6 +27,7 @@ export default async function GlobalNotFound() {
       <body className={`${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <NotFoundContent
+            locale={locale}
             isAuthenticated={!!session?.user}
             errorCodeLabel={t("errorCode404")}
             title={t("notFoundTitle")}

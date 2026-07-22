@@ -11,7 +11,7 @@ export function PublicNavbar({
   locale,
   user,
 }: {
-  locale?: string;
+  locale: string;
   user?: { name?: string | null; email?: string | null; image?: string | null } | null;
 }) {
   const t = useTranslations("nav");
@@ -37,7 +37,7 @@ export function PublicNavbar({
           <div className="flex items-center gap-4">
             <CommandPaletteTrigger label={t("openCommandPalette")} />
             <div className="hidden items-center gap-4 md:flex">
-              <LanguageDropdown currentLocale={locale!} />
+              <LanguageDropdown currentLocale={locale} />
               <ThemeToggle />
             </div>
             <Link
@@ -52,7 +52,7 @@ export function PublicNavbar({
           <div className="flex items-center gap-4">
             <CommandPaletteTrigger label={t("openCommandPalette")} />
             <div className="hidden items-center gap-4 md:flex">
-              <LanguageDropdown currentLocale={locale!} />
+              <LanguageDropdown currentLocale={locale} />
               <ThemeToggle />
             </div>
             <Link href="/login" className="text-sm font-medium text-accent transition-colors hover:opacity-80">

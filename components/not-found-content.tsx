@@ -7,6 +7,7 @@ import { PublicNavbar } from "@/components/layout/public-navbar";
 import { PublicFooter } from "@/components/layout/public-footer";
 
 export function NotFoundContent({
+  locale,
   isAuthenticated,
   errorCodeLabel = "Error code 404",
   title = "Path unresolved",
@@ -15,6 +16,7 @@ export function NotFoundContent({
   backToHomeLabel = "Back to home",
   systemHistoryLabel = "System history",
 }: {
+  locale: string;
   isAuthenticated: boolean;
   errorCodeLabel?: string;
   title?: string;
@@ -64,7 +66,7 @@ export function NotFoundContent({
         style={{ background: "radial-gradient(circle, rgba(201,169,97,0.05) 0%, transparent 70%)" }}
       />
 
-      <PublicNavbar />
+      <PublicNavbar locale={locale} />
 
       {/* Main */}
       <main className="relative z-10 flex flex-1 flex-col items-center justify-center px-5 text-center">
