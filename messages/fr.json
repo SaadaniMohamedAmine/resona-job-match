@@ -92,7 +92,17 @@
     "signUpCta": "S'inscrire",
     "passwordPlaceholder": "Mot de passe",
     "showPassword": "Afficher le mot de passe",
-    "hidePassword": "Masquer le mot de passe"
+    "hidePassword": "Masquer le mot de passe",
+    "onboardingTitle": "Encore une petite chose",
+    "onboardingSubtitle": "Nous aide à personnaliser votre tableau de bord. 10 secondes — ou passez complètement.",
+    "targetRoleLabel": "Quel poste visez-vous ?",
+    "targetRolePlaceholder": "ex. Ingénieur Frontend Senior",
+    "searchStageLabel": "Où en êtes-vous dans votre recherche ?",
+    "stageStarting": "Je commence tout juste",
+    "stageApplying": "Je candidate activement",
+    "stageInterviewing": "En phase d'entretiens",
+    "continueCta": "Continuer",
+    "skipForNow": "Passer pour l'instant"
   },
   "upload": {
     "stepUpload": "Upload",

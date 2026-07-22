@@ -16,6 +16,8 @@ model User {
   password      String?
   bio           String?
   plan          Plan      @default(FREE)
+  targetRole    String?
+  searchStage   String?
 
   notifyAnalysisComplete     Boolean @default(true)
   notifyWeeklyDigest         Boolean @default(true)

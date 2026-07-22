@@ -92,7 +92,17 @@
     "signUpCta": "Sign up",
     "passwordPlaceholder": "Password",
     "showPassword": "Show password",
-    "hidePassword": "Hide password"
+    "hidePassword": "Hide password",
+    "onboardingTitle": "One quick thing",
+    "onboardingSubtitle": "Helps us tailor your dashboard. Takes 10 seconds — or skip it entirely.",
+    "targetRoleLabel": "What role are you targeting?",
+    "targetRolePlaceholder": "e.g. Senior Frontend Engineer",
+    "searchStageLabel": "Where are you in your search?",
+    "stageStarting": "Just starting to look",
+    "stageApplying": "Actively applying",
+    "stageInterviewing": "In interviews",
+    "continueCta": "Continue",
+    "skipForNow": "Skip for now"
   },
   "upload": {
     "stepUpload": "Upload",
