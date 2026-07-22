@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
+import { useTranslations, useLocale } from "next-intl";
 import {
   IconSend,
   IconUsers,
@@ -32,6 +33,8 @@ export function ApplicationCard({
   onSetInterviewDate: (id: string, interviewAt: string) => void;
   onDelete: (id: string) => Promise<void>;
 }) {
+  const t = useTranslations("tracker");
+  const locale = useLocale();
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: application.id,
   });
@@ -117,7 +120,7 @@ export function ApplicationCard({
               type="button"
               data-no-dnd
               onClick={() => setDeleteConfirmOpen(true)}
-              aria-label="Delete application"
+              aria-label={t("deleteAriaLabel")}
               className="text-muted transition-colors hover:text-accent"
             >
               <IconTrash size={16} stroke={1.5} />
@@ -130,12 +133,12 @@ export function ApplicationCard({
             <div className="flex items-center gap-2 rounded-(--radius-control) border border-accent/20 bg-accent/5 px-3 py-2">
               <IconCalendar size={16} stroke={1.5} className="text-accent" />
               <span className="text-xs font-medium text-accent">
-                {new Date(application.interviewAt).toLocaleString("en-US", {
+                {new Intl.DateTimeFormat(locale, {
                   month: "short",
                   day: "numeric",
                   hour: "numeric",
                   minute: "2-digit",
-                })}
+                }).format(new Date(application.interviewAt))}
               </span>
             </div>
           ) : schedulingOpen ? (
@@ -151,7 +154,7 @@ export function ApplicationCard({
                 type="submit"
                 className="shrink-0 rounded-(--radius-control) bg-accent px-2.5 py-1.5 text-xs font-medium text-[var(--color-base)]"
               >
-                Save
+                {t("saveCta")}
               </button>
             </form>
           ) : (
@@ -162,17 +165,15 @@ export function ApplicationCard({
               className="flex items-center gap-2 self-start text-xs text-muted hover:text-accent"
             >
               <IconCalendar size={14} stroke={1.5} />
-              Add interview date
+              {t("addInterviewDateCta")}
             </button>
           ))}
 
         <div className="flex items-center justify-between">
           <span className="text-xs text-muted">
-            {new Date(application.appliedAt).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })}
+            {new Intl.DateTimeFormat(locale, { month: "short", day: "numeric", year: "numeric" }).format(
+              new Date(application.appliedAt)
+            )}
           </span>
           {application.analysis && (
             <div
@@ -195,9 +196,13 @@ export function ApplicationCard({
 
       <ConfirmDialog
         open={deleteConfirmOpen}
-        title="Delete this application?"
-        description={`This will permanently remove ${application.company} — ${application.role} from your tracker. This can't be undone.`}
-        confirmLabel="Delete"
+        title={t("deleteApplicationTitle")}
+        description={t("deleteApplicationDescription", {
+          company: application.company,
+          role: application.role,
+        })}
+        confirmLabel={t("deleteCta")}
+        cancelLabel={t("cancel")}
         onConfirm={handleDeleteConfirm}
         onCancel={() => setDeleteConfirmOpen(false)}
         confirming={deleting}
