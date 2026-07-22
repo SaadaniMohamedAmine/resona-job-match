@@ -51,6 +51,10 @@ export function PublicNavbar({
         ) : (
           <div className="flex items-center gap-4">
             <CommandPaletteTrigger label={t("openCommandPalette")} />
+            <div className="hidden items-center gap-4 md:flex">
+              <LanguageDropdown currentLocale={locale!} />
+              <ThemeToggle />
+            </div>
             <Link href="/login" className="text-sm font-medium text-accent transition-colors hover:opacity-80">
               {t("signIn")}
             </Link>
