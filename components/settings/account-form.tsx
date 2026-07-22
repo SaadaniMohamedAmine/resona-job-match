@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import {
   IconUser,
   IconLock,
@@ -21,6 +22,8 @@ export function AccountForm({
   initialBio: string;
   hasPassword: boolean;
 }) {
+  const t = useTranslations("settings");
+  const tErrors = useTranslations("errors");
   const [name, setName] = useState(initialName);
   const [bio, setBio] = useState(initialBio);
   const [saving, setSaving] = useState(false);
@@ -36,7 +39,7 @@ export function AccountForm({
       body: JSON.stringify({ name, bio }),
     });
     setSaving(false);
-    setMessage(res.ok ? "Changes saved." : "Something went wrong. Please try again.");
+    setMessage(res.ok ? t("changesSaved") : tErrors("generic"));
   }
 
   return (
@@ -45,12 +48,12 @@ export function AccountForm({
       <div className="space-y-8">
         <div className="flex items-center gap-4">
           <IconUser size={20} stroke={1.5} className="text-accent" />
-          <h2 className="font-display text-xl font-medium text-base-light">Profile Identity</h2>
+          <h2 className="font-display text-xl font-medium text-base-light">{t("profileIdentity")}</h2>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="space-y-2">
-            <label className="ml-1 text-xs tracking-widest text-muted uppercase">Full Name</label>
+            <label className="ml-1 text-xs tracking-widest text-muted uppercase">{t("fullNameLabel")}</label>
             <input
               type="text"
               value={name}
@@ -59,7 +62,7 @@ export function AccountForm({
             />
           </div>
           <div className="space-y-2">
-            <label className="ml-1 text-xs tracking-widest text-muted uppercase">Primary Email</label>
+            <label className="ml-1 text-xs tracking-widest text-muted uppercase">{t("primaryEmailLabel")}</label>
             <input
               type="email"
               value={email}
@@ -71,7 +74,7 @@ export function AccountForm({
 
         <div className="space-y-2">
           <label className="ml-1 text-xs tracking-widest text-muted uppercase">
-            Bio / Professional Summary
+            {t("bioLabel")}
           </label>
           <textarea
             value={bio}
@@ -87,29 +90,27 @@ export function AccountForm({
       <div className="space-y-8 border-t border-track pt-12">
         <div className="flex items-center gap-4">
           <IconLock size={20} stroke={1.5} className="text-accent" />
-          <h2 className="font-display text-xl font-medium text-base-light">Security &amp; Access</h2>
+          <h2 className="font-display text-xl font-medium text-base-light">{t("securityAccess")}</h2>
         </div>
 
         {hasPassword ? (
           <div className="flex flex-col items-start justify-between gap-6 rounded-(--radius-card) border border-track bg-track/20 p-8 md:flex-row md:items-center">
             <div>
-              <h3 className="mb-1 font-medium text-base-light">Password Authentication</h3>
-              <p className="text-sm text-muted">Sign in with your email and password.</p>
+              <h3 className="mb-1 font-medium text-base-light">{t("passwordAuthTitle")}</h3>
+              <p className="text-sm text-muted">{t("passwordAuthBody")}</p>
             </div>
             <button
               type="button"
               onClick={() => setPasswordDialogOpen(true)}
               className="rounded-(--radius-control) border border-accent px-6 py-2.5 text-sm whitespace-nowrap text-accent transition-colors hover:bg-accent/10"
             >
-              Change Password
+              {t("changePasswordCta")}
             </button>
           </div>
         ) : (
           <div className="flex items-center gap-3 rounded-(--radius-card) border border-track bg-track/20 p-8">
             <IconBrandGoogle size={20} />
-            <p className="text-sm text-muted">
-              You sign in with Google. There&apos;s no password to manage for this account.
-            </p>
+            <p className="text-sm text-muted">{t("googleSignInBody")}</p>
           </div>
         )}
 
@@ -117,11 +118,9 @@ export function AccountForm({
           <IconShieldCheck size={20} stroke={1.5} className="text-accent" />
           <div className="text-sm text-muted">
             <strong className="font-medium text-accent">
-              {hasPassword ? "Password authentication enabled." : "Signed in via Google OAuth."}
+              {hasPassword ? t("passwordEnabledNotice") : t("googleOAuthNotice")}
             </strong>{" "}
-            {hasPassword
-              ? "Your password is securely hashed and never stored in plain text."
-              : "Your identity is verified by Google — no password is stored on our servers."}
+            {hasPassword ? t("passwordHashedNotice") : t("googleVerifiedNotice")}
           </div>
         </div>
       </div>
@@ -129,10 +128,8 @@ export function AccountForm({
       {/* Session Management */}
       <div className="flex flex-col items-start justify-between gap-8 border-t border-track pt-12 md:flex-row md:items-center">
         <div className="space-y-1">
-          <h2 className="font-display text-xl font-medium text-base-light">Session Management</h2>
-          <p className="text-sm text-muted">
-            Save your profile changes, or log out of this device.
-          </p>
+          <h2 className="font-display text-xl font-medium text-base-light">{t("sessionManagement")}</h2>
+          <p className="text-sm text-muted">{t("sessionManagementBody")}</p>
           {message && <p className="text-sm text-accent">{message}</p>}
         </div>
         <div className="flex w-full gap-4 md:w-auto">
@@ -142,14 +139,14 @@ export function AccountForm({
             disabled={saving}
             className="flex-1 rounded-(--radius-control) bg-accent px-8 py-3 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90 disabled:opacity-40 md:flex-none"
           >
-            {saving ? "Saving..." : "Save Changes"}
+            {saving ? t("savingCta") : t("saveChangesCta")}
           </button>
           <button
             type="button"
             onClick={() => signOut({ callbackUrl: "/" })}
             className="flex-1 rounded-(--radius-control) border border-track px-8 py-3 text-sm text-base-light transition-colors hover:bg-track md:flex-none"
           >
-            Sign Out
+            {t("signOut")}
           </button>
         </div>
       </div>

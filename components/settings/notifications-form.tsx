@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { IconBell } from "@tabler/icons-react";
 import { ToggleSwitch } from "@/components/ui/toggle-switch";
 
@@ -11,33 +12,35 @@ type Preferences = {
   notifyProductUpdates: boolean;
 };
 
-const ROWS: { key: keyof Preferences; label: string; description: string }[] = [
-  {
-    key: "notifyAnalysisComplete",
-    label: "Analysis complete",
-    description: "Get notified as soon as a resume analysis finishes processing.",
-  },
-  {
-    key: "notifyWeeklyDigest",
-    label: "Weekly digest",
-    description: "A weekly summary of your match scores and application activity.",
-  },
-  {
-    key: "notifyApplicationReminders",
-    label: "Application reminders",
-    description: "Reminders to follow up on applications you've marked as applied.",
-  },
-  {
-    key: "notifyProductUpdates",
-    label: "Product updates",
-    description: "Occasional news about new Résona features and improvements.",
-  },
-];
-
 export function NotificationsForm({ initialPreferences }: { initialPreferences: Preferences }) {
+  const t = useTranslations("settings");
+  const tErrors = useTranslations("errors");
   const [preferences, setPreferences] = useState(initialPreferences);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+
+  const ROWS: { key: keyof Preferences; label: string; description: string }[] = [
+    {
+      key: "notifyAnalysisComplete",
+      label: t("notifAnalysisCompleteLabel"),
+      description: t("notifAnalysisCompleteDesc"),
+    },
+    {
+      key: "notifyWeeklyDigest",
+      label: t("notifWeeklyDigestLabel"),
+      description: t("notifWeeklyDigestDesc"),
+    },
+    {
+      key: "notifyApplicationReminders",
+      label: t("notifApplicationRemindersLabel"),
+      description: t("notifApplicationRemindersDesc"),
+    },
+    {
+      key: "notifyProductUpdates",
+      label: t("notifProductUpdatesLabel"),
+      description: t("notifProductUpdatesDesc"),
+    },
+  ];
 
   async function handleSave() {
     setSaving(true);
@@ -48,7 +51,7 @@ export function NotificationsForm({ initialPreferences }: { initialPreferences: 
       body: JSON.stringify(preferences),
     });
     setSaving(false);
-    setMessage(res.ok ? "Changes saved." : "Something went wrong. Please try again.");
+    setMessage(res.ok ? t("changesSaved") : tErrors("generic"));
   }
 
   return (
@@ -56,7 +59,7 @@ export function NotificationsForm({ initialPreferences }: { initialPreferences: 
       <div className="space-y-8">
         <div className="flex items-center gap-4">
           <IconBell size={20} stroke={1.5} className="text-accent" />
-          <h2 className="font-display text-xl font-medium text-base-light">Email Notifications</h2>
+          <h2 className="font-display text-xl font-medium text-base-light">{t("emailNotifications")}</h2>
         </div>
 
         <div className="divide-y divide-track rounded-(--radius-card) border border-track bg-track/20">
@@ -78,8 +81,8 @@ export function NotificationsForm({ initialPreferences }: { initialPreferences: 
 
       <div className="flex flex-col items-start justify-between gap-8 border-t border-track pt-12 md:flex-row md:items-center">
         <div className="space-y-1">
-          <h2 className="font-display text-xl font-medium text-base-light">Save Preferences</h2>
-          <p className="text-sm text-muted">Changes apply to future notifications only.</p>
+          <h2 className="font-display text-xl font-medium text-base-light">{t("savePreferences")}</h2>
+          <p className="text-sm text-muted">{t("savePreferencesBody")}</p>
           {message && <p className="text-sm text-accent">{message}</p>}
         </div>
         <button
@@ -88,7 +91,7 @@ export function NotificationsForm({ initialPreferences }: { initialPreferences: 
           disabled={saving}
           className="w-full rounded-(--radius-control) bg-accent px-8 py-3 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90 disabled:opacity-40 md:w-auto"
         >
-          {saving ? "Saving..." : "Save Changes"}
+          {saving ? t("savingCta") : t("saveChangesCta")}
         </button>
       </div>
     </section>
