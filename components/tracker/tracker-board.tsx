@@ -8,8 +8,6 @@ import { useApplications, type ApplicationStatus } from "@/lib/hooks/use-applica
 import { TrackerColumn } from "./tracker-column";
 import { TrackerEmptyState } from "./tracker-empty-state";
 import { AddApplicationModal } from "./add-application-modal";
-import { LoaderRing } from "@/components/ui/loader-ring";
-
 const STATUSES: ApplicationStatus[] = ["APPLIED", "INTERVIEW", "OFFER", "REJECTED"];
 
 export function TrackerBoard() {
@@ -29,11 +27,7 @@ export function TrackerBoard() {
   }
 
   if (loading) {
-    return (
-      <div className="flex justify-center py-24">
-        <LoaderRing size={32} />
-      </div>
-    );
+    return <div className="py-24" />;
   }
 
   if (applications.length === 0) {

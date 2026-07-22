@@ -5,12 +5,14 @@ import { SectionNavLink } from "@/components/layout/section-nav-link";
 import { LanguageDropdown } from "@/components/language-dropdown";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { UserMenu } from "@/components/layout/user-menu";
+import { CommandPaletteTrigger } from "@/components/layout/command-palette-trigger";
+import { PublicMobileMenu } from "@/components/layout/public-mobile-menu";
 
 export function PublicNavbar({
   locale,
   user,
 }: {
-  locale?: string;
+  locale: string;
   user?: { name?: string | null; email?: string | null; image?: string | null } | null;
 }) {
   const t = useTranslations("nav");
@@ -34,29 +36,42 @@ export function PublicNavbar({
         </div>
         {user ? (
           <div className="flex items-center gap-4">
+            <CommandPaletteTrigger label={t("openCommandPalette")} />
             <div className="hidden items-center gap-4 md:flex">
-              <LanguageDropdown currentLocale={locale!} />
+              <LanguageDropdown currentLocale={locale} />
               <ThemeToggle />
             </div>
             <Link
               href="/dashboard"
-              className="rounded-(--radius-control) bg-accent px-6 py-2 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90"
+              className="hidden rounded-(--radius-control) bg-accent px-6 py-2 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90 md:block"
             >
               {t("dashboardCta")}
             </Link>
-            <UserMenu {...user} />
+            <div className="hidden md:block">
+              <UserMenu {...user} />
+            </div>
+            <PublicMobileMenu locale={locale} user={user} />
           </div>
         ) : (
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-sm font-medium text-accent transition-colors hover:opacity-80">
+            <CommandPaletteTrigger label={t("openCommandPalette")} />
+            <div className="hidden items-center gap-4 md:flex">
+              <LanguageDropdown currentLocale={locale} />
+              <ThemeToggle />
+            </div>
+            <Link
+              href="/login"
+              className="hidden text-sm font-medium text-accent transition-colors hover:opacity-80 md:block"
+            >
               {t("signIn")}
             </Link>
             <Link
               href="/upload"
-              className="rounded-(--radius-control) bg-accent px-6 py-2 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90"
+              className="hidden rounded-(--radius-control) bg-accent px-6 py-2 text-sm font-bold text-[var(--color-base)] transition-opacity hover:opacity-90 md:block"
             >
               {t("analyzeCta")}
             </Link>
+            <PublicMobileMenu locale={locale} user={user} />
           </div>
         )}
       </div>

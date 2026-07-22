@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { IconSearch, IconFilter, IconChevronDown } from "@tabler/icons-react";
 
-export type ScoreTier = "" | "high" | "good" | "low";
+export type MatchTier = "" | "strong" | "partial" | "weak";
 
-export function HistoryFilters({
+export function DemoFilters({
   query,
   onQueryChange,
   tier,
@@ -14,10 +14,10 @@ export function HistoryFilters({
 }: {
   query: string;
   onQueryChange: (value: string) => void;
-  tier: ScoreTier;
-  onTierChange: (value: ScoreTier) => void;
+  tier: MatchTier;
+  onTierChange: (value: MatchTier) => void;
 }) {
-  const t = useTranslations("history");
+  const t = useTranslations("demo");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -29,11 +29,11 @@ export function HistoryFilters({
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  const TIERS: { value: ScoreTier; label: string }[] = [
-    { value: "", label: t("tierAll") },
-    { value: "high", label: t("tierHigh") },
-    { value: "good", label: t("tierGood") },
-    { value: "low", label: t("tierLow") },
+  const TIERS: { value: MatchTier; label: string }[] = [
+    { value: "", label: t("filterAll") },
+    { value: "strong", label: t("matchHintStrong") },
+    { value: "partial", label: t("matchHintPartial") },
+    { value: "weak", label: t("matchHintWeak") },
   ];
 
   const current = TIERS.find((option) => option.value === tier) ?? TIERS[0];

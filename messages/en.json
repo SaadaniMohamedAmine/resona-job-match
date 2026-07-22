@@ -29,7 +29,11 @@
     "openUserMenu": "Open user menu",
     "toggleMenu": "Toggle menu",
     "changeLanguage": "Change language",
-    "matchScoreAria": "Match score: {score}%"
+    "matchScoreAria": "Match score: {score}%",
+    "footerBuiltWith": "Built With",
+    "footerLiveDemo": "Live Demo",
+    "openCommandPalette": "Open command palette",
+    "closeMenu": "Close menu"
   },
   "userMenu": {
     "settings": "Settings",
@@ -65,7 +69,8 @@
     "processStep3Body": "Receive a comprehensive report and an optimized version of your profile ready for submission.",
     "trustTitle": "Designed for Experts by Experts.",
     "trustBody": "Résona eliminates the guesswork of job hunting through factual data and architectural resume construction.",
-    "trustCta": "Start Your Alignment"
+    "trustCta": "Start Your Alignment",
+    "tryLiveDemo": "or try an instant demo — no signup —"
   },
   "auth": {
     "signUpTitle": "Create your profile",
@@ -91,7 +96,17 @@
     "signUpCta": "Sign up",
     "passwordPlaceholder": "Password",
     "showPassword": "Show password",
-    "hidePassword": "Hide password"
+    "hidePassword": "Hide password",
+    "onboardingTitle": "One quick thing",
+    "onboardingSubtitle": "Helps us tailor your dashboard. Takes 10 seconds — or skip it entirely.",
+    "targetRoleLabel": "What role are you targeting?",
+    "targetRolePlaceholder": "e.g. Senior Frontend Engineer",
+    "searchStageLabel": "Where are you in your search?",
+    "stageStarting": "Just starting to look",
+    "stageApplying": "Actively applying",
+    "stageInterviewing": "In interviews",
+    "continueCta": "Continue",
+    "skipForNow": "Skip for now"
   },
   "upload": {
     "stepUpload": "Upload",
@@ -154,7 +169,10 @@
     "reportMatchingSkills": "Matching skills:",
     "reportMissingSkills": "Missing skills:",
     "reportRecommendations": "Recommendations:",
-    "reportNone": "None"
+    "reportNone": "None",
+    "semanticSimilarityLabel": "Semantic similarity",
+    "semanticSimilarityAria": "What is semantic similarity?",
+    "semanticSimilarityTooltip": "Computed from vector embeddings stored in Postgres (pgvector), independent of the AI's language-based match score above."
   },
   "rewrite": {
     "sectionSummary": "Summary",
@@ -223,7 +241,9 @@
     "cancelCta": "Cancel",
     "deleteAriaLabel": "Delete analysis",
     "highMatch": "High Match",
-    "viewAnalysis": "View Analysis"
+    "viewAnalysis": "View Analysis",
+    "previousPage": "Previous page",
+    "nextPage": "Next page"
   },
   "tracker": {
     "title": "Application Tracker",
@@ -296,7 +316,12 @@
     "statusApplied": "Applied",
     "statusInterview": "Interview",
     "statusOffer": "Offer",
-    "statusRejected": "Rejected"
+    "statusRejected": "Rejected",
+    "scoreProgressionTitle": "Score Progression",
+    "scoreProgressionSubtitle": "Match score across every analysis, in order",
+    "scoreProgressionLegend": "Match score",
+    "scoreThresholdLabel": "{threshold} — target threshold",
+    "scoreProgressionEmptyHint": "Analyze a couple more resumes to see your score progression over time."
   },
   "settings": {
     "accountTab": "Account",
@@ -464,5 +489,71 @@
     "subscriptionCanceled": "Your subscription has been canceled.",
     "networkError": "Connection issue. Please check your network.",
     "generic": "Something went wrong. Please try again."
+  },
+  "builtWith": {
+    "title": "Built with",
+    "subtitle": "The real stack behind Résona, and why each piece was chosen.",
+    "categoryFrontend": "Frontend",
+    "categoryAi": "Artificial Intelligence",
+    "categoryData": "Data",
+    "categoryPlatform": "Platform",
+    "frontendItem1Detail": "App Router, hybrid rendering, edge-ready deploys.",
+    "frontendItem2Detail": "End-to-end typing, mature ecosystem.",
+    "frontendItem3Detail": "CSS-first token system (@theme), fast iteration.",
+    "aiItem1Detail": "Near-instant inference for scoring, rewriting, cover letters.",
+    "aiItem2Detail": "all-MiniLM-L6-v2 sentence embeddings, decoupled from the generation model.",
+    "dataItem1Detail": "Serverless Postgres with the pgvector extension enabled.",
+    "dataItem2Detail": "Native vector similarity search in the database — no external vector store.",
+    "dataItem3Detail": "Typed migrations, raw SQL for vector-column operations.",
+    "platformItem1Detail": "Google OAuth + credentials, Prisma adapter.",
+    "platformItem2Detail": "Real Checkout, Customer Portal, and webhook-driven plan sync.",
+    "platformItem3Detail": "Sliding-window rate limiting that works in serverless functions.",
+    "platformItem4Detail": "File handling without a self-managed storage backend.",
+    "platformItem5Detail": "EN/FR locale routing and message catalogs.",
+    "platformItem6Detail": "Runtime error monitoring in production.",
+    "platformItem7Detail": "CI/CD native to the Next.js framework."
+  },
+  "demo": {
+    "title": "Try it — no signup required",
+    "subtitle": "Pick a sample profile and watch Résona run a real match analysis, live.",
+    "vsPrefix": "vs {jobTitle} @ {company}",
+    "matchHintStrong": "Strong match",
+    "matchHintPartial": "Partial match",
+    "runningAnalysis": "Running real analysis…",
+    "limitReached": "Demo limit reached. Sign up for a free account to keep analyzing.",
+    "demoUnavailable": "Demo unavailable right now.",
+    "semanticSimilarityPrefix": "Semantic similarity (pgvector): {pct}%",
+    "matchingSkillsTitle": "Matching skills",
+    "missingSkillsTitle": "Missing skills",
+    "unlockTitle": "Full recommendations, resume rewrite & cover letter",
+    "unlockBody": "Create a free account to unlock section-by-section suggestions and generate a tailored rewrite for this match.",
+    "createAccountCta": "Create free account",
+    "analyzeOwnCta": "Analyze my resume",
+    "matchHintWeak": "Low match",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "searchPlaceholder": "Search by role or company…",
+    "filterAll": "All matches",
+    "noResults": "No profiles match your search."
+  },
+  "commandPalette": {
+    "placeholder": "Type a command or search…",
+    "noResults": "No results found.",
+    "navigationGroup": "Navigation",
+    "accountGroup": "Account",
+    "goToDashboard": "Go to Dashboard",
+    "newAnalysis": "New analysis",
+    "goToHistory": "Go to History",
+    "goToApplications": "Go to Applications",
+    "goToSettings": "Go to Settings",
+    "goToBilling": "Go to Billing",
+    "goToHome": "Go to Home",
+    "tryLiveDemo": "Try live demo",
+    "goToPricing": "Go to Pricing",
+    "builtWith": "Built with",
+    "signIn": "Sign in",
+    "createAccount": "Create account",
+    "signOut": "Sign out",
+    "openPalette": "Open command palette"
   }
 }

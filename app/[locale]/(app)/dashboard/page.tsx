@@ -18,6 +18,7 @@ import { formatRelativeTime } from "@/lib/format";
 import { ScoreRing } from "@/components/ui/score-ring";
 import { SkillTag } from "@/components/ui/skill-tag";
 import { TrendChart } from "@/components/dashboard/trend-chart";
+import { ScoreTrendChart } from "@/components/dashboard/score-trend-chart";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const RESPONDED_STATUSES = ["INTERVIEW", "OFFER"];
@@ -154,6 +155,13 @@ export default async function DashboardPage({
     };
   });
 
+  const scoreChartData = [...analyses]
+    .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
+    .map((a) => ({
+      label: new Intl.DateTimeFormat(locale, { month: "short", day: "numeric" }).format(a.createdAt),
+      score: a.matchScore,
+    }));
+
   const activity = [
     ...analyses.slice(0, 5).map((a) => ({
       type: "analysis" as const,
@@ -260,6 +268,34 @@ export default async function DashboardPage({
           <TrendChart data={chartData} />
         </div>
       </section>
+
+      {/* Score progression */}
+      {scoreChartData.length >= 2 && (
+        <section className="mb-16">
+          <div className="rounded-(--radius-card) border border-track p-8">
+            <div className="mb-12 flex items-end justify-between">
+              <div>
+                <h2 className="mb-1 font-display text-xl font-medium text-base-light">
+                  {t("scoreProgressionTitle")}
+                </h2>
+                <p className="text-sm text-muted">{t("scoreProgressionSubtitle")}</p>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-muted">
+                <span className="size-3 rounded-full bg-accent" />
+                {t("scoreProgressionLegend")}
+              </div>
+            </div>
+            <ScoreTrendChart data={scoreChartData} />
+          </div>
+        </section>
+      )}
+      {scoreChartData.length < 2 && analyses.length > 0 && (
+        <section className="mb-16">
+          <div className="rounded-(--radius-card) border border-track p-8 text-center">
+            <p className="text-sm text-muted">{t("scoreProgressionEmptyHint")}</p>
+          </div>
+        </section>
+      )}
 
       {/* Recent activity */}
       <section>

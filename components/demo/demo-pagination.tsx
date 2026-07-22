@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 
-export function HistoryPagination({
+export function DemoPagination({
   page,
   totalPages,
   onPageChange,
@@ -12,7 +12,7 @@ export function HistoryPagination({
   totalPages: number;
   onPageChange: (page: number) => void;
 }) {
-  const t = useTranslations("history");
+  const t = useTranslations("demo");
 
   if (totalPages <= 1) return null;
 

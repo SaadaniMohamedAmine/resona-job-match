@@ -10,6 +10,7 @@ export default async function NotFound() {
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
       <NotFoundContent
+        locale={locale}
         isAuthenticated={!!session?.user}
         errorCodeLabel={t("errorCode404")}
         title={t("notFoundTitle")}

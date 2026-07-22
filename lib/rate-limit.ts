@@ -35,3 +35,13 @@ export const globalApiLimiter = new Ratelimit({
   limiter: Ratelimit.slidingWindow(30, "1 m"),
   prefix: "resona:api",
 });
+
+const demoLimiter = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(5, "1 h"),
+  prefix: "resona:demo",
+});
+
+export async function checkDemoLimit(ip: string) {
+  return demoLimiter.limit(ip);
+}

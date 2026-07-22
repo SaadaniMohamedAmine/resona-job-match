@@ -29,7 +29,11 @@
     "openUserMenu": "Ouvrir le menu utilisateur",
     "toggleMenu": "Basculer le menu",
     "changeLanguage": "Changer de langue",
-    "matchScoreAria": "Score de matching : {score} %"
+    "matchScoreAria": "Score de matching : {score} %",
+    "footerBuiltWith": "Stack technique",
+    "footerLiveDemo": "Démo live",
+    "openCommandPalette": "Ouvrir la palette de commandes",
+    "closeMenu": "Fermer le menu"
   },
   "userMenu": {
     "settings": "Paramètres",
@@ -65,7 +69,8 @@
     "processStep3Body": "Recevez un rapport complet et une version optimisée de votre profil, prête à être soumise.",
     "trustTitle": "Conçu par des experts, pour des experts.",
     "trustBody": "Résona élimine les incertitudes de la recherche d'emploi grâce à des données factuelles et une construction architecturale du CV.",
-    "trustCta": "Démarrer votre alignement"
+    "trustCta": "Démarrer votre alignement",
+    "tryLiveDemo": "ou essayez une démo instantanée — sans inscription —"
   },
   "auth": {
     "signUpTitle": "Créez votre profil",
@@ -91,7 +96,17 @@
     "signUpCta": "S'inscrire",
     "passwordPlaceholder": "Mot de passe",
     "showPassword": "Afficher le mot de passe",
-    "hidePassword": "Masquer le mot de passe"
+    "hidePassword": "Masquer le mot de passe",
+    "onboardingTitle": "Encore une petite chose",
+    "onboardingSubtitle": "Nous aide à personnaliser votre tableau de bord. 10 secondes — ou passez complètement.",
+    "targetRoleLabel": "Quel poste visez-vous ?",
+    "targetRolePlaceholder": "ex. Ingénieur Frontend Senior",
+    "searchStageLabel": "Où en êtes-vous dans votre recherche ?",
+    "stageStarting": "Je commence tout juste",
+    "stageApplying": "Je candidate activement",
+    "stageInterviewing": "En phase d'entretiens",
+    "continueCta": "Continuer",
+    "skipForNow": "Passer pour l'instant"
   },
   "upload": {
     "stepUpload": "Upload",
@@ -154,7 +169,10 @@
     "reportMatchingSkills": "Compétences correspondantes :",
     "reportMissingSkills": "Compétences manquantes :",
     "reportRecommendations": "Recommandations :",
-    "reportNone": "Aucune"
+    "reportNone": "Aucune",
+    "semanticSimilarityLabel": "Similarité sémantique",
+    "semanticSimilarityAria": "Qu'est-ce que la similarité sémantique ?",
+    "semanticSimilarityTooltip": "Calculée à partir des plongements vectoriels stockés dans Postgres (pgvector), indépendamment du score de matching basé sur le langage ci-dessus."
   },
   "rewrite": {
     "sectionSummary": "Résumé",
@@ -223,7 +241,9 @@
     "cancelCta": "Annuler",
     "deleteAriaLabel": "Supprimer l'analyse",
     "highMatch": "Excellent match",
-    "viewAnalysis": "Voir l'analyse"
+    "viewAnalysis": "Voir l'analyse",
+    "previousPage": "Page précédente",
+    "nextPage": "Page suivante"
   },
   "tracker": {
     "title": "Suivi des candidatures",
@@ -296,7 +316,12 @@
     "statusInterview": "Entretien",
     "statusOffer": "Offre",
     "statusRejected": "Refusée",
-    "today": "Aujourd'hui"
+    "today": "Aujourd'hui",
+    "scoreProgressionTitle": "Progression du score",
+    "scoreProgressionSubtitle": "Score de matching de chaque analyse, dans l'ordre",
+    "scoreProgressionLegend": "Score de matching",
+    "scoreThresholdLabel": "{threshold} — seuil cible",
+    "scoreProgressionEmptyHint": "Analysez encore quelques CV pour voir votre progression de score dans le temps."
   },
   "settings": {
     "accountTab": "Compte",
@@ -464,5 +489,71 @@
     "subscriptionCanceled": "Votre abonnement a été annulé.",
     "networkError": "Problème de connexion. Vérifiez votre réseau.",
     "generic": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "builtWith": {
+    "title": "Stack technique",
+    "subtitle": "La vraie stack derrière Résona, et pourquoi chaque choix a été fait.",
+    "categoryFrontend": "Frontend",
+    "categoryAi": "Intelligence artificielle",
+    "categoryData": "Données",
+    "categoryPlatform": "Plateforme",
+    "frontendItem1Detail": "App Router, rendu hybride, déploiements prêts pour l'edge.",
+    "frontendItem2Detail": "Typage de bout en bout, écosystème mature.",
+    "frontendItem3Detail": "Système de tokens CSS natif (@theme), itération rapide.",
+    "aiItem1Detail": "Inférence quasi instantanée pour le scoring, la réécriture et les lettres de motivation.",
+    "aiItem2Detail": "Plongements sémantiques all-MiniLM-L6-v2, découplés du modèle de génération.",
+    "dataItem1Detail": "Postgres serverless avec l'extension pgvector activée.",
+    "dataItem2Detail": "Recherche de similarité vectorielle native en base — aucun store vectoriel externe.",
+    "dataItem3Detail": "Migrations typées, SQL brut pour les opérations sur les colonnes vectorielles.",
+    "platformItem1Detail": "Google OAuth + identifiants, adaptateur Prisma.",
+    "platformItem2Detail": "Vrai Checkout, portail client, et synchronisation des offres via webhooks.",
+    "platformItem3Detail": "Limitation de débit à fenêtre glissante, fonctionne en serverless.",
+    "platformItem4Detail": "Gestion de fichiers sans backend de stockage à maintenir.",
+    "platformItem5Detail": "Routage par locale EN/FR et catalogues de messages.",
+    "platformItem6Detail": "Supervision des erreurs runtime en production.",
+    "platformItem7Detail": "CI/CD natif au framework Next.js."
+  },
+  "demo": {
+    "title": "Essayez — sans inscription",
+    "subtitle": "Choisissez un profil exemple et regardez Résona lancer une vraie analyse de matching, en direct.",
+    "vsPrefix": "vs {jobTitle} @ {company}",
+    "matchHintStrong": "Match fort",
+    "matchHintPartial": "Match partiel",
+    "runningAnalysis": "Analyse réelle en cours…",
+    "limitReached": "Limite de démo atteinte. Créez un compte gratuit pour continuer à analyser.",
+    "demoUnavailable": "Démo indisponible pour le moment.",
+    "semanticSimilarityPrefix": "Similarité sémantique (pgvector) : {pct} %",
+    "matchingSkillsTitle": "Compétences correspondantes",
+    "missingSkillsTitle": "Compétences manquantes",
+    "unlockTitle": "Recommandations complètes, réécriture de CV et lettre de motivation",
+    "unlockBody": "Créez un compte gratuit pour débloquer les suggestions détaillées par section et générer une réécriture adaptée à ce match.",
+    "createAccountCta": "Créer un compte gratuit",
+    "analyzeOwnCta": "Analyser mon CV",
+    "matchHintWeak": "Match faible",
+    "previousPage": "Page précédente",
+    "nextPage": "Page suivante",
+    "searchPlaceholder": "Rechercher par poste ou entreprise…",
+    "filterAll": "Tous les matchs",
+    "noResults": "Aucun profil ne correspond à votre recherche."
+  },
+  "commandPalette": {
+    "placeholder": "Tapez une commande ou recherchez…",
+    "noResults": "Aucun résultat trouvé.",
+    "navigationGroup": "Navigation",
+    "accountGroup": "Compte",
+    "goToDashboard": "Aller au tableau de bord",
+    "newAnalysis": "Nouvelle analyse",
+    "goToHistory": "Aller à l'historique",
+    "goToApplications": "Aller au suivi des candidatures",
+    "goToSettings": "Aller aux paramètres",
+    "goToBilling": "Aller à la facturation",
+    "goToHome": "Aller à l'accueil",
+    "tryLiveDemo": "Essayer la démo live",
+    "goToPricing": "Aller aux tarifs",
+    "builtWith": "Stack technique",
+    "signIn": "Se connecter",
+    "createAccount": "Créer un compte",
+    "signOut": "Se déconnecter",
+    "openPalette": "Ouvrir la palette de commandes"
   }
 }
