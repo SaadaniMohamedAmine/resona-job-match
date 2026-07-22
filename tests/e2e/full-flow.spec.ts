@@ -3,8 +3,8 @@ import path from "path";
 
 test("full flow: upload -> analyze -> results -> tracker", async ({ page }) => {
   await page.goto("/login");
-  await page.fill('input[type="email"]', "test@resona.dev");
-  await page.fill('input[type="password"]', "testpassword123");
+  await page.fill('input[type="email"]', "demo@resona.dev");
+  await page.fill('input[type="password"]', "demo-password-2026");
   await page.click('button[type="submit"]');
 
   await page.waitForURL("/upload");
