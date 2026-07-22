@@ -32,7 +32,8 @@
     "matchScoreAria": "Score de matching : {score} %",
     "footerBuiltWith": "Stack technique",
     "footerLiveDemo": "Démo live",
-    "openCommandPalette": "Ouvrir la palette de commandes"
+    "openCommandPalette": "Ouvrir la palette de commandes",
+    "closeMenu": "Fermer le menu"
   },
   "userMenu": {
     "settings": "Paramètres",

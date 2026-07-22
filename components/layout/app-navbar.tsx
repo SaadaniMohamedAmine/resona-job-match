@@ -11,13 +11,13 @@ import {
   IconLayoutKanban,
   IconSettings,
   IconMenu2,
-  IconX,
 } from "@tabler/icons-react";
 import { Wordmark } from "@/components/ui/wordmark";
 import { LanguageDropdown } from "@/components/language-dropdown";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { UserMenu } from "@/components/layout/user-menu";
 import { CommandPaletteTrigger } from "@/components/layout/command-palette-trigger";
+import { MobileDrawer } from "@/components/layout/mobile-drawer";
 
 export function AppNavbar({
   locale,
@@ -77,35 +77,36 @@ export function AppNavbar({
           <UserMenu {...user} />
           <button
             type="button"
-            onClick={() => setMobileOpen((v) => !v)}
+            onClick={() => setMobileOpen(true)}
             className="text-muted md:hidden"
             aria-label={t("toggleMenu")}
           >
-            {mobileOpen ? <IconX size={22} stroke={1.5} /> : <IconMenu2 size={22} stroke={1.5} />}
+            <IconMenu2 size={22} stroke={1.5} />
           </button>
         </div>
       </div>
 
-      {mobileOpen && (
-        <nav className="flex flex-col gap-1 border-t border-track px-5 py-4 md:hidden">
+      <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} closeLabel={t("closeMenu")}>
+        <nav className="flex flex-col gap-1">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setMobileOpen(false)}
-              className={`rounded-(--radius-control) px-3 py-2 text-sm ${
-                isActive(item.href) ? "bg-track text-accent" : "text-muted"
+              className={`flex items-center gap-3 rounded-(--radius-control) px-3 py-2.5 text-sm transition-colors ${
+                isActive(item.href) ? "bg-track text-accent" : "text-muted hover:text-accent"
               }`}
             >
+              <item.icon size={18} stroke={1.5} />
               {item.label}
             </Link>
           ))}
-          <div className="mt-2 flex items-center gap-4 border-t border-track px-3 pt-4">
-            <LanguageDropdown currentLocale={locale} />
-            <ThemeToggle />
-          </div>
         </nav>
-      )}
+        <div className="mt-4 flex items-center gap-4 border-t border-track pt-4">
+          <LanguageDropdown currentLocale={locale} />
+          <ThemeToggle />
+        </div>
+      </MobileDrawer>
     </header>
   );
 }

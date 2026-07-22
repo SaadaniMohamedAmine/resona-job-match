@@ -32,7 +32,8 @@
     "matchScoreAria": "Match score: {score}%",
     "footerBuiltWith": "Built With",
     "footerLiveDemo": "Live Demo",
-    "openCommandPalette": "Open command palette"
+    "openCommandPalette": "Open command palette",
+    "closeMenu": "Close menu"
   },
   "userMenu": {
     "settings": "Settings",

@@ -4,10 +4,12 @@ export function SectionNavLink({
   sectionId,
   className,
   children,
+  onClick,
 }: {
   sectionId: string;
   className?: string;
   children: React.ReactNode;
+  onClick?: () => void;
 }) {
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
     const section = document.getElementById(sectionId);
@@ -15,6 +17,7 @@ export function SectionNavLink({
       e.preventDefault();
       section.scrollIntoView({ behavior: "smooth" });
     }
+    onClick?.();
   }
 
   return (
