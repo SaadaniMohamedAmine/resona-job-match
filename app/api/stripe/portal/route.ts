@@ -24,5 +24,7 @@ export const POST = withErrorHandling(async (req: Request) => {
     return_url: `${process.env.NEXT_PUBLIC_APP_URL}${localePath}/settings/billing`,
   });
 
-  return NextResponse.redirect(portalSession.url);
+  const response = NextResponse.redirect(portalSession.url);
+  response.cookies.set("stripe_pre_portal_status", sub.status, { maxAge: 120, path: "/" });
+  return response;
 });

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/lib/auth";
@@ -18,14 +19,18 @@ export default async function BillingSettingsPage({
   if (!session?.user) redirect("/login");
   const t = await getTranslations("settings");
 
-  const [user, quota] = await Promise.all([
+  const [user, quota, cookieStore] = await Promise.all([
     db.user.findUnique({ where: { id: session.user.id }, include: { subscription: true } }),
     getAnalyzeQuota(session.user.id),
+    cookies(),
   ]);
+
+  const prePortalStatus = cookieStore.get("stripe_pre_portal_status")?.value;
+  const justCanceledSubscription = prePortalStatus === "active" && user?.subscription?.status === "canceled";
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-12 md:px-16">
-      <BillingReturnNotice />
+      <BillingReturnNotice subscriptionJustCanceled={justCanceledSubscription} />
       <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-12">
         <SettingsSidebar
           title={t("billingPageTitle")}
