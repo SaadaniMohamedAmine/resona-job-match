@@ -10,8 +10,8 @@ export default defineConfig({
     exclude: ["**/e2e/**", "**/node_modules/**"],
     coverage: {
       provider: "v8",
-      include: ["lib/ai/analyze.ts", "lib/rate-limit.ts"],
-      thresholds: { lines: 20, functions: 0 },
+      include: ["lib/ai/**", "lib/rate-limit.ts"],
+      thresholds: { lines: 70, functions: 70 },
     },
   },
   resolve: { alias: { "@": path.resolve(__dirname, ".") } },
