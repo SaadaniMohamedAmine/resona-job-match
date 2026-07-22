@@ -240,7 +240,9 @@
     "cancelCta": "Annuler",
     "deleteAriaLabel": "Supprimer l'analyse",
     "highMatch": "Excellent match",
-    "viewAnalysis": "Voir l'analyse"
+    "viewAnalysis": "Voir l'analyse",
+    "previousPage": "Page précédente",
+    "nextPage": "Page suivante"
   },
   "tracker": {
     "title": "Suivi des candidatures",

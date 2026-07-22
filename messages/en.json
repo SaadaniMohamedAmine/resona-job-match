@@ -240,7 +240,9 @@
     "cancelCta": "Cancel",
     "deleteAriaLabel": "Delete analysis",
     "highMatch": "High Match",
-    "viewAnalysis": "View Analysis"
+    "viewAnalysis": "View Analysis",
+    "previousPage": "Previous page",
+    "nextPage": "Next page"
   },
   "tracker": {
     "title": "Application Tracker",
