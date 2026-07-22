@@ -144,16 +144,33 @@
     "originalLabel": "Original",
     "rewrittenLabel": "Rewritten",
     "generateCta": "Generate rewrite",
-    "regenerateCta": "Regenerate",
+    "regenerateCta": "Regenerate alternative",
     "applyCta": "Apply this rewrite",
-    "exportCta": "Export rewritten resume"
+    "pageTitle": "Rewrite Analysis",
+    "pageSubtitle": "Paste a section of your resume and let Résona rewrite it to better align with the job description you analyzed against.",
+    "sourceOriginal": "Source: Original",
+    "analysisOptimized": "Analysis: Optimized",
+    "placeholderPrefix": "Paste the {section} section of your resume here...",
+    "placeholderResult": "Your AI-optimized rewrite will appear here once generated.",
+    "appliedNotice": "Applied — this version is now your working draft for this section.",
+    "copyCta": "Copy",
+    "copiedCta": "Copied!",
+    "generatingCta": "Generating...",
+    "featureName": "Resume rewriting"
   },
   "coverLetter": {
     "generating": "Generating your cover letter…",
     "copy": "Copy to clipboard",
     "exportPdf": "Export as PDF",
     "regenerate": "Regenerate",
-    "close": "Close"
+    "close": "Close",
+    "title": "Generated Cover Letter",
+    "to": "To:",
+    "hiringCommittee": "Hiring Committee",
+    "roleFor": "{jobTitle} Role",
+    "aiOptimized": "AI-optimized for match rate",
+    "copiedCta": "Copied!",
+    "featureName": "Cover letter generation"
   },
   "history": {
     "title": "Resume History",

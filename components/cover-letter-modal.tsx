@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { IconFileText, IconX, IconCopy, IconPrinter } from "@tabler/icons-react";
 import { LoaderRing } from "@/components/ui/loader-ring";
 import { UpgradePrompt } from "@/components/billing/upgrade-prompt";
@@ -15,6 +16,8 @@ export function CoverLetterModal({
   jobTitle: string;
   company: string | null;
 }) {
+  const t = useTranslations("coverLetter");
+  const tNotify = useTranslations("notifications");
   const router = useRouter();
   const [letter, setLetter] = useState("");
   const [loading, setLoading] = useState(true);
@@ -37,17 +40,17 @@ export function CoverLetterModal({
         if (res.status === 403) {
           setProRequired(true);
         } else if (!res.ok) {
-          setError(typeof data.error === "string" ? data.error : "Something went wrong.");
+          setError(typeof data.error === "string" ? data.error : tNotify("generic"));
         } else {
           setLetter(data.coverLetter);
         }
         setLoading(false);
       })
       .catch(() => {
-        setError("Something went wrong.");
+        setError(tNotify("generic"));
         setLoading(false);
       });
-  }, [analysisId]);
+  }, [analysisId, tNotify]);
 
   function handleClose() {
     router.back();
@@ -73,14 +76,12 @@ export function CoverLetterModal({
         <header className="flex items-center justify-between border-b border-track px-8 py-6 print:hidden">
           <div className="flex items-center gap-3">
             <IconFileText size={20} stroke={1.5} className="text-accent" />
-            <h2 className="font-display text-lg font-medium text-base-light">
-              Generated Cover Letter
-            </h2>
+            <h2 className="font-display text-lg font-medium text-base-light">{t("title")}</h2>
           </div>
           <button
             type="button"
             onClick={handleClose}
-            aria-label="Close"
+            aria-label={t("close")}
             className="rounded-full p-2 text-muted transition-colors hover:bg-track hover:text-base-light"
           >
             <IconX size={20} stroke={1.5} />
@@ -99,11 +100,12 @@ export function CoverLetterModal({
             className="mx-auto min-h-125 max-w-2xl border border-track bg-track/10 p-10 print:min-h-0 print:border-0 print:bg-white print:p-0 print:text-black"
           >
             <div className="mb-8 space-y-1">
-              <p className="text-xs tracking-widest text-muted uppercase print:text-black/60">To:</p>
-              <p className="font-medium text-accent print:text-black">Hiring Committee</p>
+              <p className="text-xs tracking-widest text-muted uppercase print:text-black/60">
+                {t("to")}
+              </p>
+              <p className="font-medium text-accent print:text-black">{t("hiringCommittee")}</p>
               <p className="text-sm text-muted print:text-black/70">
-                {jobTitle}
-                {company ? ` — ${company}` : ""} Role
+                {t("roleFor", { jobTitle: company ? `${jobTitle} — ${company}` : jobTitle })}
               </p>
             </div>
 
@@ -112,7 +114,7 @@ export function CoverLetterModal({
                 <LoaderRing size={32} />
               </div>
             ) : proRequired ? (
-              <UpgradePrompt feature="Cover letter generation" />
+              <UpgradePrompt feature={t("featureName")} />
             ) : error ? (
               <p className="py-16 text-center text-sm text-accent">{error}</p>
             ) : (
@@ -131,9 +133,7 @@ export function CoverLetterModal({
           <footer className="flex flex-col items-center justify-between gap-6 border-t border-track bg-base px-8 py-6 md:flex-row print:hidden">
             <div className="flex items-center gap-3">
               <span className="size-2 animate-pulse rounded-full bg-accent" />
-              <span className="text-xs tracking-widest text-muted uppercase">
-                AI-optimized for match rate
-              </span>
+              <span className="text-xs tracking-widest text-muted uppercase">{t("aiOptimized")}</span>
             </div>
             <div className="flex w-full flex-wrap items-center gap-4 md:w-auto">
               <button
@@ -142,7 +142,7 @@ export function CoverLetterModal({
                 className="flex flex-1 items-center justify-center gap-2 rounded-(--radius-control) border border-accent px-6 py-3 text-xs font-medium tracking-widest text-accent uppercase transition-colors hover:bg-accent/10 md:flex-none"
               >
                 <IconCopy size={16} stroke={1.5} />
-                {copied ? "Copied!" : "Copy to clipboard"}
+                {copied ? t("copiedCta") : t("copy")}
               </button>
               <button
                 type="button"
@@ -150,7 +150,7 @@ export function CoverLetterModal({
                 className="flex flex-1 items-center justify-center gap-2 rounded-(--radius-control) bg-accent px-8 py-3 text-xs font-bold tracking-widest text-[var(--color-base)] uppercase transition-opacity hover:opacity-90 md:flex-none"
               >
                 <IconPrinter size={16} stroke={1.5} />
-                Export as PDF
+                {t("exportPdf")}
               </button>
             </div>
           </footer>

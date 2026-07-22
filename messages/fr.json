@@ -144,16 +144,33 @@
     "originalLabel": "Original",
     "rewrittenLabel": "Réécrit",
     "generateCta": "Générer la réécriture",
-    "regenerateCta": "Régénérer",
+    "regenerateCta": "Régénérer une alternative",
     "applyCta": "Appliquer cette réécriture",
-    "exportCta": "Exporter le CV réécrit"
+    "pageTitle": "Analyse de réécriture",
+    "pageSubtitle": "Collez une section de votre CV et laissez Résona la réécrire pour mieux l'aligner avec l'offre d'emploi analysée.",
+    "sourceOriginal": "Source : Original",
+    "analysisOptimized": "Analyse : Optimisé",
+    "placeholderPrefix": "Collez ici la section {section} de votre CV...",
+    "placeholderResult": "Votre réécriture optimisée par l'IA apparaîtra ici une fois générée.",
+    "appliedNotice": "Appliqué — cette version est maintenant votre brouillon de travail pour cette section.",
+    "copyCta": "Copier",
+    "copiedCta": "Copié !",
+    "generatingCta": "Génération...",
+    "featureName": "La réécriture de CV"
   },
   "coverLetter": {
     "generating": "Génération de votre lettre de motivation…",
     "copy": "Copier",
     "exportPdf": "Exporter en PDF",
     "regenerate": "Régénérer",
-    "close": "Fermer"
+    "close": "Fermer",
+    "title": "Lettre de motivation générée",
+    "to": "À :",
+    "hiringCommittee": "Comité de recrutement",
+    "roleFor": "Poste de {jobTitle}",
+    "aiOptimized": "Optimisé par IA pour le taux de correspondance",
+    "copiedCta": "Copié !",
+    "featureName": "La génération de lettre de motivation"
   },
   "history": {
     "title": "Historique des CV",
