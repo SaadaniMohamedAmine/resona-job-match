@@ -3,9 +3,12 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { GoogleIcon, LinkedInIcon } from "@/components/ui/brand-icons";
 
 export default function LoginPage() {
+  const t = useTranslations("auth");
+  const tNotify = useTranslations("notifications");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -19,7 +22,7 @@ export default function LoginPage() {
       redirect: false,
     });
     if (result?.error) {
-      setMessage("Invalid email or password");
+      setMessage(tNotify("invalidCredentials"));
     } else {
       window.location.href = "/upload";
     }
@@ -36,14 +39,14 @@ export default function LoginPage() {
           </div>
 
           <div className="p-6 md:p-8">
-            <h2 className="mb-6 font-display text-xl font-medium text-base-light">Welcome back</h2>
+            <h2 className="mb-6 font-display text-xl font-medium text-base-light">{t("loginTitle")}</h2>
 
             {message && <p className="mb-4 text-center text-sm text-accent">{message}</p>}
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="text-xs tracking-widest text-muted uppercase">
-                  Email address
+                  {t("emailLabel")}
                 </label>
                 <input
                   id="email"
@@ -59,20 +62,20 @@ export default function LoginPage() {
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
                   <label htmlFor="password" className="text-xs tracking-widest text-muted uppercase">
-                    Password
+                    {t("passwordLabel")}
                   </label>
                   <button
                     type="button"
-                    onClick={() => alert("Fonctionnalité disponible dans les prochains mois")}
+                    onClick={() => alert(t("comingSoon"))}
                     className="text-xs text-accent transition-opacity hover:opacity-80"
                   >
-                    Forgot?
+                    {t("forgotPassword")}
                   </button>
                 </div>
                 <input
                   id="password"
                   type="password"
-                  placeholder="Password"
+                  placeholder={t("passwordPlaceholder")}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="rounded-(--radius-control) border border-track bg-transparent px-4 py-3 text-sm text-base-light placeholder:text-muted focus:border-accent focus:outline-none"
@@ -84,7 +87,7 @@ export default function LoginPage() {
                 type="submit"
                 className="mt-4 rounded-(--radius-control) bg-accent py-3.5 text-sm font-medium text-[var(--color-base)] transition-all hover:opacity-90 active:scale-[0.98]"
               >
-                Sign In
+                {t("signInCta")}
               </button>
             </form>
 
@@ -93,7 +96,7 @@ export default function LoginPage() {
                 <div className="w-full border-t border-track" />
               </div>
               <div className="relative flex justify-center bg-track/20 px-4 text-xs tracking-widest text-muted uppercase">
-                Or continue with
+                {t("orContinueWith")}
               </div>
             </div>
 
@@ -103,23 +106,23 @@ export default function LoginPage() {
                 className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-2.5 text-sm text-base-light transition-all hover:bg-track active:scale-[0.98]"
               >
                 <GoogleIcon />
-                Continue with Google
+                {t("continueWithGoogle")}
               </button>
               <button
-                onClick={() => alert("Fonctionnalité disponible dans les prochains mois")}
+                onClick={() => alert(t("comingSoon"))}
                 className="flex items-center justify-center gap-3 rounded-(--radius-control) border border-track py-2.5 text-sm text-muted opacity-60 transition-all hover:bg-track active:scale-[0.98]"
               >
                 <LinkedInIcon />
-                Continue with LinkedIn
+                {t("continueWithLinkedIn")}
               </button>
             </div>
           </div>
         </div>
 
         <p className="mt-6 text-center text-sm text-muted">
-          Don&apos;t have an account?{" "}
+          {t("noAccount")}{" "}
           <Link href="/sign-up" className="font-medium text-accent hover:underline">
-            Sign up
+            {t("signUpCta")}
           </Link>
         </p>
       </div>

@@ -60,9 +60,19 @@
     "logIn": "Log in",
     "alreadyHaveAccount": "Already have an account?",
     "noAccount": "Don't have an account?",
-    "termsNotice": "By signing up, you agree to our {terms} and {privacy}.",
+    "termsNotice": "By signing up, you agree to our <terms>Terms</terms> and <privacy>Privacy Policy</privacy>.",
     "terms": "Terms",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "forgotPassword": "Forgot?",
+    "comingSoon": "Available in a future update.",
+    "identityStep": "Identity",
+    "experienceStep": "Experience",
+    "signInCta": "Sign In",
+    "orContinueWith": "Or continue with",
+    "signUpCta": "Sign up",
+    "passwordPlaceholder": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
   },
   "upload": {
     "stepUpload": "Upload",
