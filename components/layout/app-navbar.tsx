@@ -14,7 +14,7 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { Wordmark } from "@/components/ui/wordmark";
-import { LanguageSwitcher } from "@/components/language-switcher";
+import { LanguageDropdown } from "@/components/language-dropdown";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { UserMenu } from "@/components/layout/user-menu";
 
@@ -69,7 +69,7 @@ export function AppNavbar({
 
         <div className="flex items-center gap-4">
           <div className="hidden items-center gap-4 md:flex">
-            <LanguageSwitcher currentLocale={locale} />
+            <LanguageDropdown currentLocale={locale} />
             <ThemeToggle />
           </div>
           <UserMenu {...user} />
@@ -99,7 +99,7 @@ export function AppNavbar({
             </Link>
           ))}
           <div className="mt-2 flex items-center gap-4 border-t border-track px-3 pt-4">
-            <LanguageSwitcher currentLocale={locale} />
+            <LanguageDropdown currentLocale={locale} />
             <ThemeToggle />
           </div>
         </nav>

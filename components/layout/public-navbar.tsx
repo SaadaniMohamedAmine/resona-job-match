@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/ui/wordmark";
 import { SectionNavLink } from "@/components/layout/section-nav-link";
-import { LanguageSwitcher } from "@/components/language-switcher";
+import { LanguageDropdown } from "@/components/language-dropdown";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { UserMenu } from "@/components/layout/user-menu";
 
@@ -32,7 +32,7 @@ export function PublicNavbar({
         {user ? (
           <div className="flex items-center gap-4">
             <div className="hidden items-center gap-4 md:flex">
-              <LanguageSwitcher currentLocale={locale!} />
+              <LanguageDropdown currentLocale={locale!} />
               <ThemeToggle />
             </div>
             <Link
