@@ -51,8 +51,10 @@ export default async function LocaleLayout({
               "(function(){try{var t=localStorage.getItem('resona-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();",
           }}
         />
-        <SiteLoader />
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          <SiteLoader />
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

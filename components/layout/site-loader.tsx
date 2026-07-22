@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const MIN_VISIBLE_MS = 900;
 const FADE_MS = 400;
 
 export function SiteLoader() {
+  const t = useTranslations("nav");
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(true);
   const [mounted, setMounted] = useState(true);
@@ -55,7 +57,7 @@ export function SiteLoader() {
       <div className="flex flex-col items-center gap-1">
         <span className="font-display text-xl font-bold text-base-light">Résona</span>
         <span className="text-xs tracking-[0.2em] text-muted uppercase">
-          Precise Minimalism in Career Analytics
+          {t("loaderTagline")}
         </span>
       </div>
 
@@ -67,7 +69,7 @@ export function SiteLoader() {
           />
         </div>
         <div className="mt-2 flex justify-between text-[10px] tracking-widest text-muted uppercase">
-          <span>Loading</span>
+          <span>{t("loaderProgress")}</span>
           <span>{Math.round(progress)}%</span>
         </div>
       </div>

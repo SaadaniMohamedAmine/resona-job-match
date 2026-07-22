@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getStripe } from "@/lib/stripe";
@@ -5,6 +6,7 @@ import { PricingCards } from "@/components/billing/pricing-cards";
 
 export default async function PricingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const t = await getTranslations("pricing");
   const session = await auth();
   let currentPlan: "FREE" | "PRO" | null = null;
 
@@ -24,9 +26,9 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
     <div className="mx-auto max-w-5xl px-5 py-24 md:px-16">
       <div className="mb-16 text-center">
         <h1 className="font-display text-4xl font-bold text-base-light md:text-5xl">
-          Simple, honest pricing
+          {t("title")}
         </h1>
-        <p className="mt-3 text-muted">Start free. Upgrade when your search gets serious.</p>
+        <p className="mt-3 text-muted">{t("subtitle")}</p>
       </div>
 
       <PricingCards
