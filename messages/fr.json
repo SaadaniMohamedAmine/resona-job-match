@@ -31,7 +31,8 @@
     "changeLanguage": "Changer de langue",
     "matchScoreAria": "Score de matching : {score} %",
     "footerBuiltWith": "Stack technique",
-    "footerLiveDemo": "Démo live"
+    "footerLiveDemo": "Démo live",
+    "openCommandPalette": "Ouvrir la palette de commandes"
   },
   "userMenu": {
     "settings": "Paramètres",
@@ -525,5 +526,25 @@
     "unlockBody": "Créez un compte gratuit pour débloquer les suggestions détaillées par section et générer une réécriture adaptée à ce match.",
     "createAccountCta": "Créer un compte gratuit",
     "analyzeOwnCta": "Analyser mon propre CV"
+  },
+  "commandPalette": {
+    "placeholder": "Tapez une commande ou recherchez…",
+    "noResults": "Aucun résultat trouvé.",
+    "navigationGroup": "Navigation",
+    "accountGroup": "Compte",
+    "goToDashboard": "Aller au tableau de bord",
+    "newAnalysis": "Nouvelle analyse",
+    "goToHistory": "Aller à l'historique",
+    "goToApplications": "Aller au suivi des candidatures",
+    "goToSettings": "Aller aux paramètres",
+    "goToBilling": "Aller à la facturation",
+    "goToHome": "Aller à l'accueil",
+    "tryLiveDemo": "Essayer la démo live",
+    "goToPricing": "Aller aux tarifs",
+    "builtWith": "Stack technique",
+    "signIn": "Se connecter",
+    "createAccount": "Créer un compte",
+    "signOut": "Se déconnecter",
+    "openPalette": "Ouvrir la palette de commandes"
   }
 }

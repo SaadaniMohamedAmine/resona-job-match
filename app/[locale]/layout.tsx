@@ -4,6 +4,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { ToastContainer } from "react-toastify";
 import { SiteLoader } from "@/components/layout/site-loader";
+import { CommandPalette } from "@/components/command-palette";
+import { auth } from "@/lib/auth";
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -43,7 +45,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const messages = await getMessages();
+  const [messages, session] = await Promise.all([getMessages(), auth()]);
   return (
     <html lang={locale} data-theme="dark" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
@@ -56,6 +58,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <SiteLoader />
           {children}
+          <CommandPalette isAuthenticated={!!session?.user} />
           <ToastContainer
             position="top-right"
             autoClose={4000}

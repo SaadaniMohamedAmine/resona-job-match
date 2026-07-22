@@ -5,6 +5,7 @@ import { SectionNavLink } from "@/components/layout/section-nav-link";
 import { LanguageDropdown } from "@/components/language-dropdown";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { UserMenu } from "@/components/layout/user-menu";
+import { CommandPaletteTrigger } from "@/components/layout/command-palette-trigger";
 
 export function PublicNavbar({
   locale,
@@ -34,6 +35,7 @@ export function PublicNavbar({
         </div>
         {user ? (
           <div className="flex items-center gap-4">
+            <CommandPaletteTrigger label={t("openCommandPalette")} />
             <div className="hidden items-center gap-4 md:flex">
               <LanguageDropdown currentLocale={locale!} />
               <ThemeToggle />
@@ -48,6 +50,7 @@ export function PublicNavbar({
           </div>
         ) : (
           <div className="flex items-center gap-4">
+            <CommandPaletteTrigger label={t("openCommandPalette")} />
             <Link href="/login" className="text-sm font-medium text-accent transition-colors hover:opacity-80">
               {t("signIn")}
             </Link>
