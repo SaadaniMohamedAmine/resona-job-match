@@ -48,7 +48,7 @@ export default async function LocaleLayout({
   const { locale } = await params;
   const [messages, session] = await Promise.all([getMessages(), auth()]);
   return (
-    <html lang={locale} data-theme="dark" suppressHydrationWarning>
+    <html lang={locale} data-theme="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
         <Script
           id="theme-init"

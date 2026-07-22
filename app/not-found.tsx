@@ -23,7 +23,7 @@ export default async function GlobalNotFound() {
   const [messages, locale] = await Promise.all([getMessages(), getLocale()]);
 
   return (
-    <html lang={locale} data-theme="dark">
+    <html lang={locale} data-theme="dark" data-scroll-behavior="smooth">
       <body className={`${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <NotFoundContent
