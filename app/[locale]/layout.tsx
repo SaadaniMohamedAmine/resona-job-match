@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Space_Grotesk, IBM_Plex_Sans } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
@@ -49,7 +50,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} data-theme="dark" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${ibmPlexSans.variable}`}>
-        <script
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html:
               "(function(){try{var t=localStorage.getItem('resona-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();",
