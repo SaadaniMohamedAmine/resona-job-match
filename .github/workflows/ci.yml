@@ -22,3 +22,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL_TEST }}
       - run: npx vitest run --coverage
+      - run: npx playwright install --with-deps
+      - run: npm run test:e2e
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_TEST }}
