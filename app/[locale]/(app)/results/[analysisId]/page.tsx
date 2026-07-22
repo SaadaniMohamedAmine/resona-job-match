@@ -8,6 +8,7 @@ import { SkillTag } from "@/components/ui/skill-tag";
 import { Stepper } from "@/components/ui/stepper";
 import { formatRelativeTime } from "@/lib/format";
 import { DownloadReportButton } from "@/components/results/download-report-button";
+import { SemanticSimilarityBar } from "@/components/results/semantic-similarity-bar";
 import Link from "next/link";
 
 type Suggestion = { section: string; issue: string; recommendation: string };
@@ -85,6 +86,7 @@ export default async function ResultsPage({
             <ScoreRing score={analysis.matchScore} size={160} />
             <h1 className="mt-6 font-display text-2xl font-bold text-base-light">{headline}</h1>
             <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted">{description}</p>
+            <SemanticSimilarityBar similarity={analysis.semanticSimilarity} />
           </section>
 
           <section className="grid grid-cols-1 gap-8 md:grid-cols-2">

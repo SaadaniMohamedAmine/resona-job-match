@@ -4,7 +4,12 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { extractTextFromPdf } from "@/lib/pdf";
 import { analyzeResume } from "@/lib/ai/analyze";
-import { generateEmbedding, saveResumeEmbedding, saveJobPostEmbedding } from "@/lib/ai/embeddings";
+import {
+  generateEmbedding,
+  saveResumeEmbedding,
+  saveJobPostEmbedding,
+  cosineSimilarity,
+} from "@/lib/ai/embeddings";
 import { checkAnalyzeLimit } from "@/lib/rate-limit";
 import { withErrorHandling } from "@/lib/api-handler";
 
@@ -55,7 +60,10 @@ export const POST = withErrorHandling(async (req: Request) => {
     saveJobPostEmbedding(jobPost.id, jobEmbedding),
   ]);
 
-  const result = await analyzeResume(extractedText, jobDescription);
+  const [result, semanticSimilarity] = await Promise.all([
+    analyzeResume(extractedText, jobDescription),
+    cosineSimilarity(resume.id, jobPost.id),
+  ]);
 
   const analysis = await db.analysis.create({
     data: {
@@ -63,6 +71,7 @@ export const POST = withErrorHandling(async (req: Request) => {
       resumeId: resume.id,
       jobPostId: jobPost.id,
       matchScore: result.matchScore,
+      semanticSimilarity,
       matchingSkills: result.matchingSkills,
       missingSkills: result.missingSkills,
       suggestions: result.suggestions,

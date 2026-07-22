@@ -155,7 +155,10 @@
     "reportMatchingSkills": "Compétences correspondantes :",
     "reportMissingSkills": "Compétences manquantes :",
     "reportRecommendations": "Recommandations :",
-    "reportNone": "Aucune"
+    "reportNone": "Aucune",
+    "semanticSimilarityLabel": "Similarité sémantique",
+    "semanticSimilarityAria": "Qu'est-ce que la similarité sémantique ?",
+    "semanticSimilarityTooltip": "Calculée à partir des plongements vectoriels stockés dans Postgres (pgvector), indépendamment du score de matching basé sur le langage ci-dessus."
   },
   "rewrite": {
     "sectionSummary": "Résumé",

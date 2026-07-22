@@ -91,16 +91,17 @@ model JobPost {
 }
 
 model Analysis {
-  id             String   @id @default(cuid())
-  userId         String
-  resumeId       String
-  jobPostId      String
-  matchScore     Int
-  matchingSkills String[]
-  missingSkills  String[]
-  suggestions    Json
-  coverLetter    String? @db.Text
-  createdAt      DateTime @default(now())
+  id                 String   @id @default(cuid())
+  userId             String
+  resumeId           String
+  jobPostId          String
+  matchScore         Int
+  semanticSimilarity Float?
+  matchingSkills     String[]
+  missingSkills      String[]
+  suggestions        Json
+  coverLetter        String? @db.Text
+  createdAt          DateTime @default(now())
 
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   resume  Resume  @relation(fields: [resumeId], references: [id], onDelete: Cascade)

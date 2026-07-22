@@ -155,7 +155,10 @@
     "reportMatchingSkills": "Matching skills:",
     "reportMissingSkills": "Missing skills:",
     "reportRecommendations": "Recommendations:",
-    "reportNone": "None"
+    "reportNone": "None",
+    "semanticSimilarityLabel": "Semantic similarity",
+    "semanticSimilarityAria": "What is semantic similarity?",
+    "semanticSimilarityTooltip": "Computed from vector embeddings stored in Postgres (pgvector), independent of the AI's language-based match score above."
   },
   "rewrite": {
     "sectionSummary": "Summary",
