@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { AppNavbar } from "@/components/layout/app-navbar";
 import { PublicFooter } from "@/components/layout/public-footer";
+import { ScrollToTop } from "@/components/layout/scroll-to-top";
 
 export default async function AppLayout({
   children,
@@ -19,6 +20,7 @@ export default async function AppLayout({
       <AppNavbar locale={locale} user={session.user} />
       <main className="flex flex-1 flex-col">{children}</main>
       <PublicFooter />
+      <ScrollToTop />
     </div>
   );
 }

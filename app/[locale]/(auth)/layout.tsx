@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { PublicNavbar } from "@/components/layout/public-navbar";
 import { PublicFooter } from "@/components/layout/public-footer";
+import { ScrollToTop } from "@/components/layout/scroll-to-top";
 
 export default async function AuthLayout({
   children,
@@ -17,6 +18,7 @@ export default async function AuthLayout({
       <PublicNavbar locale={locale} user={session?.user} />
       <main className="flex flex-1 flex-col">{children}</main>
       <PublicFooter />
+      <ScrollToTop />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { PublicNavbar } from "@/components/layout/public-navbar";
 import { PublicFooter } from "@/components/layout/public-footer";
+import { ScrollToTop } from "@/components/layout/scroll-to-top";
 
 export function NotFoundContent({
   locale,
@@ -109,6 +110,7 @@ export function NotFoundContent({
       </main>
 
       <PublicFooter />
+      <ScrollToTop />
     </div>
   );
 }

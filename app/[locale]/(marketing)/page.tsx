@@ -4,7 +4,6 @@ import { IconCircleCheck, IconGauge, IconSearch, IconWand, IconFileText } from "
 import { AnimatedScoreRing } from "@/components/ui/animated-score-ring";
 import { SkillTag } from "@/components/ui/skill-tag";
 import { Reveal } from "@/components/ui/reveal";
-import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 
 const GLASS_CARD_STYLE = {
   backgroundColor: "rgba(42, 38, 32, 0.4)",
@@ -230,8 +229,6 @@ export default function LandingPage() {
           </Reveal>
         </div>
       </section>
-
-      <MobileBottomNav />
     </div>
   );
 }
